@@ -1,0 +1,48 @@
+\name{mca.eigen.fix}
+\alias{mca.eigen.fix}
+\encoding{UTF-8}
+\title{
+mca.eigen.fix
+}
+\description{
+A function for correcting the eigenvalues and output from multiple correspondence analysis (MCA, \code{\link{epMCA}})
+}
+\usage{
+mca.eigen.fix(DATA, mca.results, make_data_nominal = TRUE, numVariables = NULL, 
+correction = c("b"), symmetric = FALSE)
+}
+\arguments{
+  \item{DATA}{original data (i.e., not transformed into disjunctive coding)}
+  \item{mca.results}{output from \code{\link{epMCA}}}
+  \item{make_data_nominal}{a boolean. Should \emph{DATA} be transformed into disjunctive coding? Default is TRUE.}
+  \item{numVariables}{the number of actual measures/variables in the data (typically the number of columns in \emph{DATA})}
+  \item{correction}{which corrections should be applied? "b" = Benzécri correction, "bg" = Greenacre adjustment to Benzécri correction.}
+  \item{symmetric}{a boolean. If the results from MCA are symmetric or asymmetric factor scores. Default is FALSE.}
+}
+\value{
+	\item{mca.results}{a modified version of mca.results. Factor scores (e.g., $fi, $fj), and $pdq are updated based on corrections chosen.}
+}
+\references{
+Benzécri, J. P. (1979). Sur le calcul des taux d'inertie dans l'analyse d'un questionnaire. \emph{Cahiers de l'Analyse des Données}, \bold{4}, 377-378.\cr
+Greenacre, M. J. (2007). Correspondence Analysis in Practice. \emph{Chapman and Hall}.
+}
+\author{
+	Derek Beaton
+}
+
+\seealso{
+	\code{\link{epMCA}}
+}
+\examples{
+	data(mca.wine)
+	#No corrections used in MCA
+	mca.wine.res.uncor <- epMCA(mca.wine$data,correction=NULL)
+	data <- mca.wine$data
+	expo.output <- mca.wine.res.uncor$ExPosition.Data
+	#mca.eigen.fix with just Benzécri correction		
+	mca.wine.res.b <- mca.eigen.fix(data, expo.output,correction=c('b'))
+	#mca.eigen.fix with Benzécri + Greenacre adjustment	
+	mca.wine.res.bg <- mca.eigen.fix(data,expo.output,correction=c('b','g'))
+}
+\keyword{ misc }
+\keyword{ multivariate }

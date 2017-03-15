@@ -1,0 +1,1 @@
+export(minmaxHelper,contributionBars,correlationPlotter,prettyPlot,peeledHull,repmat,createColorVectorsByDesign,prettyGraphsColors,prettyBars,prettyGraphsColorSelection,prettyGraphsHSVColorSelection,prettyScree)

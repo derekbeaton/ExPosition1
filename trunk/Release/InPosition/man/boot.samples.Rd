@@ -1,0 +1,40 @@
+\name{boot.samples}
+\alias{boot.samples}
+\title{
+Compute indicies for bootstrap resampling.
+}
+\description{
+This function computes a set of indicies for bootstrap resampling. It can be unconstrained or bootstrap within a group design.
+}
+\usage{
+boot.samples(DATA, DESIGN = NULL, constrained = FALSE)
+}
+\arguments{
+  \item{DATA}{
+The original data matrix to be bootstrapped. Rows will be bootstrapped and are assumed to be observations.
+}
+  \item{DESIGN}{
+A design matrix (in disjunctive coding). Only used if \code{constrained} is TRUE.
+}
+  \item{constrained}{
+a boolean. If TRUE, bootstrap resampling will occur within groups as designated by the \code{DESIGN} matrix.
+}
+}
+\value{
+a set of indicies to be used to be used as the bootstrap resampled indices.
+}
+\author{
+Derek Beaton
+}
+
+\seealso{
+\code{\link{boot.compute.fj}} and \code{\link{boot.ratio.test}}
+}
+\examples{
+	data(ep.iris)
+	unconstrained.indices <- boot.samples(ep.iris$data)
+	#ep.iris$data[unconstrained.indices,]
+	constrained.indices <- boot.samples(ep.iris$data,DESIGN=ep.iris$design,constrained=TRUE)
+	#ep.iris$data[constrained.indices,]	
+}
+\keyword{ bootstrap }

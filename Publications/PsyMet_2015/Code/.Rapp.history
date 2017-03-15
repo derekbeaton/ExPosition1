@@ -1,0 +1,231 @@
+rm(list=ls())#
+gc()#
+#
+source('LibsFuncs.R')#
+#
+load('../Data/SNPS.rda')#
+load('../Data/TRAITS.rda')#
+load('../Data/DES.rda')#
+##Co-dominant#
+CD.SNPS <- SNP.model.maker(SNPS,'c')#
+res<-tepPLSCA(CD.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Dominant#
+D.SNPS <- SNP.model.maker(SNPS,'d')#
+res<-tepPLSCA(D.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+library(TExPosition)#
+SNP.model.maker <- function(SNPS,model='C',quant.vals=c(0.5,0.5)){#
+	if(sum(quant.vals)!=1){#
+		stop("sum of quant.vals must equal 1.")#
+	}#
+	SNPS.out <- SNPS#
+	class(SNPS.out) <- "character"#
+	if(tolower(model)=='c'){#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='0','AA')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='1','Aa')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='2','aa')#
+		checks <- column.checker(SNPS.out)#
+		SNPS.keep <- makeNominalData(checks$KEEP)			#
+	}#
+#
+	if(tolower(model)=='d'){#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='0','ND')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='1','D')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='2','D')#
+		checks <- column.checker(SNPS.out)#
+		SNPS.keep <- makeNominalData(checks$KEEP)					#
+	}#
+#
+	if(tolower(model)=='r'){#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='0','NR')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='1','NR')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='2','R')#
+		checks <- column.checker(SNPS.out)#
+		SNPS.keep <- makeNominalData(checks$KEEP)					#
+	}#
+	if(tolower(model)=='o'){#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='0','NOD')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='1','OD')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='2','NOD')#
+		checks <- column.checker(SNPS.out)#
+		SNPS.keep <- makeNominalData(checks$KEEP)#
+	}#
+	if(tolower(model)=='q'){#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='0','AA')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='1','Aa')#
+		SNPS.out <- replace(SNPS.out, SNPS.out=='2','aa')#
+		checks <- column.checker(SNPS.out)#
+		SNPS.keep <- two.column.maker(checks$KEEP,quant.vals)#
+	}#
+	return(list(SNPS=SNPS.keep,DROPPED=checks$DROPPED))#
+}#
+two.column.maker <- function(SNPS.in,quant.vals=c(0.5,0.5)){#
+	SNPS.out <- matrix(0,nrow(SNPS.in),ncol(SNPS.in)*2)#
+	colnames(SNPS.out) <- unlist(lapply(colnames(SNPS.in),function(x){paste(x,c("A","a"),sep=".")}))#
+	col.map <- seq(1,ncol(SNPS.out),2)#
+	for(i in 1:ncol(SNPS.in)){#
+		SNPS.out[which(SNPS.in[,i]=='AA'),col.map[i]] <- 1#
+		SNPS.out[which(SNPS.in[,i]=='aa'),col.map[i]+1] <- 1	#
+		SNPS.out[which(SNPS.in[,i]=='Aa'),c(col.map[i],col.map[i]+1)] <- quant.vals#
+#
+	}#
+	return(SNPS.out)#
+}#
+column.checker <- function(DAT){#
+	uniq.check <- apply(DAT,2,function(x){length(unique(x))})#
+	drop.cols <- which(uniq.check == 1)#
+	keep.cols <- which(uniq.check > 1)	#
+	KEEP.DATA <- as.matrix(DAT[,keep.cols])#
+	DROP.DATA <- as.matrix(DAT[,drop.cols])#
+	rownames(KEEP.DATA) <- rownames(DAT)#
+	rownames(DROP.DATA) <- rownames(DAT)	#
+	if(length(drop.cols) >= 1){#
+		warning("Some columns dropped. See $DROPPED")#
+	}#
+	return(list(KEEP=KEEP.DATA,DROPPED=DROP.DATA))#
+}
+rm(list=ls())#
+gc()#
+#
+source('LibsFuncs.R')#
+#
+load('../Data/SNPS.rda')#
+load('../Data/TRAITS.rda')#
+load('../Data/DES.rda')
+#Dominant#
+D.SNPS <- SNP.model.maker(SNPS,'d')#
+res<-tepPLSCA(D.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Recessive#
+R.SNPS <- SNP.model.maker(SNPS,'r')#
+res<-tepPLSCA(R.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+rm(list=ls())#
+gc()#
+#
+source('LibsFuncs.R')#
+#
+load('../Data/SNPS.rda')#
+load('../Data/TRAITS.rda')#
+load('../Data/DES.rda')#
+CD.SNPS <- SNP.model.maker(SNPS[,1:4],'c')#
+D.SNPS <- SNP.model.maker(SNPS[,5:6],'d')#
+A.SNPS <- SNP.model.maker(SNPS[7:9],'q',c(0.5,0.5))
+rm(list=ls())#
+gc()#
+#
+source('LibsFuncs.R')#
+#
+load('../Data/SNPS.rda')#
+load('../Data/TRAITS.rda')#
+load('../Data/DES.rda')#
+CD.SNPS <- SNP.model.maker(SNPS[,1:4],'c')#
+D.SNPS <- SNP.model.maker(SNPS[,5:6],'d')#
+A.SNPS <- SNP.model.maker(SNPS[,7:9],'q',c(0.5,0.5))
+SNP.DAT <- cbind(CD.SNPS$SNPS,D.SNPS$SNPS,A.SNPS$SNPS)
+SNP.DAT
+dim(SNP.DAT)
+rowSums(SNP.DAT)
+rm(list=ls())#
+gc()#
+#
+source('LibsFuncs.R')#
+#
+load('../Data/SNPS.rda')#
+load('../Data/TRAITS.rda')#
+load('../Data/DES.rda')#
+CD.SNPS <- SNP.model.maker(SNPS[,1:4],'c')#
+D.SNPS <- SNP.model.maker(SNPS[,5:6],'d')#
+A.SNPS <- SNP.model.maker(SNPS[,7:9],'q',c(0.5,0.5))#
+#
+SNP.DAT <- cbind(CD.SNPS$SNPS,D.SNPS$SNPS,A.SNPS$SNPS)#
+##quick check:#
+rowSums(SNP.DAT)#
+#
+##Mixed#
+res<-tepPLSCA(SNP.DAT,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+rm(list=ls())#
+gc()#
+#
+source('LibsFuncs.R')#
+#
+load('../Data/SNPS.rda')#
+load('../Data/TRAITS.rda')#
+load('../Data/DES.rda')#
+##Co-dominant#
+CD.SNPS <- SNP.model.maker(SNPS,'c')#
+res<-tepPLSCA(CD.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Dominant#
+D.SNPS <- SNP.model.maker(SNPS,'d')#
+res<-tepPLSCA(D.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Recessive#
+R.SNPS <- SNP.model.maker(SNPS,'r')#
+res<-tepPLSCA(R.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Overdominant#
+O.SNPS <- SNP.model.maker(SNPS,'o')#
+res<-tepPLSCA(O.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Additive#
+A.SNPS <- SNP.model.maker(SNPS,'q',c(0.5,0.5))#
+res<-tepPLSCA(A.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Multiplicative#
+M.SNPS <- SNP.model.maker(SNPS,'q',c(0.25,0.75))#
+res<-tepPLSCA(M.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Multiplicative 2#
+M2.SNPS <- SNP.model.maker(SNPS,'q',c(0.1,0.9))#
+res<-tepPLSCA(M2.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+#Multiplicative 3#
+M3.SNPS <- SNP.model.maker(SNPS,'q',c(0.9,0.1))#
+res<-tepPLSCA(M3.SNPS$SNPS,TRAITS,FALSE,TRUE,DESIGN=DES,FALSE,graphs=FALSE)#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
+####This script shows how to use a variety of genetic inheritance models with PLSCA.#
+###These match the ideas presented in the paper (co-dominant) as well as Appendix B.#
+rm(list=ls())#
+gc()#
+#
+source('LibsFuncs.R')#
+#
+load('../Data/SNPS.rda') 	##SNPS data#
+load('../Data/TRAITS.rda')	##TRAITS data#
+load('../Data/DES.rda')		##Participant design matrix -- indicates e.g., group relationship#
+##The trait data will be used exactly as is for all analyses in this script.#
+cat.TRAITS <- makeNominalData(TRAITS)#
+trait.names <- unlist(lapply(strsplit(colnames(cat.TRAITS),"\\."),function(x){x[3]}))#
+trait.colors <- as.matrix(trait.names)#
+trait.colors <- replace(trait.colors,trait.colors=="HI",'firebrick3')#
+trait.colors <- replace(trait.colors,trait.colors=="MID",'goldenrod')#
+trait.colors <- replace(trait.colors,trait.colors=="LOW",'olivedrab4')#
+#
+##participant colors#
+part.colors <- createColorVectorsByDesign(DES)#
+##Full categorical i.e., co-dominant#
+CD.SNPS <- SNP.model.maker(SNPS,'c')#
+cd.zygosity <- unlist(lapply(strsplit(colnames(CD.SNPS$SNPS),"\\."),function(x){x[3]}))#
+cd.colors <- as.matrix(cd.zygosity)#
+cd.colors <- replace(cd.colors, cd.colors =="AA",'steelblue4')#
+cd.colors <- replace(cd.colors, cd.colors =="Aa",'mediumorchid4')#
+cd.colors <- replace(cd.colors, cd.colors =="aa",'orangered')#
+res<-tepPLSCA(CD.SNPS$SNPS, cat.TRAITS,FALSE,FALSE,DESIGN=DES,FALSE,graphs=FALSE)#
+res$Plotting.Data$fi.col <- cd.colors#
+res$Plotting.Data$fj.col <- trait.colors#
+res$Plotting.Data$fii.col <- part.colors$oc#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)#
+#Dominant#
+D.SNPS <- SNP.model.maker(SNPS,'d')#
+d.zygosity <- unlist(lapply(strsplit(colnames(D.SNPS$SNPS),"\\."),function(x){x[3]}))#
+d.colors <- as.matrix(d.zygosity)#
+d.colors <- replace(d.colors, d.colors =="ND",'steelblue4')#
+d.colors <- replace(d.colors, d.colors =="D",'orangered')#
+res<-tepPLSCA(D.SNPS$SNPS,cat.TRAITS,FALSE,FALSE,DESIGN=DES,FALSE,graphs=FALSE)#
+res$Plotting.Data$fi.col <- d.colors#
+res$Plotting.Data$fj.col <- trait.colors#
+res$Plotting.Data$fii.col <- part.colors$oc#
+tepGraphs(res,lvAgainst=FALSE,contributionPlots=FALSE)
