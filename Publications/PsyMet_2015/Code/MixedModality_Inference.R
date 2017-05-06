@@ -1,5 +1,3 @@
-####This script shows how to perform each analysis as outlined in the paper.
-
 rm(list=ls())
 gc()
 
@@ -11,7 +9,6 @@ load('../Data/CONTINUOUS.rda')	##CONTINUOUS data
 load('../Data/DES.rda')		##Participant design matrix -- indicates e.g., group relationship
 
 
-## mixed modality PLS can be performed in two ways:
 
 	## with the Escofier recoding transform:
 mimoPLS <- tepPLSCA(SNPS,escofier.transform(CONTINUOUS),T,F,DESIGN=DES,make_design_nominal=F,graphs=F)
