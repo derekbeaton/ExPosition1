@@ -98,3 +98,12 @@ column.checker <- function(DAT){
 	
 	return(list(KEEP=KEEP.DATA,DROPPED=DROP.DATA))
 }
+
+escofier.transform <- function(DAT,center=T,scale=T){
+	
+	scaled.DAT <- expo.scale(DAT,center=center,scale=scale)
+	escofier.DAT <- cbind((1-scaled.DAT)/2,(1+ scaled.DAT)/2)
+	colnames(escofier.DAT) <- c(paste0(colnames(scaled.DAT),"-"),paste0(colnames(scaled.DAT),"+"))
+	return(escofier.DAT)
+	
+}
