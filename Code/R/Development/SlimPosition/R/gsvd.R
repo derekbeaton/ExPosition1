@@ -21,10 +21,10 @@
 #'
 #'  @return
 #'  A list with seven elements:
-#'  \item{p} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#'  \item{q} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#'  \item{u} a matrix whose columns contain the left singular vectors of x, present if nu > 0. Dimension c(n, nu) but also accounting for \code{tol}.
-#'  \item{v} a matrix whose columns contain the left singular vectors of x, present if nv > 0. Dimension c(p, nv) but also accounting for \code{tol}.
+#'  \item{u} Left singular vectors. A matrix whose columns contain the left singular vectors of x, present if nu > 0. Dimension c(n, nu) but also accounting for \code{tol}.
+#'  \item{v} Right singular vectors. A matrix whose columns contain the left singular vectors of x, present if nv > 0. Dimension c(p, nv) but also accounting for \code{tol}.
+#'  \item{p} Left generalized singular vectors. A vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
+#'  \item{q} Right generalized singular vectors. A vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
 #'  \item{d} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
 #'  \item{d.orig} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
 #'  \item{tau} a vector that contains the (original) explained variance per component.
@@ -144,8 +144,8 @@ gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k =
   rownames(res$u) <- rownames(p) <- rownames(DAT)
   rownames(res$v) <- rownames(q) <- colnames(DAT)
 
-  ## factor scores should come right out of this...
-
-    ### the output here should perhaps be minimized...
+  ### the output here should perhaps be minimized...
+    ## maybe for the GSVD here I do not want to send back fi & fj...
+    ## let cdr do it? or do it within each function?
   return(list(fi = fi, fj = fj, p = p, q = q, u = res$u, v = res$v, d = d[1:comp.ret], d.orig = d, tau = tau))
 }
