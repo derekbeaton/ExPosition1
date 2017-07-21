@@ -15,13 +15,12 @@ sp.rrr <- function(X, Y, center.X = T, scale.X = T, center.Y = T, scale.Y = T, k
   if(graphs){
     sp.component_plot(res$fi)
     sp.component_plot(res$fj)
-    ## just make a separate "sp.latentvar_plot() specifically for latent variables
-    #sp.component_plot( cbind(res$lx[,1], res$ly[,1] ), main="Latent variable 1", xlab="LX 1", ylab="LY 1", asp=NA)
-    #sp.component_plot( cbind(res$lx[,2], res$ly[,2] ), main="Latent variable 2", xlab="LX 2", ylab="LY 2", asp=NA)
+    sp.latentvar_plot(res)
+    sp.latentvar_plot(res,axis=2)
     sp.scree(res$d.orig^2)
   }
   if(compact){
-
+    res <- list(fi=res$fi, fj=res$fj, d.orig=res$d.orig, u=res$u, v=res$v, lx=res$lx, ly=res$ly)
   }
 
   return(res)
