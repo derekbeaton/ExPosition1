@@ -16,6 +16,6 @@ The Generalized Singular Value Decomposition
 
 Let us call **X** a data matrix with *I* rows and *J* columns. The singular value decomposition (SVD) of **X** is defined as:
 
-<center>
+<p align="center">
 **X** = **U****Σ****V**<sup>T</sup>
-</center>
+</p>
