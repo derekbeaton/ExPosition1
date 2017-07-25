@@ -27,6 +27,8 @@ SlimPosition is a new package in the ExPosition family of packages. As of now, S
 Let us call $\mathbf{X}$ a data matrix with $$I$$ rows and $$J$$ columns. The singular value decomposition (SVD) of $\mathbf{X}$ is defined as:
 
 $$
+\begin{center}
   \mathbf{X} = \mathbf{U \Sigma V}^{T}
+\end{center}  
 $$
 
