@@ -14,7 +14,7 @@ The [ExPosition](https://cran.r-project.org/web/packages/ExPosition/index.html) 
 SlimPosition is a new package in the ExPosition family of packages. As of now, SlimPosition is a successor to the current family of ExPosition packages but in the future, SlimPosition will be *the* core of ExPosition.
 
 The Generalized Singular Value Decomposition
-============================================
+--------------------------------------------
 
 Let us call **X** a data matrix with
 *I*
