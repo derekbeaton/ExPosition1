@@ -63,6 +63,8 @@ gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k =
     ## probably need some rudimentary checks here.
     DAT <- as.matrix(DAT)
 
+    ## I should check if LW and RW are rectangular. If they are, I should exit with an error.
+
     RW.is.vector <- LW.is.vector <- RW.is.nan <- LW.is.nan <- F
       ## clean this up to avoid the warnings...
     if( is.nan(LW) ){
