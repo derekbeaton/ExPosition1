@@ -23,10 +23,11 @@ SlimPosition is a new package in the ExPosition family of packages. As of now, S
 
 # The Generalized Singular Value Decomposition
 
-Let us call $\mathbf{X}$ a data matrix with $$I$$ rows and $$J$$ columns. The singular value decomposition (SVD) of $${\bf X}$$ is defined as:
+Let us call $\mathbf{X}$ a data matrix with $$I$$ rows and $$J$$ columns. The singular value decomposition (SVD) of $\mathbf{X}$ is defined as:
 
+$$
 \begin{equation}
-  {\bf X} = {\bf U \Sigma V}^{T}
+  \mathbf{X} = \mathbf{U \Sigma V}^{T}
 \end{equation}
-
+$$
 

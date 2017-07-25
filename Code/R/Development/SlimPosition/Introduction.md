@@ -20,10 +20,6 @@ Let us call **X** a data matrix with
 *I*
  rows and
 *J*
- columns. The singular value decomposition (SVD) of
-$${\\bf X}$$
- is defined as:
+ columns. The singular value decomposition (SVD) of **X** is defined as:
 
-\begin{equation}
-  {\bf X} = {\bf U \Sigma V}^{T}
-\end{equation}
+**X** = **U****Σ****V**<sup>*T*</sup>
