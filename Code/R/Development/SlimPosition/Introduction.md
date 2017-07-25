@@ -22,8 +22,4 @@ Let us call **X** a data matrix with
 *J*
  columns. The singular value decomposition (SVD) of **X** is defined as:
 
-$$
-\\begin{center}
-  \\mathbf{X} = \\mathbf{U \\Sigma V}^{T}
-\\end{center}  
-$$
+**X** = **U****Σ****V**<sup>*T*</sup>
