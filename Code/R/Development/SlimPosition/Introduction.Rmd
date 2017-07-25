@@ -1,6 +1,7 @@
 ---
 title: "SlimPosition: *Slim*med down Ex*Position*"
 output: github_document
+layout: page
 ---
 
 <!-- 
