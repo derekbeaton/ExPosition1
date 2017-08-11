@@ -17,7 +17,7 @@ sp.bada <- function(DATA, center = T, scale = T, DESIGN, make.data.nominal = T, 
   
   res <- gsvd(expo.scale(t(DESIGN) %*% expo.scale(DATA, center = center, scale = scale),center=T,scale=F), k = k)
   
-  res$lx <- X %*% res$fi * matrix(1/res$d,nrow(fi),ncol(fi),byrow=T)
+  res$lx <- DATA %*% res$fi * matrix(1/res$d,nrow(fi),ncol(fi),byrow=T)
   res$ly <- DESIGN %*% res$fi * matrix(1/res$d,nrow(fi),ncol(fi),byrow=T)
   
   if(graphs){
