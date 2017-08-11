@@ -7,6 +7,8 @@ sapply(paste0(code.dir,code.fns),source)
 load("./data/two.table.wine.rda")
 
 pca.res<-sp.pca(wine$objective,center=T,scale=T,k=4,compact=T,graphs=T)
+diag(t(pca.res$fi) %*% pca.res$fi) / (pca.res$d[1:ncol(pca.res$fi)]^2)
+  ##also a test via the "latent variable" model.
 
 bada.res<-sp.bada(DATA=wine$objective,center=T,scale=T,DESIGN = wine$supplemental$color,
                   make.data.nominal = T,k = 0,compact = F,graphs = T)
