@@ -8,8 +8,13 @@ load("./data/two.table.wine.rda")
 
 pca.res<-sp.pca(wine$objective,center=T,scale=T,k=4,compact=T,graphs=T)
 
-bada.res<-sp.bada(DATA=wine$objective,center=T,scale=T,DESIGN = wine$supplemental$varietal,
-                  make.data.nominal = T,k = 0,compact = T,graphs = T)
+bada.res<-sp.bada(DATA=wine$objective,center=T,scale=T,DESIGN = wine$supplemental$color,
+                  make.data.nominal = T,k = 0,compact = F,graphs = T)
+lv.max <- t(bada.res$lx) %*% bada.res$ly
+if(isDiagonal.matrix(lv.max)){
+  diag(lv.max) / bada.res$d
+}
+
 
 load("./data/dica.wine.rda")
 
