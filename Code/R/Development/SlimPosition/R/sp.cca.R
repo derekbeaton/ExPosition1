@@ -9,8 +9,10 @@ sp.cca <- function(X, Y, center.X = T, scale.X = T, center.Y = T, scale.Y = T, k
     t(X) %*% Y, crossprod(X), crossprod(Y),  k = k
   )
     ## can be more efficient with the d multiply.
-  res$lx <- X %*% res$fi %*% diag(1/res$d)
-  res$ly <- Y %*% res$fj %*% diag(1/res$d)
+  #res$lx <- X %*% res$fi %*% diag(1/res$d)
+  res$lx <- X %*% res$fi * matrix(1/res$d,nrow(fi),ncol(fi),byrow=T)
+  #res$ly <- Y %*% res$fj %*% diag(1/res$d)
+  res$ly <- Y %*% res$fj * matrix(1/res$d,nrow(fj),ncol(fj),byrow=T)
 
   if(graphs){
     sp.component_plot(res$fi)
