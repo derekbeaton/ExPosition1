@@ -113,12 +113,16 @@ gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k =
     k <- min(nrow(DAT),ncol(DAT))
   }
   res <- tolerance.svd(DAT,nu=nu,nv=nv,tol=tol)
-  d <- res$d
-  tau <- d^2/sum(d^2)
-  comp.ret <- min(length(d),k)
+
+  d.orig <- res$d
+  tau <- d.orig^2/sum(d.orig^2)
+  comp.ret <- min(length(d.orig),k)
+
+  d <- d.orig[1:comp.ret]
           ## this should protect against the rank 1 where it's just a vector.
   res$u <- as.matrix(res$u[,1:comp.ret])
   res$v <- as.matrix(res$v[,1:comp.ret])
+
 
     ## I also need to skip over this computation if LW or RW are either empty or all 1s
   if(LW.is.vector){
@@ -146,5 +150,5 @@ gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k =
   rownames(res$u) <- rownames(p) <- rownames(DAT)
   rownames(res$v) <- rownames(q) <- colnames(DAT)
 
-  return(list(fi = fi, fj = fj, p = p, q = q, u = res$u, v = res$v, d = d[1:comp.ret], d.orig = d, tau = tau))
+  return(list(fi = fi, fj = fj, p = p, q = q, u = res$u, v = res$v, d = d, d.orig = d.orig, tau = tau))
 }

@@ -12,9 +12,8 @@ sp.pls <- function(X, Y, center.X = T, scale.X = T, center.Y = T, scale.Y = T, k
   Y <- expo.scale(Y, scale = scale.Y, center = center.Y)
 
   res<-gsvd(t(X) %*% Y, k=k)
-
-  res$lx <- X %*% res$fi * matrix(1/res$d,nrow(res$fi),ncol(res$fi),byrow=T)
-  res$ly <- Y %*% res$fj * matrix(1/res$d,nrow(res$fj),ncol(res$fj),byrow=T)
+  res$lx <- (X %*% res$fi) * matrix(1/res$d,nrow(X),ncol(res$fi),byrow=T)
+  res$ly <- (Y %*% res$fj) * matrix(1/res$d,nrow(Y),ncol(res$fj),byrow=T)
 
   if(graphs){
     sp.component_plot(res$fi)

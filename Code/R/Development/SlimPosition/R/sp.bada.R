@@ -2,6 +2,7 @@
 #make design nominal feature? User resonsible for making nominal?
 
 sp.bada <- function(DATA, center = T, scale = T, DESIGN, make.data.nominal = T, k = 0, compact = T, graphs = F){
+  DATA <- as.matrix(DATA)
 
   if(length(DESIGN)!=nrow(DATA)){
     stop("DESIGN is not a vector of length nrow(DATA). A row design is required.")
@@ -17,8 +18,8 @@ sp.bada <- function(DATA, center = T, scale = T, DESIGN, make.data.nominal = T, 
 
   res <- gsvd(expo.scale(t(DESIGN) %*% expo.scale(DATA, center = center, scale = scale),center=T,scale=F), k = k)
 
-  res$lx <- DATA %*% res$fj * matrix(1/res$d,nrow(res$fj),ncol(res$fj),byrow=T)
-  res$ly <- DESIGN %*% res$fi * matrix(1/res$d,nrow(res$fi),ncol(res$fi),byrow=T)
+  res$lx <- (DATA %*% res$fj) * matrix(1/res$d,nrow(DATA),ncol(res$fj),byrow=T)
+  res$ly <- (DESIGN %*% res$fi) * matrix(1/res$d,nrow(DESIGN),ncol(res$fi),byrow=T)
 
   if(graphs){
     sp.component_plot(res$fi)

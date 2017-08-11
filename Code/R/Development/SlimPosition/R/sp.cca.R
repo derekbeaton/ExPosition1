@@ -8,11 +8,8 @@ sp.cca <- function(X, Y, center.X = T, scale.X = T, center.Y = T, scale.Y = T, k
   res <- gsvd(
     t(X) %*% Y, crossprod(X), crossprod(Y),  k = k
   )
-    ## can be more efficient with the d multiply.
-  #res$lx <- X %*% res$fi %*% diag(1/res$d)
-  res$lx <- X %*% res$fi * matrix(1/res$d,nrow(res$fi),ncol(res$fi),byrow=T)
-  #res$ly <- Y %*% res$fj %*% diag(1/res$d)
-  res$ly <- Y %*% res$fj * matrix(1/res$d,nrow(res$fj),ncol(res$fj),byrow=T)
+  res$lx <- (X %*% res$fi) * matrix(1/res$d,nrow(X),ncol(res$fi),byrow=T)
+  res$ly <- (Y %*% res$fj) * matrix(1/res$d,nrow(Y),ncol(res$fj),byrow=T)
 
   if(graphs){
     sp.component_plot(res$fi)

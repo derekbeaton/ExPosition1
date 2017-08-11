@@ -1,10 +1,10 @@
-setwd("C:/Users/Jenny/Documents/projects/ExPosition-Family/Code/R/Development/SlimPosition/")
+#setwd("C:/Users/Jenny/Documents/projects/ExPosition-Family/Code/R/Development/SlimPosition/")
 
 code.dir<-"./R/"
 code.fns<-list.files(path=code.dir,pattern="*.R$")
 sapply(paste0(code.dir,code.fns),source)
 
-load("../data/two.table.wine.rda")
+load("./data/two.table.wine.rda")
 
 pca.res<-sp.pca(wine$objective,center=T,scale=T,k=4,compact=T,graphs=T)
 

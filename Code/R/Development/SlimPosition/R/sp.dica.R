@@ -23,8 +23,8 @@ sp.dica <- function(DATA, make.data.nominal = T, DESIGN, k = 0, compact = T, gra
   res <- gsvd( (R/sum.R) - (wi %o% wj), 1/wi, 1/wj, k = k )
     rm(R); gc() ## clean up.
 
-  res$lx <- rowNorms(DATA,type="ca") %*% res$fj * matrix(1/res$d,nrow(res$fj),ncol(res$fj),byrow=T)
-  res$ly <- DESIGN %*% res$fi * matrix(1/res$d,nrow(res$fi),ncol(res$fi),byrow=T)
+  res$lx <- (rowNorms(DATA,type="ca") %*% res$fj) * matrix(1/res$d,nrow(DATA),ncol(res$fj),byrow=T)
+  res$ly <- (DESIGN %*% res$fi) * matrix(1/res$d,nrow(DESIGN),ncol(res$fi),byrow=T)
 
     ### we may want to consider a different plot for LVs here because $ly is just fi, e.g.,
   # sp.component_plot(res$lx)
