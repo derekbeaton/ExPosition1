@@ -9,7 +9,7 @@ makeNominalData <- function(datain){
 	data_dims <- dim(datain)
 	var_names <- colnames(datain)
     ind_names <- rownames(datain)
-    	
+
 	new.col.count <- sum(apply(datain,2,function(x){ uniq <- unique(x); length(uniq) - sum(is.na(uniq))	}))
 	dataout <- matrix(0,nrow(datain),new.col.count)
 	beginner <- 0
