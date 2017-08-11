@@ -16,7 +16,7 @@ sp.dica <- function(DATA, make.data.nominal = T, DESIGN, k = 0, compact = T, gra
   wj <- colSums(R)/sum.R
 
   res <- gsvd( (R/sum.R) - (wi %o% wj), 1/wi, 1/wj, k = k )
-  rm(R); gc() ## clean up.
+    rm(R); gc() ## clean up.
 
   res$lx <- rowNorms(DATA,type="ca") %*% res$fj * matrix(1/res$d,nrow(fj),ncol(fj),byrow=T)
   res$ly <- DESIGN %*% res$fi * matrix(1/res$d,nrow(fi),ncol(fi),byrow=T)
