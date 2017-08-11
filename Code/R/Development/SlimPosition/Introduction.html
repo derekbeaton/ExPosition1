@@ -132,9 +132,15 @@ $(document).ready(function () {
 <p>Let us call <span class="math inline">\(\mathbf{X}\)</span> a data matrix with <span class="math inline">\(I\)</span> rows and <span class="math inline">\(J\)</span> columns. The singular value decomposition (SVD) of <span class="math inline">\(\mathbf{X}\)</span> is defined as:</p>
 <p><span class="math display">\[
 \begin{equation}
-\mathbf{X} = \mathbf{U \Sigma V}^{\text{T}}
+\mathbf{X} = \mathbf{U \Sigma V}^{\text{T}} \label{eq:svd}
 \end{equation}
-\]</span></p>
+\]</span> The SVD gives us three matrices: <span class="math inline">\(\mathbf{U}, \mathbf{\Sigma}, \text{ and } \mathbf{V}\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(L\)</span> is the rank of <span class="math inline">\({\bf X}\)</span> where <span class="math inline">\(L \leq J &lt; I\)</span> if <span class="math inline">\({\bf X}\)</span> is full rank, see <span class="math display">\[\autoref{eq:svd}\]</span></p></li>
+<li><p><span class="math inline">\({\bf \Sigma}\)</span> is the <span class="math inline">\(L \times L\)</span> diagonal matrix of singular values and <span class="math inline">\({\bf \Lambda}\)</span> is the diagonal matrix of eigenvalues (squared singular values),</p></li>
+<li><p><span class="math inline">\({\bf X}^{T} = ({\bf U\Sigma V}^{T})^{T} = {\bf V\Sigma U}^{T}\)</span>,</p></li>
+<li><p><span class="math inline">\({\bf U}\)</span> and <span class="math inline">\({\bf V}\)</span> are orthonormal left and right singular vectors of sizes <span class="math inline">\(I \times L\)</span> and <span class="math inline">\(J \times L\)</span>, respectively where <span class="math inline">\({\bf U}^{T}{\bf U} = {\bf I} = {\bf V}^{T}{\bf V}\)</span>. Furthermore, <span class="math inline">\({\bf U}^{T} = {\bf U}^{+}\)</span> and <span class="math inline">\({\bf V}^{T} = {\bf V}^{+}\)</span>. Finally, if <span class="math inline">\({\bf X}\)</span> is full rank <span class="math inline">\({\bf V}^{T}={\bf V}^{-1}\)</span>.</p></li>
+</ol>
 </div>
 </div>
 
