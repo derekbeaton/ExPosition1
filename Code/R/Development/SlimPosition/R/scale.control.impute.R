@@ -1,4 +1,5 @@
 ##requires expo.scale
+## I don't think I want this in SlimPosition.
 
 scale.control.impute <- function(data.in,center=T,scale=T,control.for=T,impute=T,regressors=NULL){
 
