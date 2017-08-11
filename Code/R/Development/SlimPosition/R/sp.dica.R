@@ -10,7 +10,7 @@ sp.dica <- function(DATA, make.data.nominal = T, DESIGN, k = 0, compact = T, gra
     stop("A group size of 1 has been found. An observation cannot be the only observation in a group.")
   }
 
-  R <- t(as.matrix(DESIGN)) %*% as.matrix(DATA)
+  R <- t(DESIGN) %*% as.matrix(DATA)
   sum.R <- sum(R)
   wi <- rowSums(R)/sum.R
   wj <- colSums(R)/sum.R
