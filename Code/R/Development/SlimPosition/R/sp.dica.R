@@ -5,7 +5,7 @@ sp.dica <- function(DATA, make.data.nominal = T, DESIGN, k = 0, compact = T, gra
   if(length(DESIGN)!=nrow(DATA)){
     stop("DESIGN is not a vector of length nrow(DATA). A row design is required.")
   }
-  DESIGN <- makeNominalData(DESIGN)
+  DESIGN <- makeNominalData(as.matrix(DESIGN))
   if( any(colSums(DESIGN)<2) ){
     stop("A group size of 1 has been found. An observation cannot be the only observation in a group.")
   }
