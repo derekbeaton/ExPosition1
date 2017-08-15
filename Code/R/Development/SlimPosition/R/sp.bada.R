@@ -1,7 +1,7 @@
 #bada
 #make design nominal feature? User resonsible for making nominal?
 
-sp.bada <- function(DATA, center = T, scale = T, DESIGN, make.data.nominal = T, k = 0, compact = T, graphs = F){
+sp.bada <- function(DATA, center = T, scale = T, DESIGN, k = 0, compact = T, graphs = F){
 
   DATA <- expo.scale(DATA, center = center, scale = scale)
 
@@ -33,7 +33,6 @@ sp.bada <- function(DATA, center = T, scale = T, DESIGN, make.data.nominal = T, 
   }
   if(compact){
     res <- list(fi=res$fi, fj=res$fj, d.orig=res$d.orig, u=res$u, v=res$v, lx=res$lx)
-
   }
   return(res)
 }
