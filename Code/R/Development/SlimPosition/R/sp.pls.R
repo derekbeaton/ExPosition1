@@ -2,7 +2,7 @@
 
 ## pls
 
-sp.pls <- function(X, Y, center.X = T, scale.X = T, center.Y = T, scale.Y = T, k = 0, compact = T, graphs = F){
+sp.pls <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F){
 
   if (nrow(X) != nrow(Y)) {
     stop("X and Y must have the same number of rows.")

@@ -1,6 +1,6 @@
 ### rrr/rda
 
-sp.rrr <- function(X, Y, center.X = T, scale.X = T, center.Y = T, scale.Y = T, k = 0, compact = T, graphs = F){
+sp.rrr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F){
 
   X <- expo.scale(X, center = center.X, scale = scale.X)
   Y <- expo.scale(Y, center = center.Y, scale = scale.Y)
