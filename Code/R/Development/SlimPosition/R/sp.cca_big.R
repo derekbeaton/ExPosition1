@@ -9,7 +9,7 @@ sp.cca_big <- function(X, Y, center.X = T, scale.X = T, center.Y = T, scale.Y = 
   dat <- t(power.rebuild_matrix(X,1/2)) %*% power.rebuild_matrix(X,1/2) %*% t(X) %*% Y %*% power.rebuild_matrix(t(Y),1/2) %*% power.rebuild_matrix(Y,1/2)
   res <- tolerance.svd(dat)
   if(k<=0){
-    k <- min(min(nrow(DAT),ncol(DAT)),length(res$d))
+    k <- min(min(nrow(dat),ncol(dat)),length(res$d))
   }  
   res$d.orig <- res$d
   res$d <- res$d[1:k]
@@ -43,7 +43,6 @@ sp.cca_big <- function(X, Y, center.X = T, scale.X = T, center.Y = T, scale.Y = 
     res <- list(fi=res$fi, fj=res$fj, d.orig=res$d.orig, u=res$u, v=res$v, lx=res$lx, ly=res$ly)
   }
 
-return(res)
-  
-  
+  return(res)
+ 
 }
