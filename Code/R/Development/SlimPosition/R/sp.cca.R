@@ -6,7 +6,7 @@ sp.cca <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = 
   Y <- expo.scale(Y, center = center.Y, scale = scale.Y)
 
   res <- gsvd(
-    t(X) %*% Y, crossprod(X), crossprod(Y),  k = k
+    t(X) %*% Y, invert.rebuild_matrix(crossprod(X)), invert.rebuild_matrix(crossprod(Y)),  k = k
   )
   res$lx <- (X %*% res$fi) * matrix(1/res$d,nrow(X),ncol(res$fi),byrow=T)
   res$ly <- (Y %*% res$fj) * matrix(1/res$d,nrow(Y),ncol(res$fj),byrow=T)

@@ -1,4 +1,4 @@
-sp.cca_big <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F){
+sp.rda_big <- sp.rrr_big <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F){
 
   X <- expo.scale(X, center = center.X, scale = scale.X)
   Y <- expo.scale(Y, center = center.Y, scale = scale.Y)
@@ -6,8 +6,7 @@ sp.cca_big <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.
 
   # # ## I know that there are a few steps here I can remove/speed up; not everything here is required.
 
-  # # dat <- t(power.rebuild_matrix(X,1/2)) %*% (power.rebuild_matrix(X,1/2) %*% (t(X) %*% Y) %*% power.rebuild_matrix(t(Y),1/2)) %*% power.rebuild_matrix(Y,1/2)
-
+  # # dat <- t(power.rebuild_matrix(X,1/2)) %*% power.rebuild_matrix(X,1/2) %*% t(X) %*% Y
   # # res <- tolerance.svd(dat)
   # # if(k<=0){
     # # k <- min(min(nrow(dat),ncol(dat)),length(res$d))
@@ -15,13 +14,12 @@ sp.cca_big <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.
   # # res$d.orig <- res$d
   # # res$d <- res$d[1:k]
   # # res$u <- res$u[,1:k]
-  # # res$v <- res$v[,1:k]
+  # # res$q <- res$v <- res$v[,1:k]
 
   # # res$p <- power.rebuild_matrix(t(X),-1/2) %*% (power.rebuild_matrix(X,-1/2) %*% res$u)
-  # # res$q <- power.rebuild_matrix(t(Y),-1/2) %*% (power.rebuild_matrix(Y,-1/2) %*% res$v)
 
   # # res$fi <- t(X) %*% ((X %*% res$p) * matrix(res$d,nrow(X),length(res$d),byrow=T))
-  # # res$fj <- t(Y) %*% ((Y %*% res$q) * matrix(res$d,nrow(Y),length(res$d),byrow=T))
+  # # res$fj <- res$q * matrix(res$d,nrow(res$q),length(res$d),byrow=T)
 
   # # res$lx <- (X %*% res$fi) * matrix(1/res$d,nrow(Y),length(res$d),byrow=T)
   # # res$ly <- (Y %*% res$fj) * matrix(1/res$d,nrow(X),length(res$d),byrow=T)
@@ -37,6 +35,6 @@ sp.cca_big <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.
     # # res <- list(fi=res$fi, fj=res$fj, d.orig=res$d.orig, u=res$u, v=res$v, lx=res$lx, ly=res$ly)
   # # }
 
-  # # return(res)
+  return(res)
 
 }
