@@ -11,8 +11,8 @@ sp.cca <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = 
 	  	crossprod(Y),
   		k = k
 	)
-	res$LX <- X %*% res$p
-	res$LY <- Y %*% res$q	
+  res$lx <- (X %*% res$fi) * matrix(1/res$d,nrow(X),ncol(res$fi),byrow=T)
+  res$ly <- (Y %*% res$fj) * matrix(1/res$d,nrow(Y),ncol(res$fj),byrow=T)	
 
 
   if(graphs){

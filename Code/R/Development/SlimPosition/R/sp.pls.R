@@ -1,5 +1,3 @@
-## TODO: JRR
-
 ## pls
 
 sp.pls <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F){
