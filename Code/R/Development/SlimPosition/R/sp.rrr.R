@@ -4,12 +4,14 @@ sp.rda <- sp.rrr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, 
 
   X <- expo.scale(X, center = center.X, scale = scale.X)
   Y <- expo.scale(Y, center = center.Y, scale = scale.Y)
-
+  
   res <- gsvd(
-    t(X) %*% Y, invert.rebuild_matrix(crossprod(X)),  k = k
-  )
-  res$lx <- (X %*% res$fi) * matrix(1/res$d,nrow(X),ncol(res$fi),byrow=T)
-  res$ly <- (Y %*% res$fj) * matrix(1/res$d,nrow(Y),ncol(res$fj),byrow=T)
+  		invert.rebuild_matrix(crossprod(X)) %*% t(X) %*% Y,
+  		crossprod(X),
+  		k = k
+  	)
+  	res$LX <- X %*% res$p
+  	res$LY <- Y %*% res$q
 
   if(graphs){
     sp.component_plot(res$fi)
