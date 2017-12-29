@@ -14,7 +14,8 @@ sp.bada <- function(DATA, center = T, scale = T, DESIGN, k = 0, compact = T, gra
   }
 
   DESIGN.labs<-colnames(DESIGN)
-  DESIGN <- t(apply(DESIGN, 1, "/", colSums(DESIGN)))
+  #DESIGN <- t(apply(DESIGN, 1, "/", colSums(DESIGN)))
+  DESIGN <- apply(DESIGN,2,function(x){x/sum(x)})
   colnames(DESIGN)<-DESIGN.labs
 
 

@@ -1,6 +1,8 @@
 #plsr
+  ## this is a good first pass. It needs some restructuring/speed up but not much else (well, graphics...)
 
 ### NOTE: PLS analyses need their own class
+
 
 sp.plsr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F, tol=.Machine$double.eps){
 
