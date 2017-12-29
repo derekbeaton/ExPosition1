@@ -38,12 +38,13 @@ invert.rebuild_matrix <- function(x, k=0, ...){
   if (!is.matrix(x))
     x <- as.matrix(x)
 
-
-  if(k<=0){
+  if(k <= 0){
     k <- min(nrow(x),ncol(x))
   }
-  res <- tolerance.svd(x,...)  ## just go with the defaults of this or allow pass through?
-  ## maybe pass through via '...' -- which would be my first time using that!
-  comp.ret <- 1:min(length(res$d),k)
-  return( (res$v[,comp.ret] * matrix(1/res$d[comp.ret],nrow(res$v[,comp.ret]),ncol(res$v[,comp.ret]),byrow=T)) %*% t(res$u[,comp.ret]) )
+  #res <- tolerance.svd(x,...)  ## just go with the defaults of this or allow pass through?
+  #comp.ret <- 1:min(length(res$d),k)
+  #return( sweep(res$v[,comp.ret],2,res$d[comp.ret],"/") %*% t(res$u[,comp.ret]) )
+
+  res <- tolerance.svd(x, nu = k, nv = k,...)
+  return( sweep(res$v,2,res$d[1:k],"/") %*% t(res$u) )
 }

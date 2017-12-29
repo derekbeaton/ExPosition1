@@ -1,7 +1,7 @@
 ### NOTE TO SELF: Should I eliminate complex eigenvalues (and vectors)?
 ### FOR NOW: STOP if complex SVs/Eigens are encountered.
 
-### ANOTHER NOTE: 
+### ANOTHER NOTE:
 	## Maybe this function should have k= and return the low rank parts instead of doing that elsewhere.
 
 #  "Tolerance" SVD: A SVD function that automatically eliminates (likely) spurious components/sources of variance
@@ -46,16 +46,25 @@ tolerance.svd <- function(x, nu=min(dim(x)), nv=min(dim(x)), tol=.Machine$double
     stop("tolerance.svd: Singular values ($d) are complex.")
   }
   comps.to.keep <- which(!(svd.res$d^2 < tol))
-
-  svd.res$u <- as.matrix(svd.res$u[,comps.to.keep])
-  rownames(svd.res$u) <- rownames(x)
-  svd.res$v <- as.matrix(svd.res$v[,comps.to.keep])
-  rownames(svd.res$v) <- colnames(x)
   svd.res$d <- svd.res$d[comps.to.keep]
 
+  if(nu >= length(comps.to.keep)){
+    svd.res$u <- as.matrix(svd.res$u[,comps.to.keep])
+  }else{
+    svd.res$u <- as.matrix(svd.res$u[,1:nu])
+  }
+  rownames(svd.res$u) <- rownames(x)
   svd.res$u[ abs(svd.res$u) < tol ] <- 0
+
+
+  if(nv >= length(comps.to.keep)){
+    svd.res$v <- as.matrix(svd.res$v[,comps.to.keep])
+  }else{
+    svd.res$v <- as.matrix(svd.res$v[,1:nv])
+  }
+  rownames(svd.res$v) <- colnames(x)
   svd.res$v[ abs(svd.res$v) < tol ] <- 0
 
-  return(svd.res)
 
+  return(svd.res)
 }
