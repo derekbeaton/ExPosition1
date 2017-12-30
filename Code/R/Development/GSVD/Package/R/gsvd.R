@@ -58,10 +58,12 @@
 #'  @keywords multivariate, diagonalization, eigen
 
 
+
+## I don't think I want to allow nu and nv here... but maybe.
 gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=.Machine$double.eps){
 
     ## probably need some rudimentary checks here.
-    DAT <- as.matrix(DAT)
+    DAT <- as.matrix(DAT)# this could be done much later actually.
 
     ## I should check if LW and RW are rectangular. If they are, I should exit with an error.
 

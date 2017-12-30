@@ -12,7 +12,7 @@
 
 
   ## I stole this from somewhere... but I don't remember where
-isDiagonal.matrix <- function(X,tol=.Machine$double.eps*2){
+isDiagonal.matrix <- function(X,tol=.Machine$double.eps){
   if(is.null(dim(X))){
     stop("isDiagonal.matrix: X is not a matrix.")
   }

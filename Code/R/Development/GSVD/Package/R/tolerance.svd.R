@@ -45,11 +45,11 @@ tolerance.svd <- function(x, nu=min(dim(x)), nv=min(dim(x)), tol=.Machine$double
   if(any(unlist(lapply(svd.res$d,is.complex)))){
     stop("tolerance.svd: Singular values ($d) are complex.")
   }
-  comps.to.keep <- which(!(svd.res$d^2 < tol))
-  svd.res$d <- svd.res$d[comps.to.keep]
+  svs.to.keep <- which(!(svd.res$d^2 < tol))
+  svd.res$d <- svd.res$d[svs.to.keep]
 
-  if(nu >= length(comps.to.keep)){
-    svd.res$u <- as.matrix(svd.res$u[,comps.to.keep])
+  if(nu >= length(svs.to.keep)){
+    svd.res$u <- as.matrix(svd.res$u[,svs.to.keep])
   }else{
     svd.res$u <- as.matrix(svd.res$u[,1:nu])
   }
@@ -57,8 +57,8 @@ tolerance.svd <- function(x, nu=min(dim(x)), nv=min(dim(x)), tol=.Machine$double
   svd.res$u[ abs(svd.res$u) < tol ] <- 0
 
 
-  if(nv >= length(comps.to.keep)){
-    svd.res$v <- as.matrix(svd.res$v[,comps.to.keep])
+  if(nv >= length(svs.to.keep)){
+    svd.res$v <- as.matrix(svd.res$v[,svs.to.keep])
   }else{
     svd.res$v <- as.matrix(svd.res$v[,1:nv])
   }

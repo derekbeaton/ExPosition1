@@ -26,6 +26,9 @@
 #'  X.power_2 <- power.rebuild_matrix(X,power=2)
 #'  X.power_negative.1.div.2 <- power.rebuild_matrix(X,power=-1/2)
 #'
+#'  X.power_negative.1 <- power.rebuild_matrix(X,power=-1)
+#'  X.power_negative.1 / t(invert.rebuild_matrix(X))
+#'
 #'  @author Derek Beaton
 #'
 #'  @keywords multivariate, diagonalization, eigen, pseudo-inverse, Moore-Penrose
@@ -43,15 +46,18 @@ power.rebuild_matrix <- function(x, power = 1, k=0, ...){
   if (!is.matrix(x))
     x <- as.matrix(x)
 
+  k <- round(k)
   if(k<=0){
     k <- min(nrow(x),ncol(x))
   }
 
-  res <- tolerance.svd(x,...)  ## just go with the defaults of this or allow pass through?
-  ## maybe pass through via '...' -- which would be my first time using that!
+    ## should be tested for speed.
 
-  comp.ret <- 1:min(length(res$d),k)
-    ### this will cause a problem if k=1... but deal with it later.
-  return( (res$u[,comp.ret] * matrix(res$d[comp.ret]^power,nrow(res$u[,comp.ret]),ncol(res$u[,comp.ret]),byrow=T)) %*% t(res$v[,comp.ret]) )
+  #res <- tolerance.svd(x,...)
+  #comp.ret <- 1:min(length(res$d),k)
+  #return( (res$u[,comp.ret] * matrix(res$d[comp.ret]^power,nrow(res$u[,comp.ret]),ncol(res$u[,comp.ret]),byrow=T)) %*% t(res$v[,comp.ret]) )
+
+  res <- tolerance.svd(x, nu = k, nv = k, ...)
+  return( sweep(res$u,2,res$d[1:k]^power,"*") %*% t(res$v) )
 
 }

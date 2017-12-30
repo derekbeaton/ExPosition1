@@ -38,9 +38,13 @@ invert.rebuild_matrix <- function(x, k=0, ...){
   if (!is.matrix(x))
     x <- as.matrix(x)
 
+  k <- round(k)
   if(k <= 0){
     k <- min(nrow(x),ncol(x))
   }
+
+  ## I need to test which is faster...
+
   #res <- tolerance.svd(x,...)  ## just go with the defaults of this or allow pass through?
   #comp.ret <- 1:min(length(res$d),k)
   #return( sweep(res$v[,comp.ret],2,res$d[comp.ret],"/") %*% t(res$u[,comp.ret]) )
