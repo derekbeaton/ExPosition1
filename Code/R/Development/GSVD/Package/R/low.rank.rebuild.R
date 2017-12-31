@@ -1,9 +1,9 @@
 #'
 #'  @export
 #'
-#'  @title \code{low.k}: raise matrix to a power and rebuild lower rank version
+#'  @title \code{low.rank.rebuild}: raise matrix to a power and rebuild lower rank version
 #'
-#'  @description \code{low.k} takes in a matrix and will rebuild a lower rank estimate.
+#'  @description \code{low.rank.rebuild} takes in a matrix and will rebuild a lower rank estimate.
 #'
 #'  @param x data matrix
 #'  @param k the number of components to retain in order to build a lower rank estimate of \code{x}
@@ -19,11 +19,11 @@
 #'
 #'  @author Derek Beaton
 #'
-#'  @keywords multivariate, diagonalization, eigen, pseudo-inverse, Moore-Penrose
+#'  @keywords multivariate, diagonalization, eigen, low rank, rank
 #'
 
 
-low.k <- function(x, k = 0, ...){
+low.rank.rebuild <- function(x, k = 0, ...){
 
   ## quick tests for escape
   if( !is.numeric(k) ){
@@ -54,7 +54,7 @@ low.k <- function(x, k = 0, ...){
 
 
   }else { #if(length(k) == 1){
-    if( rank.build <= 0 ){
+    if( k <= 0 ){
       stop("k is a negative or 0 value")
     }
 

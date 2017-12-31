@@ -60,17 +60,21 @@
 
 
 ## I don't think I want to allow nu and nv here... but maybe.
-gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=.Machine$double.eps){
+#gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=.Machine$double.eps){
+gsvd <- function(DAT, LW, RW, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=.Machine$double.eps){
 
-    ## probably need some rudimentary checks here.
-    DAT <- as.matrix(DAT)# this could be done much later actually.
+    DAT <- as.matrix(DAT)
+    DAT[abs(DAT) < tol] <- 0
 
-    ## I should check if LW and RW are rectangular. If they are, I should exit with an error.
 
-    RW.is.vector <- LW.is.vector <- RW.is.nan <- LW.is.nan <- F
+    ## I also need to skip over this computation if LW or RW are either empty or all 1s
+    ## need to test if is.identity.matrix() or if all( DAT == 0 )
+      ## if this is the case, I need to jump straight to the tolerance.svd() call and skip the gen vecs
+
+    RW.is.vector <- LW.is.vector <- RW.is.missing <- LW.is.missing <- F
       ## clean this up to avoid the warnings...
-    if( is.nan(LW) ){
-      LW.is.nan <- T
+    if( missing(LW) ){
+      LW.is.missing <- T
     }else{
       if ( is.null(dim(LW)) & (length(LW) > 0) ) {
         LW.is.vector <- T
@@ -78,12 +82,13 @@ gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k =
       if(!LW.is.vector){
         if( isDiagonal.matrix(LW) ){
           LW <- diag(LW)
-          LW.is.vector <- T
+          LW.is.vector <- T  #now it's a vector
         }
       }
     }
-    if( is.nan(RW) ){
-      RW.is.nan <- T
+
+    if( missing(RW) ){
+      RW.is.missing <- T
     }else{
       if ( is.null(dim(RW)) & (length(RW) > 0) ) {
         RW.is.vector <- T
@@ -91,25 +96,51 @@ gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k =
       if(!RW.is.vector){
         if( isDiagonal.matrix(RW) ){
           RW <- diag(RW)
-          RW.is.vector <- T
+          RW.is.vector <- T  #now it's a vector
         }
       }
     }
 
 
-    if( LW.is.vector ){
-      DAT <- matrix(sqrt(LW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=F) * DAT
-    }else if(!LW.is.nan){
-      DAT <- power.rebuild_matrix(LW, power = 1/2) %*% DAT
-    }
-    if( RW.is.vector ){
-      DAT <- DAT * matrix(sqrt(RW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=T)
-    }else if(!RW.is.nan){
-      DAT <- DAT %*% power.rebuild_matrix(RW, power = 1/2)
+    ## I should check if LW and RW are rectangular. If they are, I should exit with an error.
+      ## If I pass that test, that means LW or RW actually exist...
+        ## actually I think that maybe the conditionals below work for the above test. I just skip past these if don't conform or exist...
+
+    if( LW.is.vector ){  ## replace with sweep
+      if( length(LW)==nrow(DAT) ){
+        #DAT <- matrix(sqrt(LW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=F) * DAT
+        DAT <- sweep(DAT,1,sqrt(LW),"*")
+      }else{
+        stop("gsvd:length(LW) does not equal nrow(DAT)")
+      }
+    }else if(!LW.is.missing){
+      if( nrow(LW)==ncol(LW) & nrow(LW)==nrow(DAT)){
+        DAT <- power.rebuild_matrix(LW, power = 1/2) %*% DAT
+      }else{
+        stop("gsvd:nrow(LW) does not equal ncol(LW) nor nrow(DAT)")
+      }
     }
 
-  ## I also need to skip over this computation if LW or RW are either empty or all 1s
+
+    if( RW.is.vector ){  ## replace with sweep
+      if( length(RW)==ncol(DAT)){
+        #DAT <- DAT * matrix(sqrt(RW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=T)
+        DAT <- sweep(DAT,2,sqrt(RW),"*")
+      }else{
+        stop("gsvd:length(RW) does not equal ncol(DAT)")
+      }
+    }else if(!RW.is.missing){
+      if( nrowol(RW)==ncol(RW) & nrow(RW)==nrow(DAT)){
+        DAT <- DAT %*% power.rebuild_matrix(RW, power = 1/2)
+        RW.exists <- T
+      }else{
+        stop("gsvd:nrow(RW) does not equal ncol(RW) nor ncol(DAT)")
+      }
+    }
+
+
   #dat.for.svd <- power.rebuild_matrix(LW, power = 1/2) %*% DAT %*% power.rebuild_matrix(RW, power = 1/2)
+
 
   if(k<=0){
     k <- min(nrow(DAT),ncol(DAT))
@@ -126,11 +157,16 @@ gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k =
   res$v <- as.matrix(res$v[,1:comp.ret])
 
 
+  #### ALSO BELOW: I should just immediately put things into res, e.g., res$p <- res$u or res$fj...
+      ## insted of building a new list to export.
+
     ## I also need to skip over this computation if LW or RW are either empty or all 1s
+      ## in the case that LW or RW does not exist... the else should catch it. but I can go directly there if RW/LW.is.missing exists
+
   if(LW.is.vector){
     p <- matrix(1/sqrt(LW),nrow=nrow(res$u),ncol=ncol(res$u),byrow=F) * res$u
     fi <- matrix(LW,nrow=nrow(p),ncol=ncol(p),byrow=F) * p * matrix(d,nrow(p),ncol(p),byrow=T)
-  }else if(!LW.is.nan){
+  }else if(!LW.is.missing){
     p <- power.rebuild_matrix(LW, power = -1/2) %*% res$u
     fi <- LW %*% p * matrix(d,nrow(p),ncol(p),byrow=T)
   }else{
@@ -141,7 +177,7 @@ gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k =
   if(RW.is.vector){
     q <- matrix(1/sqrt(RW),nrow=nrow(res$v),ncol=ncol(res$v),byrow=F) * res$v
     fj <- matrix(RW,nrow=nrow(q),ncol=ncol(q),byrow=F) * q * matrix(d,nrow(q),ncol(q),byrow=T)
-  }else if(!RW.is.nan){
+  }else if(!RW.is.missing){
     q <- power.rebuild_matrix(RW, power = -1/2) %*% res$v
     fj <- RW %*% q * matrix(d,nrow(q),ncol(q),byrow=T)
   }else{

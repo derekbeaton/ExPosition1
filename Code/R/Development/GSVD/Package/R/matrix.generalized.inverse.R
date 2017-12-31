@@ -1,9 +1,9 @@
 #'
 #'  @export
 #'
-#'  @title \code{invert.rebuild_matrix}: psuedo inverse and rebuild of a matrix
+#'  @title \code{matrix.generalized.inverse}: psuedo inverse and rebuild of a matrix
 #'
-#'  @description \code{invert.rebuild_matrix} takes in a matrix and will compute the psuedo-inverse via the singular value decomposition.
+#'  @description \code{matrix.generalized.inverse} takes in a matrix and will compute the psuedo-inverse via the singular value decomposition.
 #'  Additionally, the psuedo-inverse can be computed for a lower rank estimate of the matrix.
 #'
 #'  @param x data matrix to compute the pseudo-inverse of
@@ -13,28 +13,24 @@
 #'  @return
 #'  The (possibly lower rank) psuedo-inverse of \code{x}
 #'
-#'  @seealso \code{\link{tolerance.svd}} and \code{\link{power.rebuild_matrix}}
+#'  @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{power.rebuild_matrix}}
 #'
 #'  @examples
 #'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
 #'  X <- hilbert(9)[, 1:6]
-#'  X.inv <- invert.rebuild_matrix(X)
+#'  X.inv <- matrix.generalized.inverse(X)
 #'  X.inv %*% X ## is approximately an identity.
 #'
 #'  @author Derek Beaton
 #'
-#'  @keywords multivariate, diagonalization, eigen, pseudo-inverse, Moore-Penrose
+#'  @keywords multivariate, diagonalization, eigen, pseudo-inverse, Moore-Penrose, generalized inverse
 #'
 
-invert.rebuild_matrix <- function(x, k=0, ...){
-  ## actually, these should test if they are a vector and just return them as is.
-  ## also test if diagonal, and if so, only return a vector.
-  ## but maybe that's for later...
-
+mgi <- m.g.i <- matrix.generalized.inverse <- function(x, k=0, ...){
 
   ##stolen from MASS::ginv()
   if (length(dim(x)) > 2L || !(is.numeric(x) || is.complex(x)))
-    stop("invert.rebuild_matrix: 'x' must be a numeric or complex matrix")
+    stop("matrix.generalized.inverse: 'x' must be a numeric or complex matrix")
   if (!is.matrix(x))
     x <- as.matrix(x)
 
@@ -44,6 +40,18 @@ invert.rebuild_matrix <- function(x, k=0, ...){
   }
 
   ## I need to test which is faster...
+
+  ## the special cases:
+
+  ## is diagonal
+  if(isDiagonal.matrix(x)){
+    return( diag( diag(x)^(-1) ) )
+
+  }
+  ## is vector
+  if( any(dim(x)==1) ){
+    return( x^(-1) )
+  }
 
   #res <- tolerance.svd(x,...)  ## just go with the defaults of this or allow pass through?
   #comp.ret <- 1:min(length(res$d),k)

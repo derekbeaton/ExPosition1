@@ -1,9 +1,9 @@
 #'
 #'  @export
 #'
-#'  @title \code{isDiagonal.matrix}: test if a matrix is diagonal
+#'  @title \code{is.diagonal.matrix}: test if a matrix is diagonal
 #'
-#'  @description \code{isDiagonal.matrix} takes a matrix and tests if it is diagonal matrix.
+#'  @description \code{is.diagonal.matrix} takes a matrix and tests if it is diagonal matrix.
 #'
 #'  @param X a matrix to test
 #'
@@ -12,7 +12,7 @@
 
 
   ## I stole this from somewhere... but I don't remember where
-isDiagonal.matrix <- function(X,tol=.Machine$double.eps){
+is.diagonal.matrix <- function(X,tol=.Machine$double.eps){
   if(is.null(dim(X))){
     stop("isDiagonal.matrix: X is not a matrix.")
   }
