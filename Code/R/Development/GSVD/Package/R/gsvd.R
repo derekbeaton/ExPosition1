@@ -14,8 +14,6 @@
 #'  @param DAT a data matrix to decompose
 #'  @param LW \bold{L}eft \bold{W}eights -- the constraints applied to the left side (rows) of the matrix and thus left singular vectors
 #'  @param RW \bold{R}ight \bold{W}eights -- the constraints applied to the right side (rows) of the matrix and thus right singular vectors
-#'  @param nu the number of left singular vectors to be computed. Default is \code{min(dim(x))}
-#'  @param nv the number of right singular vectors to be computed. Default is \code{min(dim(x))}
 #'  @param k total number of components to return though the full variance (based on nu and nv) will still be returned (see \code{Dv.orig})
 #'  @param tol A tolerance level for eliminating (tiny variance or negative or imaginary) components. Default is .Machine$double.eps
 #'
@@ -61,29 +59,46 @@
 
 ## I don't think I want to allow nu and nv here... but maybe.
 #gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=.Machine$double.eps){
-gsvd <- function(DAT, LW, RW, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=.Machine$double.eps){
+gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
 
-    DAT <- as.matrix(DAT)
-    DAT[abs(DAT) < tol] <- 0
+  # preliminaries
+  DAT.dims <- dim(DAT)
+  if(length(DAT.dims)!=2){
+    stop("gsvd: DAT must have dim length of 2 (i.e., rows and columns)")
+  }
+  DAT <- as.matrix(DAT)
+  DAT[abs(DAT) < tol] <- 0
+  RW.is.vector <- LW.is.vector <- RW.is.missing <- LW.is.missing <- F
 
-
-    ## I also need to skip over this computation if LW or RW are either empty or all 1s
-    ## need to test if is.identity.matrix() or if all( DAT == 0 )
-      ## if this is the case, I need to jump straight to the tolerance.svd() call and skip the gen vecs
-
-    RW.is.vector <- LW.is.vector <- RW.is.missing <- LW.is.missing <- F
-      ## clean this up to avoid the warnings...
+    # check if LW and RW are missing, if they are vectors, or if they are diagonal matrices.
+      ## TODO: Check if LW or RW are identity or all 0s
     if( missing(LW) ){
       LW.is.missing <- T
     }else{
       if ( is.null(dim(LW)) & (length(LW) > 0) ) {
-        LW.is.vector <- T
-      }
-      if(!LW.is.vector){
-        if( isDiagonal.matrix(LW) ){
-          LW <- diag(LW)
-          LW.is.vector <- T  #now it's a vector
+        if( (abs(max(LW) - min(LW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
+          LW.is.missing <- T
+          warning("gsvd: LW was a diagonal matrix with identical elements. LW will not be used in the GSVD.")
+        }else{
+          LW.is.vector <- T
         }
+      }else if(!LW.is.vector){
+        if( is.identity.matrix(LW) | is.empty.matrix(LW) ){
+          LW.is.missing <- T
+          warning("gsvd: LW was an identity or empty matrix. LW will not be used in the GSVD.")
+        }else if( is.diagonal.matrix(LW) ){
+          LW <- diag(LW)
+          if( (abs(max(LW) - min(LW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
+            LW.is.missing <- T
+            warning("gsvd: LW was a diagonal matrix with identical elements. LW will not be used in the GSVD.")
+          }else{
+            LW.is.vector <- T  #now it's a vector
+          }
+        }else{
+          stop("gsvd: unknown condition for LW.")
+        }
+      }else{
+        stop("gsvd: unknown condition for LW.")
       }
     }
 
@@ -91,21 +106,33 @@ gsvd <- function(DAT, LW, RW, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=
       RW.is.missing <- T
     }else{
       if ( is.null(dim(RW)) & (length(RW) > 0) ) {
-        RW.is.vector <- T
-      }
-      if(!RW.is.vector){
-        if( isDiagonal.matrix(RW) ){
-          RW <- diag(RW)
-          RW.is.vector <- T  #now it's a vector
+        if( (abs(max(RW) - min(RW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
+          RW.is.missing <- T
+          warning("gsvd: RW was a vector with identical elements. RW will not be used in the GSVD.")
+        }else{
+          RW.is.vector <- T
         }
+      }else if(!RW.is.vector){
+        if( is.identity.matrix(RW) | is.empty.matrix(RW) ){
+          LW.is.missing <- T
+          warning("gsvd: RW was an identity or empty matrix. RW will not be used in the GSVD.")
+        }else if( is.diagonal.matrix(RW) ){
+          RW <- diag(RW)
+          if( (abs(max(RW) - min(RW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
+            RW.is.missing <- T
+            warning("gsvd: RW was a diagonal matrix with identical elements. RW will not be used in the GSVD.")
+          }else{
+            RW.is.vector <- T  #now it's a vector
+          }
+        }else{
+          stop("gsvd: unknown condition for RW.")
+        }
+      }else{
+        stop("gsvd: unknown condition for RW.")
       }
     }
 
-
-    ## I should check if LW and RW are rectangular. If they are, I should exit with an error.
-      ## If I pass that test, that means LW or RW actually exist...
-        ## actually I think that maybe the conditionals below work for the above test. I just skip past these if don't conform or exist...
-
+    ## these tests can be moved up but I just can't find a good place for them.
     if( LW.is.vector ){  ## replace with sweep
       if( length(LW)==nrow(DAT) ){
         #DAT <- matrix(sqrt(LW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=F) * DAT
@@ -115,7 +142,8 @@ gsvd <- function(DAT, LW, RW, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=
       }
     }else if(!LW.is.missing){
       if( nrow(LW)==ncol(LW) & nrow(LW)==nrow(DAT)){
-        DAT <- power.rebuild_matrix(LW, power = 1/2) %*% DAT
+        #DAT <- power.rebuild_matrix(LW, power = 1/2) %*% DAT
+        DAT <- (LW %^% (1/2)) %*% DAT
       }else{
         stop("gsvd:nrow(LW) does not equal ncol(LW) nor nrow(DAT)")
       }
@@ -130,63 +158,66 @@ gsvd <- function(DAT, LW, RW, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=
         stop("gsvd:length(RW) does not equal ncol(DAT)")
       }
     }else if(!RW.is.missing){
-      if( nrowol(RW)==ncol(RW) & nrow(RW)==nrow(DAT)){
-        DAT <- DAT %*% power.rebuild_matrix(RW, power = 1/2)
-        RW.exists <- T
+      if( nrow(RW)==ncol(RW) & nrow(RW)==ncol(DAT)){
+        #DAT <- DAT %*% power.rebuild_matrix(RW, power = 1/2)
+        DAT <- DAT %*% (RW %^% (1/2))
       }else{
         stop("gsvd:nrow(RW) does not equal ncol(RW) nor ncol(DAT)")
       }
     }
 
 
-  #dat.for.svd <- power.rebuild_matrix(LW, power = 1/2) %*% DAT %*% power.rebuild_matrix(RW, power = 1/2)
-
-
   if(k<=0){
     k <- min(nrow(DAT),ncol(DAT))
   }
-  res <- tolerance.svd(DAT,nu=nu,nv=nv,tol=tol)
 
-  d.orig <- res$d
-  tau <- d.orig^2/sum(d.orig^2)
-  comp.ret <- min(length(d.orig),k)
+  res <- tolerance.svd(DAT,nu=k,nv=k,tol=tol)
 
-  d <- d.orig[1:comp.ret]
-          ## this should protect against the rank 1 where it's just a vector.
-  res$u <- as.matrix(res$u[,1:comp.ret])
-  res$v <- as.matrix(res$v[,1:comp.ret])
+  res$d.orig <- res$d
+  res$tau <- res$d.orig^2/sum(res$d.orig^2)
+  components.to.return <- min(length(res$d.orig),k) #a safety check
 
+  res$d <- res$d.orig[1:components.to.return]
+    ## u and v should already be k vectors but again, be safe.
+  res$u <- as.matrix(res$u[,1:components.to.return])
+  res$v <- as.matrix(res$v[,1:components.to.return])
 
-  #### ALSO BELOW: I should just immediately put things into res, e.g., res$p <- res$u or res$fj...
-      ## insted of building a new list to export.
-
-    ## I also need to skip over this computation if LW or RW are either empty or all 1s
-      ## in the case that LW or RW does not exist... the else should catch it. but I can go directly there if RW/LW.is.missing exists
 
   if(LW.is.vector){
-    p <- matrix(1/sqrt(LW),nrow=nrow(res$u),ncol=ncol(res$u),byrow=F) * res$u
-    fi <- matrix(LW,nrow=nrow(p),ncol=ncol(p),byrow=F) * p * matrix(d,nrow(p),ncol(p),byrow=T)
+    res$p <- sweep(res$u,1,1/sqrt(LW),"*")
+    res$fi <- sweep(sweep(res$p,1,LW,"*"),2,res$d,"*")
+    #res$p <- matrix(1/sqrt(LW),nrow=nrow(res$u),ncol=ncol(res$u),byrow=F) * res$u
+    #res$fi <- matrix(LW,nrow=nrow(res$p),ncol=ncol(res$p),byrow=F) * res$p * matrix(res$d,nrow(res$p),ncol(res$p),byrow=T)
   }else if(!LW.is.missing){
-    p <- power.rebuild_matrix(LW, power = -1/2) %*% res$u
-    fi <- LW %*% p * matrix(d,nrow(p),ncol(p),byrow=T)
+    #res$p <- power.rebuild_matrix(LW, power = -1/2) %*% res$u
+    res$p <- (LW %^% (-1/2)) %*% res$u
+    res$fi <- sweep((LW %*% res$p),2,res$d,"*")
+    #res$fi <- LW %*% res$p * matrix(res$d,nrow(res$p),ncol(res$p),byrow=T)
   }else{
-    p <- res$u
-    fi <- p * matrix(d,nrow(p),ncol(p),byrow=T)
+    res$p <- res$u
+    res$fi <- sweep(res$p,2,res$d,"*")
+    #res$fi <- res$p * matrix(d,nrow(p),ncol(p),byrow=T)
   }
 
   if(RW.is.vector){
-    q <- matrix(1/sqrt(RW),nrow=nrow(res$v),ncol=ncol(res$v),byrow=F) * res$v
-    fj <- matrix(RW,nrow=nrow(q),ncol=ncol(q),byrow=F) * q * matrix(d,nrow(q),ncol(q),byrow=T)
+    res$q <- sweep(res$v,1,1/sqrt(RW),"*")
+    res$fj <- sweep(sweep(res$q,1,RW,"*"),2,res$d,"*")
+    #res$q <- matrix(1/sqrt(RW),nrow=nrow(res$v),ncol=ncol(res$v),byrow=F) * res$v
+    #res$fj <- matrix(RW,nrow=nrow(res$q),ncol=ncol(res$q),byrow=F) * res$q * matrix(res$d,nrow(res$q),ncol(res$q),byrow=T)
   }else if(!RW.is.missing){
-    q <- power.rebuild_matrix(RW, power = -1/2) %*% res$v
-    fj <- RW %*% q * matrix(d,nrow(q),ncol(q),byrow=T)
+    #res$q <- power.rebuild_matrix(RW, power = -1/2) %*% res$v
+    res$q <- (RW %^% (-1/2)) %*% res$v
+    res$fj <- sweep((RW %*% res$q),2,res$d,"*")
+    #res$fj <- RW %*% res$q * matrix(res$d,nrow(res$q),ncol(res$q),byrow=T)
   }else{
-    q <- res$v
-    fj <- q * matrix(d,nrow(q),ncol(q),byrow=T)
+    res$q <- res$v
+    res$fj <- sweep(res$q,2,res$d,"*")
+    #res$fj <- res$q * matrix(res$d,nrow(res$q),ncol(res$q),byrow=T)
   }
 
-  rownames(res$u) <- rownames(p) <- rownames(DAT)
-  rownames(res$v) <- rownames(q) <- colnames(DAT)
+  rownames(res$fi) <- rownames(res$u) <- rownames(res$p) <- rownames(DAT)
+  rownames(res$fj) <- rownames(res$v) <- rownames(res$q) <- colnames(DAT)
 
-  return(list(fi = fi, fj = fj, p = p, q = q, u = res$u, v = res$v, d = d, d.orig = d.orig, tau = tau))
+  return(res)
+  #return(list(fi = fi, fj = fj, p = p, q = q, u = res$u, v = res$v, d = d, d.orig = d.orig, tau = tau))
 }

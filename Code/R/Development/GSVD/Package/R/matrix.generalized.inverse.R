@@ -44,7 +44,7 @@ mgi <- m.g.i <- matrix.generalized.inverse <- function(x, k=0, ...){
   ## the special cases:
 
   ## is diagonal
-  if(isDiagonal.matrix(x)){
+  if(is.diagonal.matrix(x)){
     return( diag( diag(x)^(-1) ) )
 
   }

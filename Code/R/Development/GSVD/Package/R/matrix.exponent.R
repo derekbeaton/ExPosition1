@@ -62,7 +62,7 @@ me <- m.e <- matrix.exponent <- function(x, power = 1, k=0, ...){
     return( x )
   }
   ## is diagonal
-  if(isDiagonal.matrix(x)){
+  if(is.diagonal.matrix(x)){
     return( diag( diag(x)^power ) )
 
   }
