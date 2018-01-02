@@ -26,7 +26,7 @@
 #'  @keywords multivariate, diagonalization, eigen, pseudo-inverse, Moore-Penrose, generalized inverse
 #'
 
-mgi <- m.g.i <- matrix.generalized.inverse <- function(x, k=0, ...){
+matrix.generalized.inverse <- mgi <- m.g.i <- function(x, k=0, ...){
 
   ##stolen from MASS::ginv()
   if (length(dim(x)) > 2L || !(is.numeric(x) || is.complex(x)))

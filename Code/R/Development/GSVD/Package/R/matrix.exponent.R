@@ -1,22 +1,19 @@
+#' @title \code{matrix.exponent}: raise matrix to a power and rebuild lower rank version
 #'
-#'  @export
-#'
-#'  @title \code{matrix.exponent}: raise matrix to a power and rebuild lower rank version
-#'
-#'  @description \code{matrix.exponent} takes in a matrix and will compute raise that matrix to some arbitrary power via the singular value decomposition.
+#' @description \code{matrix.exponent} takes in a matrix and will compute raise that matrix to some arbitrary power via the singular value decomposition.
 #'  Additionally, the matrix can be computed for a lower rank estimate of the matrix.
 #'
-#'  @param x data matrix
-#'  @param power the power to raise \code{x} by (e.g., 2 is squared)
-#'  @param k the number of components to retain in order to build a lower rank estimate of \code{x}
-#'  @param ... parameters to pass through to \code{\link{tolerance.svd}}
+#' @param x data matrix
+#' @param power the power to raise \code{x} by (e.g., 2 is squared)
+#' @param k the number of components to retain in order to build a lower rank estimate of \code{x}
+#' @param ... parameters to pass through to \code{\link{tolerance.svd}}
 #'
-#'  @return
+#' @return
 #'  The (possibly lower rank) raised to an arbitrary \code{power} version of \code{x}
 #'
-#'  @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.generalized.inverse}}
+#' @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.generalized.inverse}}
 #'
-#'  @examples
+#' @examples
 #'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
 #'  X <- hilbert(9)[, 1:6]
 #'  X.power_1 <- matrix.exponent(X)
@@ -29,12 +26,12 @@
 #'  X.power_negative.1 <- matrix.exponent(X,power=-1)
 #'  X.power_negative.1 / t(invert.rebuild_matrix(X))
 #'
-#'  @author Derek Beaton
+#' @author Derek Beaton
 #'
-#'  @keywords multivariate, diagonalization, eigen
+#' @keywords multivariate, diagonalization, eigen
 #'
 
-me <- m.e <- matrix.exponent <- function(x, power = 1, k=0, ...){
+matrix.exponent <- me <- m.e <- function(x, power = 1, k = 0, ...){
 
   ##stolen from MASS::ginv()
   if (length(dim(x)) > 2L || !(is.numeric(x) || is.complex(x)))
@@ -78,31 +75,29 @@ me <- m.e <- matrix.exponent <- function(x, power = 1, k=0, ...){
 
 
 
+#' @export
 #'
-#'  @export
+#' @title Matrix exponentiation
 #'
-#'  @title \code{`%^%`}: raise matrix to a power and rebuild lower rank version
-#'
-#'  @description \code{`%^%`} takes in a matrix and will compute raise that matrix to some arbitrary power via the singular value decomposition.
+#' @description takes in a matrix and will compute raise that matrix to some arbitrary power via the singular value decomposition.
 #'  Additionally, the matrix can be computed for a lower rank estimate of the matrix.
 #'
-#'  @param x data matrix
-#'  @param power the power to raise \code{x} by (e.g., 2 is squared)
+#' @param x data matrix
+#' @param power the power to raise \code{x} by (e.g., 2 is squared)
 #'
-#'  @return
-#'  \code{x} raised to an arbitrary \code{power}
+#' @return \code{x} raised to an arbitrary \code{power}
 #'
-#'  @seealso \code{\link{matrix.exponent}}
+#' @seealso \code{\link{matrix.exponent}}
 #'
-#'  @examples
+#' @examples
 #'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
 #'  X <- hilbert(9)[, 1:6]
 #'  X %^% 2 # power of 2
 #'  X %^% -1 # (generalized) inverse
 #'
-#'  @author Derek Beaton
+#' @author Derek Beaton
 #'
-#'  @keywords multivariate, diagonalization, eigen
+#' @keywords multivariate, diagonalization, eigen
 #'
 `%^%` <- function(x,power){
   matrix.exponent(x,power=power)

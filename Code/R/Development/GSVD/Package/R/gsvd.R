@@ -1,35 +1,27 @@
-## a generalized SVD function.
-
-#  Generalized SVD: A GSVD function that takes in left and right constraints (usually diagonal matrices, but any positive semi-definite matrix is fine).
-#   Constraints are applied to the left and right singular vectors for the orthogonality constraint.
-
+#' @title Generalized SVD
 #'
-#'  @export
-#'
-#'  @title \code{gsvd}: the generalized singular value decomposition.
-#'
-#'  @description \code{gsvd} takes in left (\code{LW}) and right (\code{RW}) constraints (usually diagonal matrices, but any positive semi-definite matrix is fine) that are applied to the data (\code{DAT})
+#' @description
+#' \code{gsvd} takes in left (\code{LW}) and right (\code{RW}) constraints (usually diagonal matrices, but any positive semi-definite matrix is fine) that are applied to the data (\code{DAT})
 #'   Left and right constraints are used for the orthogonality conditions.
 #'
-#'  @param DAT a data matrix to decompose
-#'  @param LW \bold{L}eft \bold{W}eights -- the constraints applied to the left side (rows) of the matrix and thus left singular vectors
-#'  @param RW \bold{R}ight \bold{W}eights -- the constraints applied to the right side (rows) of the matrix and thus right singular vectors
-#'  @param k total number of components to return though the full variance (based on nu and nv) will still be returned (see \code{Dv.orig})
-#'  @param tol default is .Machine$double.eps. A parameter with two roles: A tolerance level for (1) eliminating (tiny variance or negative or imaginary) components. (2) converting all values < tol to 0 in \item{u} and \item{v}
+#' @param DAT a data matrix to decompose
+#' @param LW \bold{L}eft \bold{W}eights -- the constraints applied to the left side (rows) of the matrix and thus left singular vectors
+#' @param RW \bold{R}ight \bold{W}eights -- the constraints applied to the right side (rows) of the matrix and thus right singular vectors
+#' @param k total number of components to return though the full variance (based on nu and nv) will still be returned (see \code{Dv.orig})
+#' @param tol default is .Machine$double.eps. A parameter with two roles: A tolerance level for (1) eliminating (tiny variance or negative or imaginary) components. (2) converting all values < tol to 0 in \item{u} and \item{v}
 #'
-#'  @return
-#'  A list with seven elements:
-#'  \item{u} Left singular vectors. A matrix whose columns contain the left singular vectors of x, present if nu > 0. Dimension c(n, nu) but also accounting for \code{tol}.
-#'  \item{v} Right singular vectors. A matrix whose columns contain the left singular vectors of x, present if nv > 0. Dimension c(p, nv) but also accounting for \code{tol}.
-#'  \item{p} Left generalized singular vectors. A vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#'  \item{q} Right generalized singular vectors. A vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#'  \item{d} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#'  \item{d.orig} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#'  \item{tau} a vector that contains the (original) explained variance per component.
+#' @return A list with seven elements:
+#' \item{u} Left singular vectors. A matrix whose columns contain the left singular vectors of x, present if nu > 0. Dimension c(n, nu) but also accounting for \code{tol}.
+#' \item{v} Right singular vectors. A matrix whose columns contain the left singular vectors of x, present if nv > 0. Dimension c(p, nv) but also accounting for \code{tol}.
+#' \item{p} Left generalized singular vectors. A vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
+#' \item{q} Right generalized singular vectors. A vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
+#' \item{d} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
+#' \item{d.orig} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
+#' \item{tau} a vector that contains the (original) explained variance per component.
 #'
-#'  @seealso \code{\link{tolerance.svd}} and \code{\link{svd}}
+#' @seealso \code{\link{tolerance.svd}} and \code{\link{svd}}
 #'
-#'  @examples
+#' @examples
 #'  ## an example with correspondence analysis.
 #'  data(authors)
 #'  author.data <- authors$ca$data
@@ -38,7 +30,7 @@
 #'    row.W <- diag(1/row.w)
 #'  col.w <- colSums(Observed)
 #'    col.W <- diag(1/col.w)
-#'  Expected <- row.w %o% col.w
+#'  Expected <- row.w \%o\% col.w
 #'  Deviations <- Observed - Expected
 #'  ca.res <- gsvd(Deviations,row.W,col.W)
 #'
@@ -50,7 +42,7 @@
 #'  base.cca <- cancor(X,Y,F,F)
 #'
 #'  cca.res <- gsvd(
-#'      mgi(crossprod(X)) %*% t(X) %*% Y %*% mgi(crossprod(Y)),
+#'      mgi(crossprod(X)) \%*\% t(X) \%*\% Y %*% mgi(crossprod(Y)),
 #'      crossprod(X),
 #'      crossprod(Y)
 #'  )
@@ -65,8 +57,8 @@
 #'  t(cca.res$lx) %*% cca.res$ly
 #'  all.equal(diag(t(cca.res$lx) %*% cca.res$ly),cca.res$d)
 #'
-#'  @author Derek Beaton
-#'  @keywords multivariate, diagonalization, eigen
+#' @author Derek Beaton
+#' @keywords multivariate, diagonalization, eigen
 
 
 gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
