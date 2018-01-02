@@ -23,8 +23,6 @@ ca.res3 <- gsvd( (authors$ca$data/sum.data) - (wi %o% wj), 1/wi, diag(1/wj))
 
 ca.res4 <- gsvd( (authors$ca$data/sum.data) - (wi %o% wj), diag(1/wi), 1/wj)
 
-
-
 epca.res <- epCA(authors$ca$data,graphs=F)
 
 

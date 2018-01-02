@@ -94,8 +94,6 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
           }else{
             LW.is.vector <- T  #now it's a vector
           }
-        }else{
-          stop("gsvd: unknown condition for LW.")
         }
       }else{
         stop("gsvd: unknown condition for LW.")
@@ -124,8 +122,6 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
           }else{
             RW.is.vector <- T  #now it's a vector
           }
-        }else{
-          stop("gsvd: unknown condition for RW.")
         }
       }else{
         stop("gsvd: unknown condition for RW.")
