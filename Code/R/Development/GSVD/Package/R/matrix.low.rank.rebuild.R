@@ -1,18 +1,18 @@
 #'
 #'  @export
 #'
-#'  @title \code{low.rank.rebuild}: raise matrix to a power and rebuild lower rank version
+#'  @title \code{matrix.low.rank.rebuild}: raise matrix to a power and rebuild lower rank version
 #'
-#'  @description \code{low.rank.rebuild} takes in a matrix and will rebuild a lower rank estimate.
+#'  @description \code{matrix.low.rank.rebuild} takes in a matrix and will rebuild a lower rank estimate.
 #'
 #'  @param x data matrix
-#'  @param k the number of components to retain in order to build a lower rank estimate of \code{x}
+#'  @param k a flexible parameter in order to build a lower rank estimate of \code{x}. \\ If the value is greater than 1, k is the number of consecutive components (from first) to retain. \\ If 0 < k < 1, this function rebuilds a matrix with the components that explain k*100 percent of the variance. \\ k can also be a vector of numbers that correspond to arbitrary components (e.g., k=c(1,3,5) rebuilds \code{x} with the first, third, and fifth components only).
 #'  @param ... parameters to pass through to \code{\link{tolerance.svd}}
 #'
 #'  @return
 #'  Low rank version of \code{x}
 #'
-#'  @seealso \code{\link{tolerance.svd}}, \code{\link{power.rebuild_matrix}}, and \code{\link{invert.rebuild_matrix}}
+#'  @seealso \code{\link{tolerance.svd}}, \code{\link{matrix.exponent}}, and \code{\link{matrix.generalized.inverse}}
 #'
 #'  @examples
 #'
@@ -23,7 +23,7 @@
 #'
 
 
-low.rank.rebuild <- function(x, k = 0, ...){
+matrix.low.rank.rebuild <- function(x, k = 0, ...){
 
   ## quick tests for escape
   if( !is.numeric(k) ){
@@ -40,7 +40,7 @@ low.rank.rebuild <- function(x, k = 0, ...){
 
   ##stolen from MASS::ginv()
   if (length(dim(x)) > 2L || !(is.numeric(x) || is.complex(x)))
-    stop("low.rank.rebuild: 'x' must be a numeric or complex matrix")
+    stop("matrix.low.rank.rebuild: 'x' must be a numeric or complex matrix")
   if (!is.matrix(x))
     x <- as.matrix(x)
 

@@ -15,7 +15,7 @@
 #'  @param LW \bold{L}eft \bold{W}eights -- the constraints applied to the left side (rows) of the matrix and thus left singular vectors
 #'  @param RW \bold{R}ight \bold{W}eights -- the constraints applied to the right side (rows) of the matrix and thus right singular vectors
 #'  @param k total number of components to return though the full variance (based on nu and nv) will still be returned (see \code{Dv.orig})
-#'  @param tol A tolerance level for eliminating (tiny variance or negative or imaginary) components. Default is .Machine$double.eps
+#'  @param tol default is .Machine$double.eps. A parameter with two roles: A tolerance level for (1) eliminating (tiny variance or negative or imaginary) components. (2) converting all values < tol to 0 in \item{u} and \item{v}
 #'
 #'  @return
 #'  A list with seven elements:

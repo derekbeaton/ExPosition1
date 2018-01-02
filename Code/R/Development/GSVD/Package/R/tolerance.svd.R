@@ -18,7 +18,7 @@
 #'  @param x A data matrix for input to the singular value decomposition (\code{\link{svd}})
 #'  @param nu the number of left singular vectors to be computed. Default is \code{min(dim(x))}
 #'  @param nv the number of right singular vectors to be computed. Default is \code{min(dim(x))}
-#'  @param tol A tolerance level for eliminating (tiny variance or negative or imaginary) components. Default is .Machine$double.eps
+#'  @param tol default is .Machine$double.eps. A parameter with two roles: A tolerance level for (1) eliminating (tiny variance or negative or imaginary) components. (2) converting all values < tol to 0 in \item{u} and \item{v}
 #'
 #'  @return
 #'  A list with three elements (like \code{svd}):
