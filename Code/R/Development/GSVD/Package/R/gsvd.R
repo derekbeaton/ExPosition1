@@ -31,16 +31,9 @@
 #'
 #'  @examples
 #'  ## an example with correspondence analysis.
-#'  authors <- rbind(
-#'    cbind(7836, 13112, 6026),
-#'    cbind(53655, 102383, 42413),
-#'    cbind(115615, 184541, 59226),
-#'    cbind(161926, 340479, 62754),
-#'    cbind(38177, 105101, 12670),
-#'    cbind(46371, 58367, 14299)
-#'    )
-#'
-#'  Observed <- authors/sum(authors)
+#'  data(authors)
+#'  author.data <- authors$ca$data
+#'  Observed <- authors/sum(author.data)
 #'  row.w <- rowSums(Observed)
 #'    row.W <- diag(1/row.w)
 #'  col.w <- colSums(Observed)
@@ -49,13 +42,33 @@
 #'  Deviations <- Observed - Expected
 #'  ca.res <- gsvd(Deviations,row.W,col.W)
 #'
+#'  ## an example with canonical correlation analysis (though not all bells and whistles exist)
+#'  data(two.table.wine)
+#'  X <- scale(wine$objective)
+#'  Y <- scale(wine$subjective)
+#'
+#'  base.cca <- cancor(X,Y,F,F)
+#'
+#'  cca.res <- gsvd(
+#'      mgi(crossprod(X)) %*% t(X) %*% Y %*% mgi(crossprod(Y)),
+#'      crossprod(X),
+#'      crossprod(Y)
+#'  )
+#'
+#'  all.equal(base.cca$cor,cca.res$d)
+#'  all.equal(base.cca$xcoef,cca.res$p)
+#'  all.equal(base.cca$ycoef[,1:ncol(cca.res$q)],cca.res$q)
+#'
+#'  cca.res$lx <- (X %*% cca.res$p)
+#'  cca.res$ly <- (Y %*% cca.res$q)
+#'  ### maximization:
+#'  t(cca.res$lx) %*% cca.res$ly
+#'  all.equal(diag(t(cca.res$lx) %*% cca.res$ly),cca.res$d)
+#'
 #'  @author Derek Beaton
 #'  @keywords multivariate, diagonalization, eigen
 
 
-
-## I don't think I want to allow nu and nv here... but maybe.
-#gsvd <- function(DAT, LW=NaN, RW=NaN, nu= min(dim(DAT)), nv = min(dim(DAT)), k = 0, tol=.Machine$double.eps){
 gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
 
   # preliminaries
@@ -146,38 +159,18 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
 
   ## these tests can be moved up but I just can't find a good place for them.
   if( LW.is.vector ){  ## replace with sweep
-    #if( length(LW)==nrow(DAT) ){
-      #DAT <- matrix(sqrt(LW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=F) * DAT
-      DAT <- sweep(DAT,1,sqrt(LW),"*")
-    #}else{
-    #  stop("gsvd:length(LW) does not equal nrow(DAT)")
-    #}
+    DAT <- sweep(DAT,1,sqrt(LW),"*")
   }else if(!LW.is.missing){
-    #if( nrow(LW)==ncol(LW) & nrow(LW)==nrow(DAT)){
-      #DAT <- power.rebuild_matrix(LW, power = 1/2) %*% DAT
-      DAT <- (LW %^% (1/2)) %*% DAT
-    #}else{
-    #  stop("gsvd:nrow(LW) does not equal ncol(LW) nor nrow(DAT)")
-    #}
+    DAT <- (LW %^% (1/2)) %*% DAT
   }else{
     stop("gsvd: unknown condition for LW.")
   }
 
 
   if( RW.is.vector ){  ## replace with sweep
-    #if( length(RW)==ncol(DAT)){
-      #DAT <- DAT * matrix(sqrt(RW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=T)
-      DAT <- sweep(DAT,2,sqrt(RW),"*")
-    #}else{
-    #  stop("gsvd:length(RW) does not equal ncol(DAT)")
-    #}
+    DAT <- sweep(DAT,2,sqrt(RW),"*")
   }else if(!RW.is.missing){
-    #if( nrow(RW)==ncol(RW) & nrow(RW)==ncol(DAT)){
-      #DAT <- DAT %*% power.rebuild_matrix(RW, power = 1/2)
-      DAT <- DAT %*% (RW %^% (1/2))
-    #}else{
-    #  stop("gsvd:nrow(RW) does not equal ncol(RW) nor ncol(DAT)")
-    #}
+    DAT <- DAT %*% (RW %^% (1/2))
   }else{
     stop("gsvd: unknown condition for RW.")
   }
@@ -202,33 +195,23 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   if(LW.is.vector){
     res$p <- sweep(res$u,1,1/sqrt(LW),"*")
     res$fi <- sweep(sweep(res$p,1,LW,"*"),2,res$d,"*")
-    #res$p <- matrix(1/sqrt(LW),nrow=nrow(res$u),ncol=ncol(res$u),byrow=F) * res$u
-    #res$fi <- matrix(LW,nrow=nrow(res$p),ncol=ncol(res$p),byrow=F) * res$p * matrix(res$d,nrow(res$p),ncol(res$p),byrow=T)
   }else if(!LW.is.missing){
-    #res$p <- power.rebuild_matrix(LW, power = -1/2) %*% res$u
     res$p <- (LW %^% (-1/2)) %*% res$u
     res$fi <- sweep((LW %*% res$p),2,res$d,"*")
-    #res$fi <- LW %*% res$p * matrix(res$d,nrow(res$p),ncol(res$p),byrow=T)
   }else{
     res$p <- res$u
     res$fi <- sweep(res$p,2,res$d,"*")
-    #res$fi <- res$p * matrix(d,nrow(p),ncol(p),byrow=T)
   }
 
   if(RW.is.vector){
     res$q <- sweep(res$v,1,1/sqrt(RW),"*")
     res$fj <- sweep(sweep(res$q,1,RW,"*"),2,res$d,"*")
-    #res$q <- matrix(1/sqrt(RW),nrow=nrow(res$v),ncol=ncol(res$v),byrow=F) * res$v
-    #res$fj <- matrix(RW,nrow=nrow(res$q),ncol=ncol(res$q),byrow=F) * res$q * matrix(res$d,nrow(res$q),ncol(res$q),byrow=T)
   }else if(!RW.is.missing){
-    #res$q <- power.rebuild_matrix(RW, power = -1/2) %*% res$v
     res$q <- (RW %^% (-1/2)) %*% res$v
     res$fj <- sweep((RW %*% res$q),2,res$d,"*")
-    #res$fj <- RW %*% res$q * matrix(res$d,nrow(res$q),ncol(res$q),byrow=T)
   }else{
     res$q <- res$v
     res$fj <- sweep(res$q,2,res$d,"*")
-    #res$fj <- res$q * matrix(res$d,nrow(res$q),ncol(res$q),byrow=T)
   }
 
   rownames(res$fi) <- rownames(res$u) <- rownames(res$p) <- rownames(DAT)
