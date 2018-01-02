@@ -14,7 +14,7 @@
 #'  @return
 #'  The (possibly lower rank) raised to an arbitrary \code{power} version of \code{x}
 #'
-#'  @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{invert.rebuild_matrix}}
+#'  @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.generalized.inverse}}
 #'
 #'  @examples
 #'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }

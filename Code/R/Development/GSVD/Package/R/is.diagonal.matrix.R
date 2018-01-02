@@ -1,21 +1,24 @@
 #'
 #'  @export
 #'
-#'  @title \code{is.diagonal.matrix}: test if a matrix is diagonal
+#'  @title \code{is.diagonal.matrix}: test if a matrix is a diagonal matrix
 #'
-#'  @description \code{is.diagonal.matrix} takes a matrix and tests if it is diagonal matrix.
+#'  @description \code{is.diagonal.matrix} takes a matrix and tests if it is a diagonal matrix.
 #'
-#'  @param X a matrix to test
+#'  @param x a matrix to test
+#'  @param tol tolerance precision to eliminate all abs(x) values below \code{tol}. Default is .Machine$double.eps
 #'
 #'  @return
-#'  boolean. TRUE if the matrix is diagonal, FALSE if the matrix is not.
+#'  boolean. TRUE if the matrix is a diagonal matrix, FALSE if the matrix is not.
 
 
   ## I stole this from somewhere... but I don't remember where
-is.diagonal.matrix <- function(X,tol=.Machine$double.eps){
-  if(is.null(dim(X))){
-    stop("isDiagonal.matrix: X is not a matrix.")
+    ## I should find where I stole this from.
+    ## I believe this: https://stackoverflow.com/questions/11057639/identifying-if-only-the-diagonal-is-non-zero
+is.diagonal.matrix <- function(x,tol=.Machine$double.eps){
+  if(is.null(dim(x))){
+    stop("is.diagonal.matrix: X is not a matrix.")
   }
-  X[ X^2 < tol ] <- 0
-  return(all(X[lower.tri(X)] == 0, X[upper.tri(X)] == 0))
+  x[ x^2 < tol ] <- 0
+  return(all(x[lower.tri(x)] == 0, x[upper.tri(x)] == 0))
 }

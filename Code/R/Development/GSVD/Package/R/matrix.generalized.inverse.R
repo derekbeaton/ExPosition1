@@ -13,7 +13,7 @@
 #'  @return
 #'  The (possibly lower rank) psuedo-inverse of \code{x}
 #'
-#'  @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{power.rebuild_matrix}}
+#'  @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.exponent}}
 #'
 #'  @examples
 #'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }

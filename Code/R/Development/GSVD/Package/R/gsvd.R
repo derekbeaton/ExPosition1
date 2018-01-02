@@ -48,9 +48,6 @@
 #'  Expected <- row.w %o% col.w
 #'  Deviations <- Observed - Expected
 #'  ca.res <- gsvd(Deviations,row.W,col.W)
-#'    ## fi & fj in example deprecated because this is now part of the GSVD return.
-#'  #fi <- row.W %*% ca.res$p %*% diag(ca.res$d)
-#'  #fj <- col.W %*% ca.res$q %*% diag(ca.res$d)
 #'
 #'  @author Derek Beaton
 #'  @keywords multivariate, diagonalization, eigen
@@ -70,97 +67,120 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   DAT[abs(DAT) < tol] <- 0
   RW.is.vector <- LW.is.vector <- RW.is.missing <- LW.is.missing <- F
 
-    # check if LW and RW are missing, if they are vectors, or if they are diagonal matrices.
-      ## TODO: Check if LW or RW are identity or all 0s
-    if( missing(LW) ){
-      LW.is.missing <- T
-    }else{
-      if ( is.null(dim(LW)) & (length(LW) > 0) ) {
+  # check if LW and RW are missing, if they are vectors, or if they are diagonal matrices.
+  if( missing(LW) ){
+    LW.is.missing <- T
+  }else{ # it's here and we have to check!
+
+    if ( is.null(dim(LW)) & (length(LW) > 0) ) {
+
+      if( (abs(max(LW) - min(LW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
+        LW.is.missing <- T
+        warning("gsvd: LW was a diagonal matrix with identical elements. LW will not be used in the GSVD.")
+      }else{
+        LW.is.vector <- T
+      }
+
+    }else if(!LW.is.vector){
+
+      if( is.identity.matrix(LW) | is.empty.matrix(LW) | is.identical.matrix(LW) ){
+        LW.is.missing <- T
+        warning("gsvd: LW was an identity, empty, or identical element matrix. LW will not be used in the GSVD.")
+      }else if( is.diagonal.matrix(LW) ){
+
+        LW <- diag(LW)
         if( (abs(max(LW) - min(LW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
           LW.is.missing <- T
           warning("gsvd: LW was a diagonal matrix with identical elements. LW will not be used in the GSVD.")
         }else{
-          LW.is.vector <- T
-        }
-      }else if(!LW.is.vector){
-        if( is.identity.matrix(LW) | is.empty.matrix(LW) ){
-          LW.is.missing <- T
-          warning("gsvd: LW was an identity or empty matrix. LW will not be used in the GSVD.")
-        }else if( is.diagonal.matrix(LW) ){
-          LW <- diag(LW)
-          if( (abs(max(LW) - min(LW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
-            LW.is.missing <- T
-            warning("gsvd: LW was a diagonal matrix with identical elements. LW will not be used in the GSVD.")
+          if( length(LW) != DAT.dims[1] ){
+            stop("gsvd:length(LW) does not equal nrow(DAT)")
           }else{
             LW.is.vector <- T  #now it's a vector
           }
         }
-      }else{
-        stop("gsvd: unknown condition for LW.")
+      }else if( nrow(LW) != ncol(LW) | nrow(LW) != DAT.dims[1] ){
+        stop("gsvd:nrow(LW) does not equal ncol(LW) or nrow(DAT)")
       }
     }
+  }
 
-    if( missing(RW) ){
-      RW.is.missing <- T
-    }else{
-      if ( is.null(dim(RW)) & (length(RW) > 0) ) {
+
+  if( missing(RW) ){
+    RW.is.missing <- T
+  }else{ # it's here and we have to check!
+
+    if ( is.null(dim(RW)) & (length(RW) > 0) ) {
+
+      if( (abs(max(RW) - min(RW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
+        RW.is.missing <- T
+        warning("gsvd: RW was a diagonal matrix with identical elements. RW will not be used in the GSVD.")
+      }else{
+        RW.is.vector <- T
+      }
+
+    }else if(!RW.is.vector){
+
+      if( is.identity.matrix(RW) | is.empty.matrix(RW) | is.identical.matrix(RW) ){
+        RW.is.missing <- T
+        warning("gsvd: RW was an identity, empty, or identical element matrix. RW will not be used in the GSVD.")
+      }else if( is.diagonal.matrix(RW) ){
+
+        RW <- diag(RW)
         if( (abs(max(RW) - min(RW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
           RW.is.missing <- T
-          warning("gsvd: RW was a vector with identical elements. RW will not be used in the GSVD.")
+          warning("gsvd: RW was a diagonal matrix with identical elements. RW will not be used in the GSVD.")
         }else{
-          RW.is.vector <- T
-        }
-      }else if(!RW.is.vector){
-        if( is.identity.matrix(RW) | is.empty.matrix(RW) ){
-          LW.is.missing <- T
-          warning("gsvd: RW was an identity or empty matrix. RW will not be used in the GSVD.")
-        }else if( is.diagonal.matrix(RW) ){
-          RW <- diag(RW)
-          if( (abs(max(RW) - min(RW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
-            RW.is.missing <- T
-            warning("gsvd: RW was a diagonal matrix with identical elements. RW will not be used in the GSVD.")
+          if( length(RW) != DAT.dims[2] ){
+            stop("gsvd:length(RW) does not equal ncol(DAT)")
           }else{
             RW.is.vector <- T  #now it's a vector
           }
         }
-      }else{
-        stop("gsvd: unknown condition for RW.")
+      }else if( nrow(RW) != ncol(RW) | nrow(RW) != DAT.dims[2] ){
+        stop("gsvd:nrow(RW) does not equal ncol(RW) or nrow(DAT)")
       }
     }
-
-    ## these tests can be moved up but I just can't find a good place for them.
-    if( LW.is.vector ){  ## replace with sweep
-      if( length(LW)==nrow(DAT) ){
-        #DAT <- matrix(sqrt(LW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=F) * DAT
-        DAT <- sweep(DAT,1,sqrt(LW),"*")
-      }else{
-        stop("gsvd:length(LW) does not equal nrow(DAT)")
-      }
-    }else if(!LW.is.missing){
-      if( nrow(LW)==ncol(LW) & nrow(LW)==nrow(DAT)){
-        #DAT <- power.rebuild_matrix(LW, power = 1/2) %*% DAT
-        DAT <- (LW %^% (1/2)) %*% DAT
-      }else{
-        stop("gsvd:nrow(LW) does not equal ncol(LW) nor nrow(DAT)")
-      }
-    }
+  }
 
 
-    if( RW.is.vector ){  ## replace with sweep
-      if( length(RW)==ncol(DAT)){
-        #DAT <- DAT * matrix(sqrt(RW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=T)
-        DAT <- sweep(DAT,2,sqrt(RW),"*")
-      }else{
-        stop("gsvd:length(RW) does not equal ncol(DAT)")
-      }
-    }else if(!RW.is.missing){
-      if( nrow(RW)==ncol(RW) & nrow(RW)==ncol(DAT)){
-        #DAT <- DAT %*% power.rebuild_matrix(RW, power = 1/2)
-        DAT <- DAT %*% (RW %^% (1/2))
-      }else{
-        stop("gsvd:nrow(RW) does not equal ncol(RW) nor ncol(DAT)")
-      }
-    }
+  ## these tests can be moved up but I just can't find a good place for them.
+  if( LW.is.vector ){  ## replace with sweep
+    #if( length(LW)==nrow(DAT) ){
+      #DAT <- matrix(sqrt(LW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=F) * DAT
+      DAT <- sweep(DAT,1,sqrt(LW),"*")
+    #}else{
+    #  stop("gsvd:length(LW) does not equal nrow(DAT)")
+    #}
+  }else if(!LW.is.missing){
+    #if( nrow(LW)==ncol(LW) & nrow(LW)==nrow(DAT)){
+      #DAT <- power.rebuild_matrix(LW, power = 1/2) %*% DAT
+      DAT <- (LW %^% (1/2)) %*% DAT
+    #}else{
+    #  stop("gsvd:nrow(LW) does not equal ncol(LW) nor nrow(DAT)")
+    #}
+  }else{
+    stop("gsvd: unknown condition for LW.")
+  }
+
+
+  if( RW.is.vector ){  ## replace with sweep
+    #if( length(RW)==ncol(DAT)){
+      #DAT <- DAT * matrix(sqrt(RW),nrow=nrow(DAT),ncol=ncol(DAT),byrow=T)
+      DAT <- sweep(DAT,2,sqrt(RW),"*")
+    #}else{
+    #  stop("gsvd:length(RW) does not equal ncol(DAT)")
+    #}
+  }else if(!RW.is.missing){
+    #if( nrow(RW)==ncol(RW) & nrow(RW)==ncol(DAT)){
+      #DAT <- DAT %*% power.rebuild_matrix(RW, power = 1/2)
+      DAT <- DAT %*% (RW %^% (1/2))
+    #}else{
+    #  stop("gsvd:nrow(RW) does not equal ncol(RW) nor ncol(DAT)")
+    #}
+  }else{
+    stop("gsvd: unknown condition for RW.")
+  }
 
 
   if(k<=0){
