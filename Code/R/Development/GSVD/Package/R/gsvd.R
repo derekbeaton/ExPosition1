@@ -1,3 +1,5 @@
+#' @export
+#'
 #' @title Generalized SVD
 #'
 #' @description
@@ -27,7 +29,7 @@
 #'  ## an example with correspondence analysis.
 #'  data(authors)
 #'  author.data <- authors$ca$data
-#'  Observed <- authors/sum(author.data)
+#'  Observed <- author.data/sum(author.data)
 #'  row.w <- rowSums(Observed)
 #'    row.W <- diag(1/row.w)
 #'  col.w <- colSums(Observed)
@@ -41,23 +43,26 @@
 #'  X <- scale(wine$objective)
 #'  Y <- scale(wine$subjective)
 #'
-#'  base.cca <- cancor(X,Y,F,F)
-#'
 #'  cca.res <- gsvd(
-#'      mgi(crossprod(X)) %*% t(X) %*% Y %*% mgi(crossprod(Y)),
+#'      matrix.generalized.inverse(crossprod(X)) %*% t(X) %*% Y %*% matrix.generalized.inverse(crossprod(Y)),
 #'      crossprod(X),
 #'      crossprod(Y)
 #'  )
 #'
-#'  all.equal(base.cca$cor,cca.res$d)
-#'  all.equal(base.cca$xcoef,cca.res$p)
-#'  all.equal(base.cca$ycoef[,1:ncol(cca.res$q)],cca.res$q)
-#'
 #'  cca.res$lx <- (X %*% cca.res$p)
 #'  cca.res$ly <- (Y %*% cca.res$q)
-#'  ### maximization:
-#'  t(cca.res$lx) %*% cca.res$ly
-#'  all.equal(diag(t(cca.res$lx) %*% cca.res$ly),cca.res$d)
+#'
+#'  \dontrun{
+#'      optimize.for <- t(cca.res$lx) %*% cca.res$ly
+#'      all.equal(diag(optimize.for),cca.res$d)
+#'
+#'
+#'      base.cca <- cancor(X,Y,F,F)
+#'
+#'      sum(abs(base.cca$cor - cca.res$d)) < (.Machine$double.eps*100)
+#'      base.cca$xcoef / cca.res$p
+#'      base.cca$ycoef[,1:ncol(cca.res$q)] - cca.res$q
+#'  }
 #'
 #' @author Derek Beaton
 #' @keywords multivariate, diagonalization, eigen
@@ -79,7 +84,7 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
     LW.is.missing <- T
   }else{ # it's here and we have to check!
 
-    if ( is.null(dim(LW)) & (length(LW) > 0) ) {
+    if ( is.vector(LW) ) {
 
       if( (abs(max(LW) - min(LW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
         LW.is.missing <- T
@@ -117,7 +122,7 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
     RW.is.missing <- T
   }else{ # it's here and we have to check!
 
-    if ( is.null(dim(RW)) & (length(RW) > 0) ) {
+    if ( is.vector(RW) ) {
 
       if( (abs(max(RW) - min(RW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
         RW.is.missing <- T
@@ -159,7 +164,6 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   }else{
     stop("gsvd: unknown condition for LW.")
   }
-
 
   if( RW.is.vector ){  ## replace with sweep
     DAT <- sweep(DAT,2,sqrt(RW),"*")

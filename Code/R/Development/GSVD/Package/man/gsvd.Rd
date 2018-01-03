@@ -37,7 +37,7 @@ A list with nine elements:
  ## an example with correspondence analysis.
  data(authors)
  author.data <- authors$ca$data
- Observed <- authors/sum(author.data)
+ Observed <- author.data/sum(author.data)
  row.w <- rowSums(Observed)
    row.W <- diag(1/row.w)
  col.w <- colSums(Observed)
@@ -51,23 +51,26 @@ A list with nine elements:
  X <- scale(wine$objective)
  Y <- scale(wine$subjective)
 
- base.cca <- cancor(X,Y,F,F)
-
  cca.res <- gsvd(
-     mgi(crossprod(X)) \%*\% t(X) \%*\% Y \%*\% mgi(crossprod(Y)),
+     matrix.generalized.inverse(crossprod(X)) \%*\% t(X) \%*\% Y \%*\% matrix.generalized.inverse(crossprod(Y)),
      crossprod(X),
      crossprod(Y)
  )
 
- all.equal(base.cca$cor,cca.res$d)
- all.equal(base.cca$xcoef,cca.res$p)
- all.equal(base.cca$ycoef[,1:ncol(cca.res$q)],cca.res$q)
-
  cca.res$lx <- (X \%*\% cca.res$p)
  cca.res$ly <- (Y \%*\% cca.res$q)
- ### maximization:
- t(cca.res$lx) \%*\% cca.res$ly
- all.equal(diag(t(cca.res$lx) \%*\% cca.res$ly),cca.res$d)
+
+ \dontrun{
+     optimize.for <- t(cca.res$lx) \%*\% cca.res$ly
+     all.equal(diag(optimize.for),cca.res$d)
+
+
+     base.cca <- cancor(X,Y,F,F)
+
+     sum(abs(base.cca$cor - cca.res$d)) < (.Machine$double.eps*100)
+     base.cca$xcoef / cca.res$p
+     base.cca$ycoef[,1:ncol(cca.res$q)] - cca.res$q
+ }
 
 }
 \seealso{

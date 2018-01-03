@@ -2,19 +2,18 @@
 % Please edit documentation in R/is.identity.matrix.R
 \name{is.identity.matrix}
 \alias{is.identity.matrix}
-\title{@export}
+\title{\code{is.identity.matrix}: test if a matrix is an identity matrix.}
 \usage{
 is.identity.matrix(x, tol = .Machine$double.eps)
 }
-\description{
-@title \code{is.identity.matrix}: test if a matrix is an identity matrix
+\arguments{
+\item{x}{A matrix to test.}
+
+\item{tol}{Tolerance precision to eliminate all abs(x) values below \code{tol}. Default is \code{.Machine$double.eps}.}
 }
-\details{
-@description \code{is.identity.matrix} takes a matrix and tests if it is an identity matrix
-
-@param x a matrix to test
- @param tol tolerance precision to eliminate all abs(x) values below \code{tol}. Default is .Machine$double.eps
-
-@return
- boolean. TRUE if the matrix is an identity matrix, FALSE if the matrix is not.
+\value{
+A boolean. TRUE if the matrix is an identity matrix, FALSE if the matrix is not.
+}
+\description{
+\code{is.identity.matrix} takes a matrix and tests if it is an identity matrix.
 }

@@ -1,32 +1,30 @@
+#' @export
 #'
-#'  @export
+#' @title \code{matrix.generalized.inverse}: psuedo inverse and rebuild of a matrix
 #'
-#'  @title \code{matrix.generalized.inverse}: psuedo inverse and rebuild of a matrix
-#'
-#'  @description \code{matrix.generalized.inverse} takes in a matrix and will compute the psuedo-inverse via the singular value decomposition.
+#' @description \code{matrix.generalized.inverse} takes in a matrix and will compute the psuedo-inverse via the singular value decomposition.
 #'  Additionally, the psuedo-inverse can be computed for a lower rank estimate of the matrix.
 #'
-#'  @param x data matrix to compute the pseudo-inverse of
-#'  @param k the number of components to retain in order to build a lower rank estimate of \code{x}
-#'  @param ... parameters to pass through to \code{\link{tolerance.svd}}
+#' @param x data matrix to compute the pseudo-inverse of
+#' @param k the number of components to retain in order to build a lower rank estimate of \code{x}
+#' @param ... parameters to pass through to \code{\link{tolerance.svd}}
 #'
-#'  @return
-#'  The (possibly lower rank) psuedo-inverse of \code{x}
+#' @return The (possibly lower rank) generalized inverse of \code{x}
 #'
-#'  @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.exponent}}
+#' @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.exponent}}
 #'
-#'  @examples
+#' @examples
 #'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
 #'  X <- hilbert(9)[, 1:6]
 #'  X.inv <- matrix.generalized.inverse(X)
 #'  X.inv %*% X ## is approximately an identity.
 #'
-#'  @author Derek Beaton
+#' @author Derek Beaton
 #'
-#'  @keywords multivariate, diagonalization, eigen, pseudo-inverse, Moore-Penrose, generalized inverse
-#'
+#' @keywords multivariate, diagonalization, eigen, pseudo-inverse, Moore-Penrose, generalized inverse
 
-matrix.generalized.inverse <- mgi <- m.g.i <- function(x, k=0, ...){
+#matrix.generalized.inverse <- mgi <- m.g.i <- function(x, k=0, ...){
+matrix.generalized.inverse <- function(x, k=0, ...){
 
   ##stolen from MASS::ginv()
   if (length(dim(x)) > 2L || !(is.numeric(x) || is.complex(x)))

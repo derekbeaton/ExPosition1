@@ -2,19 +2,18 @@
 % Please edit documentation in R/is.diagonal.matrix.R
 \name{is.diagonal.matrix}
 \alias{is.diagonal.matrix}
-\title{@export}
+\title{\code{is.diagonal.matrix}: test if a matrix is a diagonal matrix.}
 \usage{
 is.diagonal.matrix(x, tol = .Machine$double.eps)
 }
-\description{
-@title \code{is.diagonal.matrix}: test if a matrix is a diagonal matrix
+\arguments{
+\item{x}{A matrix to test.}
+
+\item{tol}{Tolerance precision to eliminate all abs(x) values below \code{tol}. Default is \code{.Machine$double.eps}.}
 }
-\details{
-@description \code{is.diagonal.matrix} takes a matrix and tests if it is a diagonal matrix.
-
-@param x a matrix to test
- @param tol tolerance precision to eliminate all abs(x) values below \code{tol}. Default is .Machine$double.eps
-
-@return
- boolean. TRUE if the matrix is a diagonal matrix, FALSE if the matrix is not.
+\value{
+A boolean. TRUE if the matrix is a diagonal matrix, FALSE if the matrix is not.
+}
+\description{
+\code{is.diagonal.matrix} takes a matrix and tests if it is a diagonal matrix.
 }

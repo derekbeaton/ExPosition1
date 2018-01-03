@@ -1,15 +1,13 @@
+#' @export
 #'
-#'  @export
+#' @title \code{is.identity.matrix}: test if a matrix is an identity matrix.
 #'
-#'  @title \code{is.identity.matrix}: test if a matrix is an identity matrix
+#' @description \code{is.identity.matrix} takes a matrix and tests if it is an identity matrix.
 #'
-#'  @description \code{is.identity.matrix} takes a matrix and tests if it is an identity matrix
+#' @param x A matrix to test.
+#' @param tol Tolerance precision to eliminate all abs(x) values below \code{tol}. Default is \code{.Machine$double.eps}.
 #'
-#'  @param x a matrix to test
-#'  @param tol tolerance precision to eliminate all abs(x) values below \code{tol}. Default is .Machine$double.eps
-#'
-#'  @return
-#'  boolean. TRUE if the matrix is an identity matrix, FALSE if the matrix is not.
+#' @return A boolean. TRUE if the matrix is an identity matrix, FALSE if the matrix is not.
 
 
 

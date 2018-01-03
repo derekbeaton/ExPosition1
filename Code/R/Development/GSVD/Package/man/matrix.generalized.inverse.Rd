@@ -2,33 +2,41 @@
 % Please edit documentation in R/matrix.generalized.inverse.R
 \name{matrix.generalized.inverse}
 \alias{matrix.generalized.inverse}
-\title{@export}
+\title{\code{matrix.generalized.inverse}: psuedo inverse and rebuild of a matrix}
 \usage{
 matrix.generalized.inverse(x, k = 0, ...)
 }
-\description{
-@title \code{matrix.generalized.inverse}: psuedo inverse and rebuild of a matrix
+\arguments{
+\item{x}{data matrix to compute the pseudo-inverse of}
+
+\item{k}{the number of components to retain in order to build a lower rank estimate of \code{x}}
+
+\item{...}{parameters to pass through to \code{\link{tolerance.svd}}}
 }
-\details{
-@description \code{matrix.generalized.inverse} takes in a matrix and will compute the psuedo-inverse via the singular value decomposition.
+\value{
+The (possibly lower rank) generalized inverse of \code{x}
+}
+\description{
+\code{matrix.generalized.inverse} takes in a matrix and will compute the psuedo-inverse via the singular value decomposition.
  Additionally, the psuedo-inverse can be computed for a lower rank estimate of the matrix.
-
-@param x data matrix to compute the pseudo-inverse of
- @param k the number of components to retain in order to build a lower rank estimate of \code{x}
- @param ... parameters to pass through to \code{\link{tolerance.svd}}
-
-@return
- The (possibly lower rank) psuedo-inverse of \code{x}
-
-@seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.exponent}}
-
-@examples
+}
+\examples{
  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
  X <- hilbert(9)[, 1:6]
  X.inv <- matrix.generalized.inverse(X)
- X.inv %*% X ## is approximately an identity.
+ X.inv \%*\% X ## is approximately an identity.
 
-@author Derek Beaton
-
-@keywords multivariate, diagonalization, eigen, pseudo-inverse, Moore-Penrose, generalized inverse
 }
+\seealso{
+\code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.exponent}}
+}
+\author{
+Derek Beaton
+}
+\keyword{Moore-Penrose,}
+\keyword{diagonalization,}
+\keyword{eigen,}
+\keyword{generalized}
+\keyword{inverse}
+\keyword{multivariate,}
+\keyword{pseudo-inverse,}

@@ -1,3 +1,5 @@
+#' @export
+#'
 #' @title \code{matrix.exponent}: raise matrix to a power and rebuild lower rank version
 #'
 #' @description \code{matrix.exponent} takes in a matrix and will compute raise that matrix to some arbitrary power via the singular value decomposition.
@@ -8,8 +10,7 @@
 #' @param k the number of components to retain in order to build a lower rank estimate of \code{x}
 #' @param ... parameters to pass through to \code{\link{tolerance.svd}}
 #'
-#' @return
-#'  The (possibly lower rank) raised to an arbitrary \code{power} version of \code{x}
+#' @return The (possibly lower rank) raised to an arbitrary \code{power} version of \code{x}
 #'
 #' @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.generalized.inverse}}
 #'
@@ -29,9 +30,9 @@
 #' @author Derek Beaton
 #'
 #' @keywords multivariate, diagonalization, eigen
-#'
 
-matrix.exponent <- me <- m.e <- function(x, power = 1, k = 0, ...){
+#matrix.exponent <- me <- m.e <- function(x, power = 1, k = 0, ...){
+matrix.exponent <- function(x, power = 1, k = 0, ...){
 
   ##stolen from MASS::ginv()
   if (length(dim(x)) > 2L || !(is.numeric(x) || is.complex(x)))

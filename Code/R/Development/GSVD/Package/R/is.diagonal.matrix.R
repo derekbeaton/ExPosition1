@@ -1,15 +1,13 @@
+#' @export
 #'
-#'  @export
+#' @title \code{is.diagonal.matrix}: test if a matrix is a diagonal matrix.
 #'
-#'  @title \code{is.diagonal.matrix}: test if a matrix is a diagonal matrix
+#' @description \code{is.diagonal.matrix} takes a matrix and tests if it is a diagonal matrix.
 #'
-#'  @description \code{is.diagonal.matrix} takes a matrix and tests if it is a diagonal matrix.
+#' @param x A matrix to test.
+#' @param tol Tolerance precision to eliminate all abs(x) values below \code{tol}. Default is \code{.Machine$double.eps}.
 #'
-#'  @param x a matrix to test
-#'  @param tol tolerance precision to eliminate all abs(x) values below \code{tol}. Default is .Machine$double.eps
-#'
-#'  @return
-#'  boolean. TRUE if the matrix is a diagonal matrix, FALSE if the matrix is not.
+#' @return A boolean. TRUE if the matrix is a diagonal matrix, FALSE if the matrix is not.
 
 
   ## I stole this from somewhere... but I don't remember where

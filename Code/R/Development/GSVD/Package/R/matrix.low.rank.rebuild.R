@@ -1,26 +1,20 @@
+#' @export
 #'
-#'  @export
+#' @title \code{matrix.low.rank.rebuild}: raise matrix to a power and rebuild lower rank version
 #'
-#'  @title \code{matrix.low.rank.rebuild}: raise matrix to a power and rebuild lower rank version
+#' @description \code{matrix.low.rank.rebuild} takes in a matrix and will rebuild a lower rank estimate.
 #'
-#'  @description \code{matrix.low.rank.rebuild} takes in a matrix and will rebuild a lower rank estimate.
+#' @param x data matrix
+#' @param k a flexible parameter in order to build a lower rank estimate of \code{x}. \\ If the value is greater than 1, k is the number of consecutive components (from first) to retain. \\ If 0 < k < 1, this function rebuilds a matrix with the components that explain k*100 percent of the variance. \\ k can also be a vector of numbers that correspond to arbitrary components (e.g., k=c(1,3,5) rebuilds \code{x} with the first, third, and fifth components only).
+#' @param ... parameters to pass through to \code{\link{tolerance.svd}}.
 #'
-#'  @param x data matrix
-#'  @param k a flexible parameter in order to build a lower rank estimate of \code{x}. \\ If the value is greater than 1, k is the number of consecutive components (from first) to retain. \\ If 0 < k < 1, this function rebuilds a matrix with the components that explain k*100 percent of the variance. \\ k can also be a vector of numbers that correspond to arbitrary components (e.g., k=c(1,3,5) rebuilds \code{x} with the first, third, and fifth components only).
-#'  @param ... parameters to pass through to \code{\link{tolerance.svd}}
+#' @return A low rank version of \code{x}.
 #'
-#'  @return
-#'  Low rank version of \code{x}
+#' @seealso \code{\link{tolerance.svd}}, \code{\link{matrix.exponent}}, and \code{\link{matrix.generalized.inverse}}
 #'
-#'  @seealso \code{\link{tolerance.svd}}, \code{\link{matrix.exponent}}, and \code{\link{matrix.generalized.inverse}}
+#' @author Derek Beaton
 #'
-#'  @examples
-#'
-#'
-#'  @author Derek Beaton
-#'
-#'  @keywords multivariate, diagonalization, eigen, low rank, rank
-#'
+#' @keywords multivariate, diagonalization, eigen, low rank, rank
 
 
 matrix.low.rank.rebuild <- function(x, k = 0, ...){
