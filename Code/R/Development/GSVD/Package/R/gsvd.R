@@ -5,19 +5,21 @@
 #'   Left and right constraints are used for the orthogonality conditions.
 #'
 #' @param DAT a data matrix to decompose
-#' @param LW \bold{L}eft \bold{W}eights -- the constraints applied to the left side (rows) of the matrix and thus left singular vectors
-#' @param RW \bold{R}ight \bold{W}eights -- the constraints applied to the right side (rows) of the matrix and thus right singular vectors
-#' @param k total number of components to return though the full variance (based on nu and nv) will still be returned (see \code{Dv.orig})
-#' @param tol default is .Machine$double.eps. A parameter with two roles: A tolerance level for (1) eliminating (tiny variance or negative or imaginary) components. (2) converting all values < tol to 0 in \item{u} and \item{v}
+#' @param LW \bold{L}eft \bold{W}eights -- the constraints applied to the left side (rows) of the matrix and thus left singular vectors.
+#' @param RW \bold{R}ight \bold{W}eights -- the constraints applied to the right side (rows) of the matrix and thus right singular vectors.
+#' @param k total number of components to return though the full variance will still be returned (see \code{d.orig}). If 0, the full set of components are returned.
+#' @param tol default is .Machine$double.eps. A parameter with two roles: A tolerance level for (1) eliminating (tiny variance or negative or imaginary) components and (2) converting all values < tol to 0 in \item{u} and \item{v}.
 #'
-#' @return A list with seven elements:
-#' \item{u} Left singular vectors. A matrix whose columns contain the left singular vectors of x, present if nu > 0. Dimension c(n, nu) but also accounting for \code{tol}.
-#' \item{v} Right singular vectors. A matrix whose columns contain the left singular vectors of x, present if nv > 0. Dimension c(p, nv) but also accounting for \code{tol}.
-#' \item{p} Left generalized singular vectors. A vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#' \item{q} Right generalized singular vectors. A vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#' \item{d} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#' \item{d.orig} a vector containing the singular values of x of length min(n, p) but also accounting for \code{tol}.
-#' \item{tau} a vector that contains the (original) explained variance per component.
+#' @return A list with nine elements:
+#' \item{d.orig}{A vector containing the singular values of DAT > \code{tol}.}
+#' \item{tau}{A vector that contains the (original) explained variance per component (eigenvalues derived from \code{$d.orig}.}
+#' \item{d}{A vector containing the singular values of x > \code{tol}. Length is \code{min(length(d.orig), k)}}
+#' \item{u}{Left (rows) singular vectors. Dimensions are \code{nrow(DAT)} by k.}
+#' \item{p}{Left (rows) generalized singular vectors. Dimensions are \code{nrow(DAT)} by k.}
+#' \item{fi}{Left (rows) component scores. Dimensions are \code{nrow(DAT)} by k.}
+#' \item{v}{Right (columns) singular vectors. Dimensions are \code{ncol(DAT)} by k.}
+#' \item{q}{Right (columns) generalized singular vectors. Dimensions are \code{ncol(DAT)} by k.}
+#' \item{fj}{Right (columns) component scores. Dimensions are \code{ncol(DAT)} by k.}
 #'
 #' @seealso \code{\link{tolerance.svd}} and \code{\link{svd}}
 #'
@@ -30,7 +32,7 @@
 #'    row.W <- diag(1/row.w)
 #'  col.w <- colSums(Observed)
 #'    col.W <- diag(1/col.w)
-#'  Expected <- row.w \%o\% col.w
+#'  Expected <- row.w %o% col.w
 #'  Deviations <- Observed - Expected
 #'  ca.res <- gsvd(Deviations,row.W,col.W)
 #'
@@ -42,7 +44,7 @@
 #'  base.cca <- cancor(X,Y,F,F)
 #'
 #'  cca.res <- gsvd(
-#'      mgi(crossprod(X)) \%*\% t(X) \%*\% Y %*% mgi(crossprod(Y)),
+#'      mgi(crossprod(X)) %*% t(X) %*% Y %*% mgi(crossprod(Y)),
 #'      crossprod(X),
 #'      crossprod(Y)
 #'  )
