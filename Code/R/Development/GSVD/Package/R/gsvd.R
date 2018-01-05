@@ -61,7 +61,7 @@
 #'
 #'      sum(abs(base.cca$cor - cca.res$d)) < (.Machine$double.eps*100)
 #'      base.cca$xcoef / cca.res$p
-#'      base.cca$ycoef[,1:ncol(cca.res$q)] - cca.res$q
+#'      base.cca$ycoef[,1:ncol(cca.res$q)] / cca.res$q
 #'  }
 #'
 #' @author Derek Beaton
@@ -79,38 +79,36 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   DAT[abs(DAT) < tol] <- 0
   RW.is.vector <- LW.is.vector <- RW.is.missing <- LW.is.missing <- F
 
+  if(is.empty.matrix(LW)){
+    stop("gsvd: LW is empty (i.e., all 0s")
+  }
+  if(is.empty.matrix(RW)){
+    stop("gsvd: RW is empty (i.e., all 0s")
+  }
+
   # check if LW and RW are missing, if they are vectors, or if they are diagonal matrices.
+
   if( missing(LW) ){
     LW.is.missing <- T
   }else{ # it's here and we have to check!
 
     if ( is.vector(LW) ) {
-
-      if( (abs(max(LW) - min(LW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
-        LW.is.missing <- T
-        warning("gsvd: LW was a diagonal matrix with identical elements. LW will not be used in the GSVD.")
-      }else{
         LW.is.vector <- T
-      }
-
     }else if(!LW.is.vector){
 
-      if( is.identity.matrix(LW) | is.empty.matrix(LW) | is.identical.matrix(LW) ){
+      if( is.identity.matrix(LW) ){
         LW.is.missing <- T
-        warning("gsvd: LW was an identity, empty, or identical element matrix. LW will not be used in the GSVD.")
+        warning("gsvd: LW was an identity matrix. LW will not be used in the GSVD.")
       }else if( is.diagonal.matrix(LW) ){
 
         LW <- diag(LW)
-        if( (abs(max(LW) - min(LW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
-          LW.is.missing <- T
-          warning("gsvd: LW was a diagonal matrix with identical elements. LW will not be used in the GSVD.")
+
+        if( length(LW) != DAT.dims[1] ){
+          stop("gsvd:length(LW) does not equal nrow(DAT)")
         }else{
-          if( length(LW) != DAT.dims[1] ){
-            stop("gsvd:length(LW) does not equal nrow(DAT)")
-          }else{
-            LW.is.vector <- T  #now it's a vector
-          }
+          LW.is.vector <- T  #now it's a vector
         }
+
       }else if( nrow(LW) != ncol(LW) | nrow(LW) != DAT.dims[1] ){
         stop("gsvd:nrow(LW) does not equal ncol(LW) or nrow(DAT)")
       }
@@ -123,34 +121,24 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   }else{ # it's here and we have to check!
 
     if ( is.vector(RW) ) {
-
-      if( (abs(max(RW) - min(RW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
-        RW.is.missing <- T
-        warning("gsvd: RW was a diagonal matrix with identical elements. RW will not be used in the GSVD.")
-      }else{
-        RW.is.vector <- T
-      }
-
+      RW.is.vector <- T
     }else if(!RW.is.vector){
 
-      if( is.identity.matrix(RW) | is.empty.matrix(RW) | is.identical.matrix(RW) ){
+      if( is.identity.matrix(RW) ){
         RW.is.missing <- T
-        warning("gsvd: RW was an identity, empty, or identical element matrix. RW will not be used in the GSVD.")
+        warning("gsvd: RW was an identity matrix. RW will not be used in the GSVD.")
       }else if( is.diagonal.matrix(RW) ){
 
         RW <- diag(RW)
-        if( (abs(max(RW) - min(RW)) < tol) ){# stolen from: https://stackoverflow.com/questions/4752275/test-for-equality-among-all-elements-of-a-single-vector
-          RW.is.missing <- T
-          warning("gsvd: RW was a diagonal matrix with identical elements. RW will not be used in the GSVD.")
+
+        if( length(RW) != DAT.dims[2] ){
+          stop("gsvd:length(RW) does not equal ncol(DAT)")
         }else{
-          if( length(RW) != DAT.dims[2] ){
-            stop("gsvd:length(RW) does not equal ncol(DAT)")
-          }else{
-            RW.is.vector <- T  #now it's a vector
-          }
+          RW.is.vector <- T  #now it's a vector
         }
+
       }else if( nrow(RW) != ncol(RW) | nrow(RW) != DAT.dims[2] ){
-        stop("gsvd:nrow(RW) does not equal ncol(RW) or nrow(DAT)")
+        stop("gsvd:nrow(RW) does not equal ncol(RW) or ncol(DAT)")
       }
     }
   }
