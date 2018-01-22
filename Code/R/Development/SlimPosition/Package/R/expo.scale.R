@@ -29,7 +29,15 @@ expo.scale <- function(DATA,center=TRUE,scale=TRUE){
 		else if(tolower(scale)=="z"){ ##both z and SS1 need center/scale
 			center<-TRUE #=apply(DATA, 2, mean, na.rm = TRUE)
 			scale<-TRUE #=apply(DATA, 2, sd, na.rm = TRUE)
-		}else{ ## you made a booboo
+		}else if(tolower(center)=="median" | tolower(center)=="med"){
+		  center <- apply(DATA,2,median,na.rm=T)
+		  if(tolower(scale)=="mad"){
+		    scale <- apply(DATA,2,mad,na.rm=T)
+		  }else if(tolower(scale)=="iqr"){
+		    scale <- apply(DATA,2,IQR,na.rm=T)
+		  }
+		}
+	  else{ ## you made a booboo
 			center<-TRUE
 			scale<-TRUE
 			print("Something is wrong with 'center' and 'scale'. 'center' and 'scale' both set to TRUE.")

@@ -37,6 +37,8 @@ thermometer.coding <- function(DATA, mins=NULL, maxs=NULL){
   DATA <- cbind( (DATA-mins) / matrix(maxs,nrow(DATA),ncol(DATA),byrow=T), (maxs-DATA) / matrix(maxs,nrow(DATA),ncol(DATA),byrow=T))
   colnames(DATA) <- dat.col.names
 
+  ## these should be normed so that the variables = 1.
+
   return(DATA)
 }
 
