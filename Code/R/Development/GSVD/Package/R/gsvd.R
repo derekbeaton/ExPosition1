@@ -77,20 +77,27 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   }
   DAT <- as.matrix(DAT)
   DAT[abs(DAT) < tol] <- 0
-  RW.is.vector <- LW.is.vector <- RW.is.missing <- LW.is.missing <- F
+  RW.is.vector <- LW.is.vector <- RW.is.missing <- LW.is.missing <- F ##asuming everything is a matrix.
 
-
-  # check if LW and RW are missing, if they are vectors, or if they are diagonal matrices.
-
-  if( missing(LW) ){
-    LW.is.missing <- T
-  }else{ # it's here and we have to check!
+  ### These are here out of convenience for the tests below. They started to get too long.
+  if( !missing(LW) ){
     if(is.empty.matrix(LW)){
       stop("gsvd: LW is empty (i.e., all 0s")
     }
+  }
+  if( !missing(LW) ){
+    if(is.empty.matrix(RW)){
+      stop("gsvd: RW is empty (i.e., all 0s")
+    }
+  }
+
+  # check if LW and RW are missing, if they are vectors, or if they are diagonal matrices.
+  if( missing(LW) ){
+    LW.is.missing <- T
+  }else{ # it's here and we have to check!
 
     if ( is.vector(LW) ) {
-        LW.is.vector <- T
+      LW.is.vector <- T
     }else if(!LW.is.vector){
 
       if( is.identity.matrix(LW) ){
@@ -116,9 +123,7 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   if( missing(RW) ){
     RW.is.missing <- T
   }else{ # it's here and we have to check!
-    if(is.empty.matrix(RW)){
-      stop("gsvd: RW is empty (i.e., all 0s")
-    }
+
     if ( is.vector(RW) ) {
       RW.is.vector <- T
     }else if(!RW.is.vector){
@@ -143,65 +148,65 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   }
 
 
-  ## these tests can be moved up but I just can't find a good place for them.
+
   if(!LW.is.missing){
     if( LW.is.vector ){  ## replace with sweep
       DAT <- sweep(DAT,1,sqrt(LW),"*")
-    }else{ #if(!LW.is.missing){
+    }else{
       DAT <- (LW %^% (1/2)) %*% DAT
-     }#else{
-    #   stop("gsvd: unknown condition for LW.")
-    # }
+    }
   }
 
   if(!RW.is.missing){
     if( RW.is.vector ){  ## replace with sweep
       DAT <- sweep(DAT,2,sqrt(RW),"*")
-    }else{ #if(!RW.is.missing){
+    }else{
       DAT <- DAT %*% (RW %^% (1/2))
-     }#else{
-    #   stop("gsvd: unknown condition for RW.")
-    # }
+    }
   }
 
 
   if(k<=0){
     k <- min(nrow(DAT),ncol(DAT))
   }
-
   res <- tolerance.svd(DAT,nu=k,nv=k,tol=tol)
-
   res$d.orig <- res$d
   res$tau <- res$d.orig^2/sum(res$d.orig^2)
   components.to.return <- min(length(res$d.orig),k) #a safety check
-
+  ## u and v should already be k vectors but: be safe.
   res$d <- res$d.orig[1:components.to.return]
-    ## u and v should already be k vectors but again, be safe.
   res$u <- as.matrix(res$u[,1:components.to.return])
   res$v <- as.matrix(res$v[,1:components.to.return])
 
 
-  if(LW.is.vector){
-    res$p <- sweep(res$u,1,1/sqrt(LW),"*")
-    res$fi <- sweep(sweep(res$p,1,LW,"*"),2,res$d,"*")
-  }else if(!LW.is.missing){
-    res$p <- (LW %^% (-1/2)) %*% res$u
-    res$fi <- sweep((LW %*% res$p),2,res$d,"*")
+
+  ## the logic here should match the one from above
+  if(!LW.is.missing){
+    if(LW.is.vector){
+      res$p <- sweep(res$u,1,1/sqrt(LW),"*")
+      res$fi <- sweep(sweep(res$p,1,LW,"*"),2,res$d,"*")
+    }else{
+      res$p <- (LW %^% (-1/2)) %*% res$u
+      res$fi <- sweep((LW %*% res$p),2,res$d,"*")
+    }
   }else{
     res$p <- res$u
     res$fi <- sweep(res$p,2,res$d,"*")
   }
 
-  if(RW.is.vector){
-    res$q <- sweep(res$v,1,1/sqrt(RW),"*")
-    res$fj <- sweep(sweep(res$q,1,RW,"*"),2,res$d,"*")
-  }else if(!RW.is.missing){
-    res$q <- (RW %^% (-1/2)) %*% res$v
-    res$fj <- sweep((RW %*% res$q),2,res$d,"*")
+  if(!RW.is.missing){
+    if(RW.is.vector){
+      res$q <- sweep(res$v,1,1/sqrt(RW),"*")
+      res$fj <- sweep(sweep(res$q,1,RW,"*"),2,res$d,"*")
+    }else{
+      res$q <- (RW %^% (-1/2)) %*% res$v
+      res$fj <- sweep((RW %*% res$q),2,res$d,"*")
+    }
   }else{
     res$q <- res$v
     res$fj <- sweep(res$q,2,res$d,"*")
   }
+
 
   rownames(res$fi) <- rownames(res$u) <- rownames(res$p) <- rownames(DAT)
   rownames(res$fj) <- rownames(res$v) <- rownames(res$q) <- colnames(DAT)

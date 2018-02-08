@@ -35,7 +35,7 @@ base.cca.res <- cancor(obj.wine,subj.wine,xcenter = F,ycenter = F)
 
 
 cca.res <- gsvd(
-  mgi(crossprod(obj.wine)) %*% t(obj.wine) %*% subj.wine %*% mgi(crossprod(subj.wine)),
+  matrix.generalized.inverse(crossprod(obj.wine)) %*% t(obj.wine) %*% subj.wine %*% matrix.generalized.inverse(crossprod(subj.wine)),
   crossprod(obj.wine),
   crossprod(subj.wine)
 )
@@ -46,4 +46,7 @@ cca.res$ly <- (subj.wine %*% cca.res$q)
 
 
 
+
+pca.res <- gsvd(subj.wine)
+eppca.res <- epPCA(subj.wine,graphs=F,center=F,scale=F)
 
