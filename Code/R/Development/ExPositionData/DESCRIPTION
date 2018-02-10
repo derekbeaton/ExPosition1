@@ -1,11 +1,12 @@
 Package: ExPositionData
 Type: Package
-Title: What the Package Does (Title Case)
+Title: A package for all the ExPosition data sets
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: c(person("Derek","Beaton",role=c("aut","cre"),email="exposition.software@gmail.com"))
+Author: Derek Beaton [aut, cre]
+Maintainer: Derek Beaton <exposition.software@gmail.com>
+Description: A dedicated package for ExPosition data. 
+License: GPL3
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
