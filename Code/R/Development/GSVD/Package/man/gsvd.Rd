@@ -15,7 +15,7 @@ gsvd(DAT, LW, RW, k = 0, tol = .Machine$double.eps)
 
 \item{k}{total number of components to return though the full variance will still be returned (see \code{d.orig}). If 0, the full set of components are returned.}
 
-\item{tol}{default is .Machine$double.eps. A parameter with two roles: A tolerance level for (1) eliminating (tiny variance or negative or imaginary) components and (2) converting all values < tol to 0 in \item{u} and \item{v}.}
+\item{tol}{default is .Machine$double.eps. A parameter with two roles: A tolerance level for (1) eliminating (tiny variance or negative or imaginary) components and (2) converting all values < tol to 0 in \code{u} and \code{v}.}
 }
 \value{
 A list with nine elements:
@@ -69,7 +69,7 @@ A list with nine elements:
 
      sum(abs(base.cca$cor - cca.res$d)) < (.Machine$double.eps*100)
      base.cca$xcoef / cca.res$p
-     base.cca$ycoef[,1:ncol(cca.res$q)] - cca.res$q
+     base.cca$ycoef[,1:ncol(cca.res$q)] / cca.res$q
  }
 
 }
