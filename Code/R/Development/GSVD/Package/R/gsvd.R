@@ -3,7 +3,75 @@
 #' @description The generalized singular value decomposition (GSVD) generalizes the standard SVD (see \code{\link{svd}}) procedure through addition of (optional) constraints applied to the rows and/or columns of a matrix.
 #' @details While dedicated to the GSVD, this package also includes some nice features that are helpful for matrix analyses. For example there are tests to check if matrices are empty (\code{\link{is.empty.matrix}}) or identity (\code{\link{is.identity.matrix}}); also included are operations such as generalized inverse (\code{\link{matrix.generalized.inverse}}) and matrix exponents (\code{\link{matrix.exponent}} or \code{\link{\%^\%}}).
 #' @seealso \code{\link{gsvd}}, \code{\link{tolerance.svd}}, \code{\link{\%^\%}}
-#' @examples see \code{\link{gsvd}}
+#' @examples
+#'  ## an example of correspondence analysis.
+#'  data(authors)
+#'  Observed <- authors/sum(authors)
+#'  row.w <- rowSums(Observed)
+#'    row.W <- diag(1/row.w)
+#'  col.w <- colSums(Observed)
+#'    col.W <- diag(1/col.w)
+#'  Expected <- row.w %o% col.w
+#'  Deviations <- Observed - Expected
+#'  ca.res <- gsvd(Deviations,row.W,col.W)
+#'
+#'
+#'  # several examples of principal component analysis
+#'  data(two.table.wine)
+#'  wine.objective <- wine$objective
+#'  ## "covariance" PCA
+#'  cov.pca.data <- scale(wine.objective,scale=FALSE)
+#'  cov.pca.res <- gsvd(cov.pca.data)
+#'  ## "correlation" PCA
+#'  cor.pca.data <- scale(wine.objective,scale=TRUE)
+#'  cor.pca.res <- gsvd(cor.pca.data)
+#'  ## "correlation" PCA with GSVD constraints
+#'  cor.pca.res2 <- gsvd(cov.pca.data,RW=1/apply(wine.objective,2,var))
+#'
+#'
+#'  # Three "two-table" technique examples
+#'  X <- scale(wine$objective)
+#'  Y <- scale(wine$subjective)
+#'  R <- t(X) %*% Y
+#'
+#'  ## an example of partial least squares (correlation)
+#'  pls.res <- gsvd(R)
+#'
+#'
+#'  ## an example of canonical correlation analysis (CCA)
+#'  ### NOTE:
+#'  #### This is not "traditional" CCA because of the generalized inverse.
+#'  #### However results are the same as standard CCA when data are not rank deficient.
+#'  cca.res <- gsvd(
+#'      DAT=(crossprod(X) %^% -1) %*% R %*% (crossprod(Y) %^% -1),
+#'      LW=crossprod(X),
+#'      RW=crossprod(Y)
+#'  )
+#'  cca.res$lx <- (X %*% cca.res$p)
+#'  cca.res$ly <- (Y %*% cca.res$q)
+#'
+#'  \dontrun{
+#'      optimize.for <- t(cca.res$lx) %*% cca.res$ly
+#'      all.equal(diag(optimize.for),cca.res$d)
+#'
+#'
+#'      base.cca <- cancor(X,Y,F,F)
+#'
+#'      sum(abs(base.cca$cor - cca.res$d)) < (.Machine$double.eps*100)
+#'      base.cca$xcoef / cca.res$p
+#'      base.cca$ycoef[,1:ncol(cca.res$q)] / cca.res$q
+#'  }
+#'
+#'  ## an example of reduced rank regression (RRR) a.k.a. redundancy analysis (RDA)
+#'  ### NOTE:
+#'  #### This is not "traditional" RRR because of the generalized inverse.
+#'  #### However the results are the same as standard RRR when data are not rank deficient.
+#'  rrr.res <- gsvd(
+#'      DAT=(crossprod(X) %^% -1) %*% R,
+#'      LW=crossprod(X)
+#'  )
+#'  rrr.res$lx <- (X %*% rrr.res$p)
+#'  rrr.res$ly <- (Y %*% rrr.res$q)
 #' @keywords multivariate svd genearlized matrix decomposition variance component orthogonal
 #'
 "_PACKAGE"
@@ -37,11 +105,9 @@
 #'
 #' @examples
 #'
-#'
 #'  ## an example of correspondence analysis.
 #'  data(authors)
-#'  author.data <- authors$ca$data
-#'  Observed <- author.data/sum(author.data)
+#'  Observed <- authors/sum(authors)
 #'  row.w <- rowSums(Observed)
 #'    row.W <- diag(1/row.w)
 #'  col.w <- colSums(Observed)
@@ -55,10 +121,10 @@
 #'  data(two.table.wine)
 #'  wine.objective <- wine$objective
 #'  ## "covariance" PCA
-#'  cov.pca.data <- scale(wine.objective,scale=F)
+#'  cov.pca.data <- scale(wine.objective,scale=FALSE)
 #'  cov.pca.res <- gsvd(cov.pca.data)
 #'  ## "correlation" PCA
-#'  cor.pca.data <- scale(wine.objective,scale=T)
+#'  cor.pca.data <- scale(wine.objective,scale=TRUE)
 #'  cor.pca.res <- gsvd(cor.pca.data)
 #'  ## "correlation" PCA with GSVD constraints
 #'  cor.pca.res2 <- gsvd(cov.pca.data,RW=1/apply(wine.objective,2,var))
@@ -74,7 +140,9 @@
 #'
 #'
 #'  ## an example of canonical correlation analysis (CCA)
-#'  ### NOTE: This is not "traditional" CCA because of the generalized inverse. However the results are the same as standard CCA when data are not rank deficient (see below).
+#'  ### NOTE:
+#'  #### This is not "traditional" CCA because of the generalized inverse.
+#'  #### However the results are the same as standard CCA when data are not rank deficient (see below).
 #'  cca.res <- gsvd(
 #'      DAT=(crossprod(X) %^% -1) %*% R %*% (crossprod(Y) %^% -1),
 #'      LW=crossprod(X),
@@ -96,7 +164,9 @@
 #'  }
 #'
 #'  ## an example of reduced rank regression (RRR) a.k.a. redundancy analysis (RDA)
-#'  ### NOTE: This is not "traditional" RDA because of the generalized inverse. However the results are the same as standard CCA when data are not rank deficient.
+#'  ### NOTE:
+#'  #### This is not "traditional" RDA because of the generalized inverse.
+#'  #### However the results are the same as standard CCA when data are not rank deficient.
 #'  rrr.res <- gsvd(
 #'      DAT=(crossprod(X) %^% -1) %*% R,
 #'      LW=crossprod(X)

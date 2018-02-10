@@ -35,11 +35,9 @@ A list with nine elements:
 }
 \examples{
 
-
  ## an example of correspondence analysis.
  data(authors)
- author.data <- authors$ca$data
- Observed <- author.data/sum(author.data)
+ Observed <- authors/sum(authors)
  row.w <- rowSums(Observed)
    row.W <- diag(1/row.w)
  col.w <- colSums(Observed)
@@ -53,10 +51,10 @@ A list with nine elements:
  data(two.table.wine)
  wine.objective <- wine$objective
  ## "covariance" PCA
- cov.pca.data <- scale(wine.objective,scale=F)
+ cov.pca.data <- scale(wine.objective,scale=FALSE)
  cov.pca.res <- gsvd(cov.pca.data)
  ## "correlation" PCA
- cor.pca.data <- scale(wine.objective,scale=T)
+ cor.pca.data <- scale(wine.objective,scale=TRUE)
  cor.pca.res <- gsvd(cor.pca.data)
  ## "correlation" PCA with GSVD constraints
  cor.pca.res2 <- gsvd(cov.pca.data,RW=1/apply(wine.objective,2,var))
@@ -72,7 +70,9 @@ A list with nine elements:
 
 
  ## an example of canonical correlation analysis (CCA)
- ### NOTE: This is not "traditional" CCA because of the generalized inverse. However the results are the same as standard CCA when data are not rank deficient (see below).
+ ### NOTE:
+ #### This is not "traditional" CCA because of the generalized inverse.
+ #### However the results are the same as standard CCA when data are not rank deficient (see below).
  cca.res <- gsvd(
      DAT=(crossprod(X) \%^\% -1) \%*\% R \%*\% (crossprod(Y) \%^\% -1),
      LW=crossprod(X),
@@ -94,7 +94,9 @@ A list with nine elements:
  }
 
  ## an example of reduced rank regression (RRR) a.k.a. redundancy analysis (RDA)
- ### NOTE: This is not "traditional" RDA because of the generalized inverse. However the results are the same as standard CCA when data are not rank deficient.
+ ### NOTE:
+ #### This is not "traditional" RDA because of the generalized inverse.
+ #### However the results are the same as standard CCA when data are not rank deficient.
  rrr.res <- gsvd(
      DAT=(crossprod(X) \%^\% -1) \%*\% R,
      LW=crossprod(X)

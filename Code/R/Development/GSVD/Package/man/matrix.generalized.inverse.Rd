@@ -28,7 +28,7 @@ The (possibly lower rank) generalized inverse of \code{x}
 
 }
 \seealso{
-\code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.exponent}}
+\code{\link{tolerance.svd}} and \code{\link{matrix.exponent}}
 }
 \author{
 Derek Beaton

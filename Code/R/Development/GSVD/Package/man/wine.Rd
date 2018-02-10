@@ -11,11 +11,7 @@
 \item{supplemental}{a 36 wine x 3 attribute matrix of supplemental information on the wines (country, color, grape).}
 }}
 \usage{
-\describe{
-\item{wine$objective}{}
-\item{wine$subjective}{}
-\item{wine$supplemental}{}
-}
+wine
 }
 \description{
 Data used for illustrative purposes in Abdi H., Guillemot, V., Eslami, A., & Beaton, D. (in Press, 2018). Canonical correlation analysis (CCA). In R. Alhajj and J. Rokne (Eds.), Encyclopedia of Social Networks and Mining (2nd Edition). New York: Springer Verlag.

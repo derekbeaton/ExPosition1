@@ -8,12 +8,6 @@
 #' \item{subjective}{a 36 wine x 9 attribute matrix of subjective variables for wines.}
 #' \item{supplemental}{a 36 wine x 3 attribute matrix of supplemental information on the wines (country, color, grape).}
 #' }
-#' @usage
-#' \describe{
-#' \item{wine$objective}{}
-#' \item{wine$subjective}{}
-#' \item{wine$supplemental}{}
-#' }
 #'
 "wine"
 

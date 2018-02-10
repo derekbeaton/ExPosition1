@@ -12,7 +12,7 @@
 #'
 #' @return The (possibly lower rank) raised to an arbitrary \code{power} version of \code{x}
 #'
-#' @seealso \code{\link{tolerance.svd}}, \code{\link{low.rank.rebuild}}, and \code{\link{matrix.generalized.inverse}}
+#' @seealso \code{\link{tolerance.svd}} and \code{\link{matrix.generalized.inverse}}
 #'
 #' @examples
 #'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
@@ -25,7 +25,7 @@
 #'  X.power_negative.1.div.2 <- matrix.exponent(X,power=-1/2)
 #'
 #'  X.power_negative.1 <- matrix.exponent(X,power=-1)
-#'  X.power_negative.1 / t(invert.rebuild_matrix(X))
+#'  X.power_negative.1 / (X %^% -1)
 #'
 #' @author Derek Beaton
 #'
