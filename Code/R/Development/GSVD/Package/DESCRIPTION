@@ -2,7 +2,8 @@ Package: GSVD
 Type: Package
 Title: The generalized singular value decomposition
 Version: 0.1.0
-Author: Derek Beaton
+Authors@R: c(person("Derek","Beaton",role=c("aut","cre"),email="exposition.software@gmail.com"))
+Author: Derek Beaton [aut, cre]
 Maintainer: Derek Beaton <exposition.software@gmail.com>
 Description: A dedicated package for the generalized singular value decomposition. 
 License: GPL3
