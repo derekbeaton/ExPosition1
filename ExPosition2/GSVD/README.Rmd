@@ -47,12 +47,59 @@ devtools::install_github("derekbeaton/ExPosition-Family",subdir="/ExPosition2/GS
 
 ## Usage
 
+```{r eval=FALSE}
+library(GSVD)
+
+# an example of correspondence analysis.
+ data(authors)
+ Observed <- authors/sum(authors)
+ row.w <- rowSums(Observed)
+   row.W <- diag(1/row.w)
+ col.w <- colSums(Observed)
+   col.W <- diag(1/col.w)
+ Expected <- row.w %o% col.w
+ Deviations <- Observed - Expected
+ ca.res <- gsvd(Deviations,row.W,col.W)
+ 
+# several examples of principal component analysis
+ data(wine)
+ wine.objective <- wine$objective
+ ## "covariance" PCA
+ cov.pca.data <- scale(wine.objective,scale=FALSE)
+ cov.pca.res <- gsvd(cov.pca.data)
+ ## "correlation" PCA
+ cor.pca.data <- scale(wine.objective,scale=TRUE)
+ cor.pca.res <- gsvd(cor.pca.data)
+ ## an alternative approach to "correlation" PCA with GSVD constraints
+ cor.pca.res2 <- gsvd(cov.pca.data,RW=1/apply(wine.objective,2,var))
+ 
+```
+
 ### Core
+
+* `gsvd()` is the generalized SVD function. It passes through to `tolerance.svd()` and makes use of `matrix.exponent()` with `%^%`.
+
+* `tolerance.svd()` is an alternative to the SVD function to only return vectors and values *above* some precision threshold (e.g., `.Machine$double.eps`)
+
 
 ### Bells-and-whistles
 
+* `matrix.exponent()` is matrix exponentiation through the SVD (i.e., raise the singular values to a power and then rebuild the matrix).
+
+* `%^%` is the same as `matrix.exponent()` but much more convenient and follows usual matrix operations in `R` (e.g., `%*%`)
+
+* `matrix.generalized.inverse()` is a specific implementation of `matrix.exponent()` that strictly performs the generalized inverse (i.e., singular values raised to -1).
+
+* `matrix.low.rank.rebuild()` is a heavy-duty function to rebuild lower rank versions of matrices with the SVD. It currently allows for a set of continuous components, arbitrary components, or to rebuild by percent of explained variance. 
+
 ## And beyond!
+
+`GSVD` is the first package part of the larger ExPosition2 family. More to come soon!
 
 ## References
 
 1. Greenacre, M. (1984). Theory and applications of correspondence analysis. Academic Press.
+
+2. Beaton, D., Fatt, C. R. C., & Abdi, H. (2014). An ExPosition of multivariate analysis with the singular value decomposition in R. Computational Statistics & Data Analysis, 72, 176-189.
+
+
