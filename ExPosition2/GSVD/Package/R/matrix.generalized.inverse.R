@@ -14,8 +14,8 @@
 #' @seealso \code{\link{tolerance.svd}} and \code{\link{matrix.exponent}}
 #'
 #' @examples
-#'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
-#'  X <- hilbert(9)[, 1:6]
+#'  data(wine)
+#'  X <- as.matrix(wine$objective)
 #'  X.inv <- matrix.generalized.inverse(X)
 #'  X.inv %*% X ## is approximately an identity.
 #'

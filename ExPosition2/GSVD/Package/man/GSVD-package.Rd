@@ -25,7 +25,7 @@ While dedicated to the GSVD, this package also includes some nice features that 
 
 
  # several examples of principal component analysis
- data(two.table.wine)
+ data(wine)
  wine.objective <- wine$objective
  ## "covariance" PCA
  cov.pca.data <- scale(wine.objective,scale=FALSE)

@@ -15,8 +15,8 @@
 #' @seealso \code{\link{tolerance.svd}} and \code{\link{matrix.generalized.inverse}}
 #'
 #' @examples
-#'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
-#'  X <- hilbert(9)[, 1:6]
+#'  data(wine)
+#'  X <- as.matrix(wine$objective)
 #'  X.power_1 <- matrix.exponent(X)
 #'  X / X.power_1
 #'

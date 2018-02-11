@@ -38,13 +38,11 @@ This `GSVD` package is the first and most important package in the family of ExP
 
 ## Installation
 
-The `GSVD` package is not yet on CRAN but should be soon. For now, the simplest approach to installation is through direct installation or the `devtools` package:
+The `GSVD` package is not yet on CRAN but should be soon. For now, the simplest approach to installation is through the `devtools` package:
 
 ```{r, eval = FALSE}
-## direct install
-
-## devtools install via github
-#devtools::install_github("")
+# devtools install via github
+devtools::install_github("derekbeaton/ExPosition-Family",subdir="/ExPosition2/GSVD/Package")
 ```
 
 ## Usage

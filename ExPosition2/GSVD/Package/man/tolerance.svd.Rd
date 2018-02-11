@@ -28,8 +28,8 @@ A list with three elements (like \code{svd}):
    Additionally, all values in \code{abs($u)} or \code{abs($v)} that fall below the \code{tol} are set to 0.
 }
 \examples{
- hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
- X <- hilbert(9)[, 1:6]
+ data(wine)
+ X <- scale(as.matrix(wine$objective))
  s_asis <- tolerance.svd(X)
  s_sqrt.Machine <- tolerance.svd(X,tol=sqrt(.Machine$double.eps))
  s_000001 <- tolerance.svd(X,tol=.000001)

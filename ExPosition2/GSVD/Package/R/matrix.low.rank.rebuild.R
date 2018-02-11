@@ -17,6 +17,9 @@
 #' @keywords multivariate, diagonalization, eigen, low rank, rank
 
 
+## TODO: rebuild with gsvd() not tolerance.svd() [though technically it's just a pass through at that point...]
+#### the use of gsvd() will require putting the weights and whatnot back in.
+
 matrix.low.rank.rebuild <- function(x, k = 0, ...){
 
   ## quick tests for escape
