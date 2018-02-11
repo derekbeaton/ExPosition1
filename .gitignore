@@ -1,11 +1,8 @@
 
 *.history
-.Rproj.user
 
-Code/R/Development/SlimPosition/.Rhistory
+*.Rproj.user
+*.Rhistory
 
-Code/R/Development/SlimPosition/.Rhistory
-
-Code/R/Development/SlimPosition/.Rhistory
-
-Code/R/Development/SlimPosition/.Rhistory
+*.RData
+*.DS_Store

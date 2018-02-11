@@ -1,0 +1,19 @@
+citHeader("To cite the prettyGraphs package in publications use:")
+
+encoding <- "UTF8"
+
+citEntry(entry = "Article",
+  title        = "An {ExPosition} of multivariate analysis with the singular value decomposition in {R}.",
+  author       = personList(as.person("Derek Beaton"), as.person("Cherise R. Chin Fatt"), as.person("Herve Abdi")),
+  journal = "Computational Statistics & Data Analysis ",
+  volume = "72",
+  number = "0",
+  pages = "176 - 189",
+  year = "In press, 2014",
+  issn = "0167-9473",
+  doi = "http://dx.doi.org/10.1016/j.csda.2013.11.006",
+  url = "http://www.sciencedirect.com/science/article/pii/S0167947313004441",
+
+  textVersion  =
+  paste("Beaton, D., Fatt, C. R. C., & Abdi, H. (2014). An ExPosition of multivariate analysis with the singular value decomposition in R. Computational Statistics & Data Analysis, 72(0), 176--189.")
+)
