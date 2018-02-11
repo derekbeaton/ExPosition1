@@ -58,18 +58,6 @@ While dedicated to the GSVD, this package also includes some nice features that 
  cca.res$lx <- (X \%*\% cca.res$p)
  cca.res$ly <- (Y \%*\% cca.res$q)
 
- \dontrun{
-     optimize.for <- t(cca.res$lx) \%*\% cca.res$ly
-     all.equal(diag(optimize.for),cca.res$d)
-
-
-     base.cca <- cancor(X,Y,F,F)
-
-     sum(abs(base.cca$cor - cca.res$d)) < (.Machine$double.eps*100)
-     base.cca$xcoef / cca.res$p
-     base.cca$ycoef[,1:ncol(cca.res$q)] / cca.res$q
- }
-
  ## an example of reduced rank regression (RRR) a.k.a. redundancy analysis (RDA)
  ### NOTE:
  #### This is not "traditional" RRR because of the generalized inverse.
@@ -80,6 +68,17 @@ While dedicated to the GSVD, this package also includes some nice features that 
  )
  rrr.res$lx <- (X \%*\% rrr.res$p)
  rrr.res$ly <- (Y \%*\% rrr.res$q)
+
+}
+\references{
+Abdi, H. (2007). Singular Value Decomposition (SVD) and Generalized Singular Value Decomposition (GSVD). In N.J. Salkind (Ed.): \emph{Encyclopedia of Measurement and Statistics}.Thousand Oaks (CA): Sage. pp. 907-912.\cr
+  Beaton, D., Fatt, C. R. C., & Abdi, H. (2014). An ExPosition of multivariate analysis with the singular value decomposition in R. \emph{Computational Statistics & Data Analysis}, 72, 176-189.
+  Greenacre, M. (1984). Theory and applications of correspondence analysis. \emph{Academic Press.}\cr
+  Holmes, S. (2008). Multivariate data analysis: the French way. \emph{In Probability and statistics: Essays in honor of David A. Freedman (pp. 219-233)}. Institute of Mathematical Statistics. \cr
+  Holmes, S., & Josse, J. (2017). Discussion of “50 Years of Data Science”. \emph{Journal of Computational and Graphical Statistics}, 26(4), 768-769. \cr
+  Husson, F., Josse, J., & Saporta, G. (2016). Jan de Leeuw and the French school of data analysis. \emph{Journal of Statistical Software}, 73(6), 1-17. \cr
+  Lebart  L.,  Morineau  A., & Warwick  K.  (1984). Multivariate  Descriptive  Statistical  Analysis. \emph{J. Wiley}, New York. \cr
+  Yanai, H., Takeuchi, K., & Takane, Y. (2011). Projection Matrices, Generalized Inverse Matrices, and Singular Value Decomposition. \emph{Springer-Verlag, New-York.}\cr
 }
 \seealso{
 \code{\link{gsvd}}, \code{\link{tolerance.svd}}, \code{\link{\%^\%}}

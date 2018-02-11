@@ -72,7 +72,7 @@ A list with nine elements:
  ## an example of canonical correlation analysis (CCA)
  ### NOTE:
  #### This is not "traditional" CCA because of the generalized inverse.
- #### However the results are the same as standard CCA when data are not rank deficient (see below).
+ #### However the results are the same as standard CCA when data are not rank deficient.
  cca.res <- gsvd(
      DAT=(crossprod(X) \%^\% -1) \%*\% R \%*\% (crossprod(Y) \%^\% -1),
      LW=crossprod(X),
@@ -81,22 +81,11 @@ A list with nine elements:
  cca.res$lx <- (X \%*\% cca.res$p)
  cca.res$ly <- (Y \%*\% cca.res$q)
 
- \dontrun{
-     optimize.for <- t(cca.res$lx) \%*\% cca.res$ly
-     all.equal(diag(optimize.for),cca.res$d)
-
-
-     base.cca <- cancor(X,Y,F,F)
-
-     sum(abs(base.cca$cor - cca.res$d)) < (.Machine$double.eps*100)
-     base.cca$xcoef / cca.res$p
-     base.cca$ycoef[,1:ncol(cca.res$q)] / cca.res$q
- }
 
  ## an example of reduced rank regression (RRR) a.k.a. redundancy analysis (RDA)
  ### NOTE:
- #### This is not "traditional" RDA because of the generalized inverse.
- #### However the results are the same as standard CCA when data are not rank deficient.
+ #### This is not "traditional" RRR because of the generalized inverse.
+ #### However the results are the same as standard RRR when data are not rank deficient.
  rrr.res <- gsvd(
      DAT=(crossprod(X) \%^\% -1) \%*\% R,
      LW=crossprod(X)
