@@ -6,3 +6,4 @@
 
 *.RData
 *.DS_Store
+*.Rapp.history
