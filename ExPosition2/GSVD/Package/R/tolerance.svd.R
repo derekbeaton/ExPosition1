@@ -30,7 +30,18 @@
 
 tolerance.svd <- function(x, nu=min(dim(x)), nv=min(dim(x)), tol=.Machine$double.eps) {	## consider increasing the tolerance.
 
-    ##nu and nv are pass through values.
+  ## the R SVD is much faster/happier when there are more rows than columns in a matrix
+    ## however, even though a transpose can speed up the SVD, there is a slow down to then set the U and V back to where it was
+    ## so I will remove this for now. I just need to keep it in mind.
+
+  # x.dims <- dim(x)
+  # x.is.transposed <- F
+  # if( (x.dims[1]*10) < x.dims[2]){ # * 10 to make it worth the transpose.
+  #   x.is.transposed <- T
+  #   x <- t(x)
+  # }
+
+  ## nu and nv are pass through values.
   svd.res <- svd(x, nu = nu, nv = nv)
   if(any(unlist(lapply(svd.res$d,is.complex)))){
     stop("tolerance.svd: Singular values ($d) are complex.")
@@ -43,18 +54,30 @@ tolerance.svd <- function(x, nu=min(dim(x)), nv=min(dim(x)), tol=.Machine$double
   }else{
     svd.res$u <- as.matrix(svd.res$u[,1:nu])
   }
-  rownames(svd.res$u) <- rownames(x)
-  svd.res$u[ abs(svd.res$u) < tol ] <- 0
-
 
   if(nv >= length(svs.to.keep)){
     svd.res$v <- as.matrix(svd.res$v[,svs.to.keep])
   }else{
     svd.res$v <- as.matrix(svd.res$v[,1:nv])
   }
-  rownames(svd.res$v) <- colnames(x)
+
+  svd.res$u[ abs(svd.res$u) < tol ] <- 0
   svd.res$v[ abs(svd.res$v) < tol ] <- 0
 
+  # if(x.is.transposed){
+  #   temp <- svd.res$v
+  #   svd.res$v <- svd.res$u
+  #   svd.res$u <- temp
+  #   rm(temp)
+  #
+  #   rownames(svd.res$u) <- colnames(x)
+  #   rownames(svd.res$v) <- rownames(x)
+  # }else{
+  #   rownames(svd.res$u) <- rownames(x)
+  #   rownames(svd.res$v) <- colnames(x)
+  # }
+  rownames(svd.res$u) <- rownames(x)
+  rownames(svd.res$v) <- colnames(x)
 
   return(svd.res)
 }

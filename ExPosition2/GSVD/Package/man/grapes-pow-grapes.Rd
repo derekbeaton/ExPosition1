@@ -19,8 +19,8 @@ takes in a matrix and will compute raise that matrix to some arbitrary power via
  Additionally, the matrix can be computed for a lower rank estimate of the matrix.
 }
 \examples{
- hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
- X <- hilbert(9)[, 1:6]
+ data(wine)
+ X <- as.matrix(wine$objective)
  X \%^\% 2 # power of 2
  X \%^\% -1 # (generalized) inverse
 

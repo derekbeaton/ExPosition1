@@ -94,8 +94,8 @@ matrix.exponent <- function(x, power = 1, k = 0, ...){
 #' @seealso \code{\link{matrix.exponent}}
 #'
 #' @examples
-#'  hilbert <- function(n) { i <- 1:n; 1 / outer(i - 1, i, "+") }
-#'  X <- hilbert(9)[, 1:6]
+#'  data(wine)
+#'  X <- as.matrix(wine$objective)
 #'  X %^% 2 # power of 2
 #'  X %^% -1 # (generalized) inverse
 #'
