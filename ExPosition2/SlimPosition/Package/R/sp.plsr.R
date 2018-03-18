@@ -25,16 +25,19 @@ sp.plsr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y =
   Y.svd <- tolerance.svd(Y)
     Y.trace <- sum(Y.svd$d^2)
     Y.rank <- length(Y.svd$d)
-  gc()
 
   Y.isEmpty <- X.isEmpty <- F
 
+  ## OK so I have to make a major change here...
+    ## the # default components should be conditional to rank of X, not necessarily Y
+      ## BUT, at the bottom, if either matrix ends up as an empty matrix.
 
-  if(k<1){
-    k <- min(c(X.rank,Y.rank))
-  }else{
-    k <- min(c(k,X.rank,Y.rank))
+  if(k<1 | k>X.rank){
+    k <- X.rank #min(c(X.rank,Y.rank))
   }
+  # else{
+  #   k <- min(c(k,X.rank,Y.rank))
+  # }
 
   pred.u.mat <- u.mat <- matrix(NA,ncol(X),k)
   v.mat <- matrix(NA,ncol(Y),k)
@@ -81,14 +84,14 @@ sp.plsr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y =
     Y.resids[,,i] <- (Y.orig * matrix(Y.scale,nrow(Y),ncol(Y),byrow=T) + matrix(Y.center,nrow(Y),ncol(Y),byrow=T)) - Y.hats[,,i]
 
 
-    if( sum(Y)==0 ){
+      ## these are not good tests.
+    if( sum(abs(Y))==0 ){
       Y.isEmpty <- T
     }
-    if( sum(X)==0 ){
+    if( sum(abs(X))==0 ){
       X.isEmpty <- T
     }
     if(Y.isEmpty | X.isEmpty){
-      gc()
       break
     }
   }
