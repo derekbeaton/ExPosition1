@@ -22,10 +22,11 @@ sp.plsr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y =
   X.svd <- tolerance.svd(X)
     X.trace <- sum(X.svd$d^2)
     X.rank <- length(X.svd$d)
+    rm(X.svd)
   Y.svd <- tolerance.svd(Y)
     Y.trace <- sum(Y.svd$d^2)
     Y.rank <- length(Y.svd$d)
-
+    rm(Y.svd)
   Y.isEmpty <- X.isEmpty <- F
 
   ## OK so I have to make a major change here...
