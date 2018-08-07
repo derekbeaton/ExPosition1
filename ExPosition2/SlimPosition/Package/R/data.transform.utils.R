@@ -19,7 +19,7 @@ svd.norm <- function(x){
 #' @param margin which margin to perform this on (i.e., 1 for rows and 2 for columns)
 #' @return column or row normalized version of the matrix.
 #' @export
-data.norms <- function(X,type=NULL,center=F,scale=F,margin=2){
+data.norm <- function(X,type=NULL,center=F,scale=F,margin=2){
 
   ## this eventually needs simplification..
 
@@ -254,11 +254,11 @@ make.data.nominal <- function(datain,impute.NA.to.mean=T){
 # }
 
 #' @export
-row.norms <- function(X,type=NULL,center=T,scale=F){
+row.norm <- function(X,type=NULL,center=T,scale=F){
   data.norms(X,type=type,center=center,scale=scale,margin=1)
 }
 #' @export
-col.norms <- function(X,type=NULL,center=T,scale=F){
+col.norm <- function(X,type=NULL,center=T,scale=F){
   data.norms(X,type=type,center=center,scale=scale,margin=2)
 }
 
