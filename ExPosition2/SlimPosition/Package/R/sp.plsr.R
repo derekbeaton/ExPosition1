@@ -1,17 +1,9 @@
-#plsr
-  ## this is a good first pass. It needs some restructuring/speed up but not much else (well, graphics...)
-
-### NOTE: PLS analyses need their own class
-
-
 sp.plsr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F, tol=.Machine$double.eps){
 
   if (nrow(X) != nrow(Y)) {
     stop("X and Y must have the same number of rows.")
   }
 
-      ## maybe I need a replacement for these to use a sweep or apply
-        ## and maybe I can updated expo.scale to be a more minimal "class"
   X.orig <- X <- expo.scale(X, scale = scale.X, center = center.X)
     X.center <- attributes(X)$`scaled:center`
     X.scale <- attributes(X)$`scaled:scale`
@@ -20,43 +12,41 @@ sp.plsr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y =
     Y.scale <- attributes(Y)$`scaled:scale`
 
   X.svd <- tolerance.svd(X)
-    X.trace <- sum(X.svd$d^2)
-    X.rank <- length(X.svd$d)
-    rm(X.svd)
+  X.trace <- sum(X.svd$d^2)
+  X.rank <- length(X.svd$d)
   Y.svd <- tolerance.svd(Y)
-    Y.trace <- sum(Y.svd$d^2)
-    Y.rank <- length(Y.svd$d)
-    rm(Y.svd)
+  Y.trace <- sum(Y.svd$d^2)
+
+  rm(X.svd)
+  rm(Y.svd)
+
   Y.isEmpty <- X.isEmpty <- F
 
-  ## OK so I have to make a major change here...
-    ## the # default components should be conditional to rank of X, not necessarily Y
-      ## BUT, at the bottom, if either matrix ends up as an empty matrix.
-
-  if(k<1 | k>X.rank){
+  k <- ceiling(abs(k))
+  if(k > X.rank){
     k <- X.rank #min(c(X.rank,Y.rank))
   }
-  # else{
-  #   k <- min(c(k,X.rank,Y.rank))
-  # }
 
-  pred.u.mat <- u.mat <- matrix(NA,ncol(X),k)
-  v.mat <- matrix(NA,ncol(Y),k)
-  t.mat <- LX.mat <- LY.mat <- matrix(NA,nrow(X),k)
-  cross.trace <- r2.x <- r2.y <- delta.vec <- beta.vec <- rep(NA,k)
+
+  pred.u.mat <- fi.mat <- u.mat <- matrix(0,ncol(X),k)
+  fj.mat <- v.mat <- matrix(0,ncol(Y),k)
+  t.mat <- LX.mat <- LY.mat <- matrix(0,nrow(X),k)
+  r2.x <- r2.y <- delta.vec <- beta.vec <- rep(0,k)
   if(!compact){
-    X.resids <- X.hats <- array(NA,dim=c(nrow(X),ncol(X),k))
+    X.resids <- X.hats <- array(0,dim=c(nrow(X),ncol(X),k))
   }
-  Y.resids <- Y.hats <- array(NA,dim=c(nrow(Y),ncol(Y),k))
+    ## this is in the spirit of regression, so these stay.
+  Y.resids <- Y.hats <- array(0,dim=c(nrow(Y),ncol(Y),k))
 
   for(i in 1:k){
+    #print(i)
 
-    res <- gsvd(t(X) %*% Y, k=1)  ## we could get real weird here some day. Basically a "predictive" CCA/RRR or even weighted PLSR.
-      cross.trace[i] <- sum(res$d.orig^2)
+    res <- gsvd(t(X) %*% Y, k=1, tol=tol)
     u.mat[,i] <- res$u
+    fi.mat[,i] <- res$fi
     v.mat[,i] <- res$v
+    fj.mat[,i] <- res$fj
     delta.vec[i] <- res$d
-    rm(res) ## save space maybe
 
     LX.mat[,i] <- X %*% as.matrix(u.mat[,i])
     LY.mat[,i] <- Y %*% as.matrix(v.mat[,i])
@@ -66,69 +56,58 @@ sp.plsr <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y =
     pred.u.mat[,i] <- t(X) %*% t.mat[,i]
     beta.vec[i] <- c(t(LY.mat[,i]) %*% t.mat[,i])
 
-
     ## these are component-wise/iterative hats and resids...
     X.rec <- t.mat[,i] %*% t(pred.u.mat[,i])
     X <- X - X.rec
-      X[which(abs(X) < tol)] <- 0
-      r2.x[i] <- (X.trace-sum(X^2)) / X.trace
-    if(!compact){
-      X.hats[,,i] <- X.rec * matrix(X.scale,nrow(X),ncol(X),byrow=T) + matrix(X.center,nrow(X),ncol(X),byrow=T)
-      X.resids[,,i] <- (X.orig * matrix(X.scale,nrow(X),ncol(X),byrow=T) + matrix(X.center,nrow(X),ncol(X),byrow=T)) - X.hats[,,i]
-    }
-
+    X[which(abs(X) < tol)] <- 0
     Y.rec <- t(beta.vec[i] * t(t.mat[,i] %*% t(v.mat[,i])))
     Y <- Y - Y.rec
-      Y[which(abs(Y) < tol)] <- 0
-      r2.y[i] <- (Y.trace-sum(Y^2)) / Y.trace
-    Y.hats[,,i] <- Y.rec * matrix(Y.scale,nrow(Y),ncol(Y),byrow=T) + matrix(Y.center,nrow(Y),ncol(Y),byrow=T)
-    Y.resids[,,i] <- (Y.orig * matrix(Y.scale,nrow(Y),ncol(Y),byrow=T) + matrix(Y.center,nrow(Y),ncol(Y),byrow=T)) - Y.hats[,,i]
+    Y[which(abs(Y) < tol)] <- 0
 
+    r2.x[i] <- (X.trace-sum(X^2)) / X.trace
+    r2.y[i] <- (Y.trace-sum(Y^2)) / Y.trace
 
-      ## these are not good tests.
-    if( sum(abs(Y))==0 ){
-      Y.isEmpty <- T
+    # replace with some sweeps.
+    if(!compact){
+      X.hats[,,i] <- X.rec * matrix(X.scale,nrow(X),ncol(X),byrow=T) + matrix(X.center,nrow(X),ncol(X),byrow=T) ## can make more efficient through sweep
+      X.resids[,,i] <- (X.orig * matrix(X.scale,nrow(X),ncol(X),byrow=T) + matrix(X.center,nrow(X),ncol(X),byrow=T)) - X.hats[,,i] ## can make more efficient through sweep
     }
-    if( sum(abs(X))==0 ){
-      X.isEmpty <- T
-    }
-    if(Y.isEmpty | X.isEmpty){
+    Y.hats[,,i] <- Y.rec * matrix(Y.scale,nrow(Y),ncol(Y),byrow=T) + matrix(Y.center,nrow(Y),ncol(Y),byrow=T) ## can make more efficient through sweep
+    Y.resids[,,i] <- (Y.orig * matrix(Y.scale,nrow(Y),ncol(Y),byrow=T) + matrix(Y.center,nrow(Y),ncol(Y),byrow=T)) - Y.hats[,,i] ## can make more efficient through sweep
+
+    if(is.empty.matrix(X,tol=tol) | is.empty.matrix(Y,tol=tol) | is.empty.matrix(t(X) %*% Y,tol=tol)){
       break
     }
   }
 
-    ## this is do-able for PLSC
-  Y.rec <- (t.mat * matrix(beta.vec,nrow(Y),i,byrow=T)) %*% t(v.mat)
-    Y.rec[which(abs(Y.rec) < tol)] <- 0
+  ## this is do-able for PLSC
+
+  ### this can be a sweep
+  ## ok so this stops working when we don't go through all components...
+  Y.rec <- (t.mat * matrix(beta.vec,nrow(Y),length(beta.vec),byrow=T)) %*% t(v.mat)
+  Y.rec[which(abs(Y.rec) < tol)] <- 0
   Y.hat <-  Y.rec * matrix(Y.scale,nrow(Y),ncol(Y),byrow=T) + matrix(Y.center,nrow(Y),ncol(Y),byrow=T)
-    Y.hat[which(abs(Y.hat) < tol)] <- 0
+  Y.hat[which(abs(Y.hat) < tol)] <- 0
+    ## check Y.resid to make sure it is the same center/scale as the original data.
   Y.resid <- (Y.orig * matrix(Y.scale,nrow(Y),ncol(Y),byrow=T) + matrix(Y.center,nrow(Y),ncol(Y),byrow=T)) - Y.hat
+
   if(!compact){
     X.rec <- t.mat %*% t(pred.u.mat)
-      X.rec[which(abs(X.rec) < tol)] <- 0
+    X.rec[which(abs(X.rec) < tol)] <- 0
     X.hat <- X.rec * matrix(X.scale,nrow(X),ncol(X),byrow=T) + matrix(X.center,nrow(X),ncol(X),byrow=T)
-      X.hat[which(abs(X.hat) < tol)] <- 0
+    X.hat[which(abs(X.hat) < tol)] <- 0
     X.resid <- (X.orig * matrix(X.scale,nrow(X),ncol(X),byrow=T) + matrix(X.center,nrow(X),ncol(X),byrow=T)) - X.hat
   }
 
-  ## just to conform to how it is done in PLSC
-  fi <-  u.mat * matrix(delta.vec,nrow(u.mat),ncol(u.mat),byrow=T)
-  fj <-  v.mat * matrix(delta.vec,nrow(v.mat),ncol(v.mat),byrow=T)
-
   if(compact){
-    res <- list(fi=fi, fj=fj, d=delta.vec, u=u.mat, v=v.mat, lx=LX.mat, ly=LY.mat, Y.hats=Y.hats, Y.hat=Y.hat, Y.resid=Y.resid, r2.x=r2.x, r2.y=r2.y)
+    res <- list(fi=fi.mat, fj=fj.mat, d=delta.vec, u=u.mat, v=v.mat, lx=LX.mat, ly=LY.mat, Y.hats=Y.hats, Y.hat=Y.hat, Y.resid=Y.resid, r2.x=r2.x, r2.y=r2.y)
   }else{
-    res <- list(fi=fi, fj=fj, d=delta.vec, cross.trace=cross.trace, u=u.mat, v=v.mat, lx=LX.mat, ly=LY.mat, beta=beta.vec, t=t.mat, pred.u=pred.u.mat, X.hats=X.hats, X.hat=X.hat, Y.hats=Y.hats, Y.hat=Y.hat, X.resids=X.resids, X.resid=X.resid, Y.resids=Y.resids, Y.resid=Y.resid, r2.x=r2.x, r2.y=r2.y)
+    res <- list(fi=fi.mat, fj=fj.mat, d=delta.vec, u=u.mat, v=v.mat, lx=LX.mat, ly=LY.mat, beta=beta.vec, t=t.mat, pred.u=pred.u.mat, X.hats=X.hats, X.hat=X.hat, Y.hats=Y.hats, Y.hat=Y.hat, X.resids=X.resids, X.resid=X.resid, Y.resids=Y.resids, Y.resid=Y.resid, r2.x=r2.x, r2.y=r2.y)
   }
 
-  ## this will take some thinkin'
-
+  ## not sure yet.
   if(graphs){
-    #sp.component_plot(res$fi)
-    #sp.component_plot(res$fj)
-    #sp.latentvar_plot(res)
-    #sp.latentvar_plot(res,axis=2)
-    #sp.scree(res$d.orig^2)
+
   }
 
   return(res)

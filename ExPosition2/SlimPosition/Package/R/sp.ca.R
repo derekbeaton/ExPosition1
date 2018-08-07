@@ -1,10 +1,14 @@
 ## plain ca (symmetric vs. asymmetric allowed)
 ## it's just CA, that's it.
-sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F){
+sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
 
+  k <- ceiling(abs(k))
+
+  	## bundle into a CA preproc?
   sum.data <- sum(DATA)
-  rowSums.data <- rowSums(DATA)
-  wi <- rowSums.data/sum.data
+  #rowSums.data <- rowSums(DATA)
+  #wi <- rowSums.data/sum.data
+  wi <- rowSums(DATA)/sum.data
   wj <- colSums(DATA)/sum.data
 
     ## big question: which is faster:
@@ -14,7 +18,8 @@ sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F){
     ## (1)
 
     ## (2)
-  res <- gsvd( sweep(sweep(DATA,1,rowSums.data,"/"),2,wj), wi, 1/wj, k = k )
+  #res <- gsvd( sweep(sweep(DATA,1,rowSums.data,"/"),2,wj), wi, 1/wj, k = k , tol = tol)
+  res <- gsvd( sweep(sweep(DATA,1,wi,"*"),2,wj), wi, 1/wj, k = k , tol = tol)
   res$fi <- sweep(res$fi,1,wi,"/")
     ## (2)
 

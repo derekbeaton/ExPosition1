@@ -1,15 +1,17 @@
 ## plsc
 
-sp.plsc <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F){
+sp.plsc <- function(X, Y, center.X = T, scale.X = "SS1", center.Y = T, scale.Y = "SS1", k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
 
   if (nrow(X) != nrow(Y)) {
     stop("X and Y must have the same number of rows.")
   }
 
+  k <- ceiling(abs(k))
+
   X <- expo.scale(X, scale = scale.X, center = center.X)
   Y <- expo.scale(Y, scale = scale.Y, center = center.Y)
 
-  res <- gsvd(t(X) %*% Y, k=k)
+  res <- gsvd(t(X) %*% Y, k=k, tol=tol)
   res$lx <- (X %*% res$fi) * matrix(1/res$d,nrow(X),ncol(res$fi),byrow=T)
   res$ly <- (Y %*% res$fj) * matrix(1/res$d,nrow(Y),ncol(res$fj),byrow=T)
 
