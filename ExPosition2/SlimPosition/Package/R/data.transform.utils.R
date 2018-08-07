@@ -1,4 +1,4 @@
-# ExPosition utilities.
+# ExPosition data transform utilities.
 
 #' @export
 svd.norm <- function(x){
@@ -9,7 +9,6 @@ svd.norm <- function(x){
   #return( (res$u * matrix(res$d/res$d[1],nrow(res$u),ncol(res$u),byrow=T)) %*% t(res$v) )
 
 }
-
 
 #' Compute normalization for rows or columns of a matrix.
 #' @title \code{data.norms}
@@ -22,30 +21,94 @@ svd.norm <- function(x){
 #' @export
 data.norms <- function(X,type=NULL,center=F,scale=F,margin=2){
 
+  ## this eventually needs simplification..
+
+  if( !(margin %in% c(1,2)) ){
+    stop("`margin` must be either 1 or 2.")
+  }
   orig.dims <- dim(X)
+  if(length(orig.dims) > 2){
+    stop("X is required to be a matrix.")
+  }
   orig.names <- dimnames(X)
 
   if(is.null(type) & (center==F | is.na(center) | is.null(center)) & (scale==F | is.na(scale) | is.null(scale))){
     return(X)
   }else if(type=="ca"){
+    attributes(X)$`scaled:type` <- "ca"
+    attributes(X)$`scaled:center` <- NULL
+    attributes(X)$`scaled:scale` <- NULL
+
     X <- apply(X,margin,function(x){ x/sum(x) })
+
   }else if(type=="hellinger"){
+    attributes(X)$`scaled:type` <- "hellinger"
+    attributes(X)$`scaled:center` <- NULL
+    attributes(X)$`scaled:scale` <- NULL
+
     X <- apply(X,margin,function(x){ sqrt(x/sum(x)) })
+
   }else if(type == "z"){
+    attributes(X)$`scaled:center` <- colMeans(X)
+    attributes(X)$`scaled:scale` <- apply(X,margin,sd)
+    attributes(X)$`scaled:type` <- "z"
+
+      ## can be replaced by sweeps?
     X <- apply(X,margin,function(x){scale(x,center=T,scale=T)})
+
   }else if(type=="ss1"){
+    attributes(X)$`scaled:center` <- colMeans(X)
+    attributes(X)$`scaled:scale` <- apply(X, margin, sd)*(sqrt(orig.dims[-margin]-1))
+    attributes(X)$`scaled:type` <- "ss1"
+
+      ## can be replaced by sweeps?
     X <- apply(X,margin,function(x){scale(x,center=T,scale=sd(x))}) / sqrt(orig.dims[-margin]-1)
+
+  }else if(type=="rms"){
+
+    attributes(X)$`scaled:center` <- rep(0,orig.dims[margin])
+    attributes(X)$`scaled:scale` <- apply(X, margin, sd)
+    attributes(X)$`scaled:type` <- "rms"
+
+      ## can be replaced by sweeps?
+    X <- apply(X,margin,function(x){scale(x,center=F,scale=sd(x))})
+
   }else if(type=="scale"){
-    X <- apply(X,margin,function(x){scale(x,center=center,scale=scale)})
+
+    ## I can probably replace this with some sweeps:
+    ## ok do this with sweeps...
+    ## check if c/s are logical, or numeric of size 1, or if they are vectors of length of margin
+    ## if none of those fail...
+    ## then it's a double sweep: center & scale.
+
+    if(margin==1){
+      X <- scale(t(X),center=center,scale=scale)
+    }else{
+      X <- scale(X,center=center,scale=scale)
+    }
+
+    if( !(names(attributes(X)) %in% c("scaled:center")) ){
+      attributes(X)$`scaled:center` <- rep(0,orig.dims[margin])
+    }
+    if( !(names(attributes(X)) %in% c("scaled:scale")) ){
+      attributes(X)$`scaled:type` <- rep(1,orig.dims[margin])
+    }
+    # attributes(X)$`scaled:center` <- center
+    # attributes(X)$`scaled:scale` <- scale
+
   }else{
     return(X)
   }
+
+  attributes(X)$`scaled:margin` <- margin
 
   new.dims <- dim(X)
   if(new.dims[1]==orig.dims[2] & new.dims[2]==orig.dims[1]){
     X <- t(X)
   }
   dimnames(X) <- orig.names
+
+
   return(X)
 }
 
@@ -166,30 +229,38 @@ make.data.nominal <- function(datain,impute.NA.to.mean=T){
   return(dataout)
 }
 
-## consider not using this one...; or calling into data.norms
-rowNorms <- function(X,type=NULL,center=FALSE,scale=FALSE){
-  if(is.null(type)){
-    return(X)
-  }else if(type=='hellinger'){
-    return(sqrt(X/matrix(rowSums(X),nrow(X),ncol(X))))
-  }else if(type == 'ca'){
-    return(X/matrix(rowSums(X),nrow(X),ncol(X)))
-  }else if (type == 'z'){
-    return(t(apply(X,1,scale,T,T)))
-  }else if(type == 'other'){
-    ## this one is expensive.
-    return(t(expo.scale(t(X),center=center,scale=scale)))
-  }else{
-    return(X)
-  }
+# ## consider not using this one...; or calling into data.norms
+# rowNorms <- function(X,type=NULL,center=FALSE,scale=FALSE){
+#   if(is.null(type)){
+#     return(X)
+#   }else if(type=='hellinger'){
+#     return(sqrt(X/matrix(rowSums(X),nrow(X),ncol(X))))
+#   }else if(type == 'ca'){
+#     return(X/matrix(rowSums(X),nrow(X),ncol(X)))
+#   }else if (type == 'z'){
+#     return(t(apply(X,1,scale,T,T)))
+#   }else if(type == 'other'){
+#     ## this one is expensive.
+#     return(t(expo.scale(t(X),center=center,scale=scale)))
+#   }else{
+#     return(X)
+#   }
+# }
+#
+# ## consider not using this one...; or calling into data.norms
+#   ## or into expo.scale...
+# colNorms <- function(x){
+#
+# }
+
+#' @export
+row.norms <- function(X,type=NULL,center=T,scale=F){
+  data.norms(X,type=type,center=center,scale=scale,margin=1)
 }
-
-## consider not using this one...; or calling into data.norms
-  ## or into expo.scale...
-colNorms <- function(x){
-
+#' @export
+col.norms <- function(X,type=NULL,center=T,scale=F){
+  data.norms(X,type=type,center=center,scale=scale,margin=2)
 }
-
 
 #' @export
 expo.scale <- function(DATA,center=TRUE,scale=TRUE){
