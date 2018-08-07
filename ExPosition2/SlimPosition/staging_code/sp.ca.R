@@ -1,5 +1,4 @@
-## plain ca (symmetric vs. asymmetric allowed)
-## it's just CA, that's it.
+#' @export
 sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
 
   k <- ceiling(abs(k))
@@ -19,6 +18,7 @@ sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .M
 
     ## (2)
   #res <- gsvd( sweep(sweep(DATA,1,rowSums.data,"/"),2,wj), wi, 1/wj, k = k , tol = tol)
+    ## needs testing.
   res <- gsvd( sweep(sweep(DATA,1,wi,"*"),2,wj), wi, 1/wj, k = k , tol = tol)
   res$fi <- sweep(res$fi,1,wi,"/")
     ## (2)
