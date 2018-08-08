@@ -269,7 +269,7 @@ gsvd <- function(DAT, LW, RW, k = 0, tol=.Machine$double.eps){
   }
   res <- tolerance.svd(DAT,nu=k,nv=k,tol=tol)
   res$d.orig <- res$d
-  res$tau <- res$d.orig^2/sum(res$d.orig^2)
+  res$tau <- (res$d.orig^2/sum(res$d.orig^2)) * 100
   components.to.return <- min(length(res$d.orig),k) #a safety check
   ## u and v should already be k vectors but: be safe.
   res$d <- res$d.orig[1:components.to.return]
