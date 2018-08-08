@@ -38,6 +38,7 @@ ep.pca <- function(DATA, col.scale.type="ss1", k = 0, compact = T, graphs = F, t
     ylims <- c(min.lims[2],max.lims[2])
     c1.label <- paste0("Component 1: ", round(res$tau[1],digits=3), " % variance" )
     c2.label <- paste0("Component 2: ", round(res$tau[2],digits=3), " % variance" )
+
     plot(res,type="row.scores", main="Row component scores", xlim = xlims, ylim = ylims, xlab= c1.label, ylab = c2.label)
     plot(res,type="col.scores", main="Column component scores", xlim = xlims, ylim = ylims, xlab= c1.label, ylab = c2.label)
     plot(res,type="scree")

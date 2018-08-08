@@ -1,5 +1,5 @@
 #' @export
-sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
+ep.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
 
   if(any(is.na(DATA))){
     stop("No NAs allowed.")
@@ -18,7 +18,8 @@ sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .M
     ## (1)
     ## (2)
   #res <- gsvd( sweep(sweep(DATA,1,rowSums.data,"/"),2,wj), wi, 1/wj, k = k , tol = tol)
-  res <- gsvd( sweep(sweep(DATA,1,wi,"*"),2,wj), wi, 1/wj, k = k , tol = tol)
+  res <- gsvd( sweep(sweep(DATA,1,wi*sum.data,"/"),2,wj), wi, 1/wj, k = k , tol = tol)
+  #res <- gsvd( sweep(sweep(DATA,1,wi,"*"),2,wj), wi, 1/wj, k = k , tol = tol)
   res$fi <- sweep(res$fi,1,wi,"/")
     ## (2)
 
@@ -31,6 +32,7 @@ sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .M
     res <- list(fi=res$fi, fj=res$fj, tau = res$tau, d.orig=res$d.orig, u=res$u, v=res$v)
   }
   res$data.attributes <- attributes(DATA) ## maybe it's none?
+  res$data.attributes$sum <- sum.data
   res$analysis <- "ca"
   class(res) <- "expo"
 
@@ -42,6 +44,7 @@ sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .M
     ylims <- c(min.lims[2],max.lims[2])
     c1.label <- paste0("Component 1: ", round(res$tau[1],digits=3), " % variance" )
     c2.label <- paste0("Component 2: ", round(res$tau[2],digits=3), " % variance" )
+
     plot(res,type="row.scores", main="Row component scores", xlim = xlims, ylim = ylims, xlab= c1.label, ylab = c2.label)
     plot(res,type="col.scores", main="Column component scores", xlim = xlims, ylim = ylims, xlab= c1.label, ylab = c2.label)
     plot(res,type="scree")

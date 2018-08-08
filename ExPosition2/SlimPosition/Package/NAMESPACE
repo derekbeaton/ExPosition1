@@ -2,6 +2,7 @@
 
 S3method(plot,expo)
 export(col.scale)
+export(ep.ca)
 export(ep.component.plot)
 export(ep.pca)
 export(ep.scree)
