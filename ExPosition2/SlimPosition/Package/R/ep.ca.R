@@ -5,11 +5,9 @@ ep.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .M
     stop("No NAs allowed.")
   }
 
-
   DATA <- table.scale(DATA, type="ca") # no user choice here.
   wi <- rowSums(DATA)
   wj <- colSums(DATA)
-
 
   k <- ceiling(abs(k))
   res <- gsvd( sweep(sweep(DATA, 1, wi, "/"), 2, wj), wi, 1/wj)
