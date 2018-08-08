@@ -1,32 +1,60 @@
 ## expo class overload methods
 
 #' @export
-plot.expo <- function(expo.output, type="components", ...){
+plot.expo <- function(expo.output, type="row.scores", ...){
 
   if( !(type %in% c("row.scores","col.scores","row.loadings","col.loadings","scree","lvs","biplot")) ){
     stop("Unknown plot type")
   }
 
   ## need to check type here, e.g., PCA, CA, MDS vs. PLS, CCA, RDA
-  if(expo.output$analysis %in% c("pca","ca")){
+      ## actually I don't really need to check... almost everything should just work.
+      ## the plotting utility here is meant to be as absolutely simple as possible.
+  # if(expo.output$analysis %in% c("pca","ca")){
 
-    if(type=="row.scores"){
+    ## these work for effectively everything except MDS
+    if(type=="row.scores" & "fi" %in% names(expo.output)){
       ep.component.plot(expo.output$fi, ...)
+    }else{
+      stop("fi not found")
     }
-    if(type =="col.scores"){
+    if(type == "col.scores" & "fj" %in% names(expo.output)){
       ep.component.plot(expo.output$fj, ...)
+    }else{
+      stop("fj not found")
     }
-    if(type=="row.loadings"){
+    if(type=="row.loadings" & "u" %in% names(expo.output)){
       ep.component.plot(expo.output$u, ...)
+    }else{
+      stop("u not found")
     }
-    if(type =="col.loadings"){
+    if(type =="col.loadings" & "v" %in% names(expo.output)){
       ep.component.plot(expo.output$v, ...)
-    }
-    if(type=="scree"){
-      ep.scree(expo.output$tau)
+    }else{
+      stop("v not found")
     }
 
-  }
+
+    ### SHOULD NOT EXIST FOR PLSR -- I will NOT return tau for that.
+    if(type=="scree" & "tau" %in% names(expo.output)){
+      ep.scree(expo.output$tau)
+    }else{
+      stop("tau not found")
+    }
+
+    ### THESE ARE PLS SPECIFIC WITH EMPHASIS ON PLS*R
+    if(type=="r2" & ( "r2.x" %in% names(expo.output) & "r2.y" %in% names(expo.output) ) ){
+
+    }else{
+      stop("lx or ly not found")
+    }
+    if(type=="lv" & ( "lx" %in% names(expo.output) & "ly" %in% names(expo.output) ) ){
+
+    }else{
+      stop("lx or ly not found")
+    }
+
+  # }
 
 }
 

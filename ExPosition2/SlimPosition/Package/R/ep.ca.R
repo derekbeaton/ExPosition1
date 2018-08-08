@@ -1,33 +1,37 @@
-## note to self: forget about the normalization schemes. just deal with the typical ones for now and grow later.
-  ## retain the attributes() on return.
-
-
 #' @export
-ep.pca <- function(DATA, col.scale.type="ss1", k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
+sp.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
 
   if(any(is.na(DATA))){
     stop("No NAs allowed.")
   }
-  if( is.null(col.scale.type) ){
-    col.scale.type <- "none"
-  }
-  if( !(col.scale.type %in% c("center","z","ss1","none")) ){
-    stop("Only 'center', 'z', 'ss1', or 'none' scaling type allowed. If other types are needed then transform the data before analysis and use 'none'.")
-  }
 
+
+  sum.data <- sum(DATA)
+  wi <- rowSums(DATA)/sum.data
+  wj <- colSums(DATA)/sum.data
 
   k <- ceiling(abs(k))
-  DATA <- col.scale(DATA, type = col.scale.type)
-  res <- gsvd(DATA, k = k, tol = tol)
 
+    ## big question: which is faster:
+    ## (1)
+  #res <- gsvd( (DATA/sum.data) - (wi %o% wj), 1/wi, 1/wj, k = k )
+    ## (1)
+    ## (2)
+  #res <- gsvd( sweep(sweep(DATA,1,rowSums.data,"/"),2,wj), wi, 1/wj, k = k , tol = tol)
+  res <- gsvd( sweep(sweep(DATA,1,wi,"*"),2,wj), wi, 1/wj, k = k , tol = tol)
+  res$fi <- sweep(res$fi,1,wi,"/")
+    ## (2)
 
+  res$asymmetric <- asymmetric
+  if(asymmetric){
+    res$fj <- sweep(res$fj,2,res$d,"/")
+  }
   res$compact <- F
   if(compact){
     res <- list(fi=res$fi, fj=res$fj, tau = res$tau, d.orig=res$d.orig, u=res$u, v=res$v)
-    res$compact <- T
   }
   res$data.attributes <- attributes(DATA) ## maybe it's none?
-  res$analysis <- "pca"
+  res$analysis <- "ca"
   class(res) <- "expo"
 
 
@@ -42,7 +46,6 @@ ep.pca <- function(DATA, col.scale.type="ss1", k = 0, compact = T, graphs = F, t
     plot(res,type="col.scores", main="Column component scores", xlim = xlims, ylim = ylims, xlab= c1.label, ylab = c2.label)
     plot(res,type="scree")
   }
-
 
   return(res)
 }

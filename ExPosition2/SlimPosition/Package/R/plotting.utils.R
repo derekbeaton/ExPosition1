@@ -28,9 +28,9 @@ ep.component.plot <- function(scores, axes=c(1,2), pch=20, col="mediumorchid4", 
 
 
 #' @export
-ep.scree <- function(taus,main="Scree",...){
+ep.scree <- function(taus, main="Scree", xlab = "Components", ylab="% explained variance", lty = 1, lwd = 1, pch=20, cex=1.5, col="mediumorchid4", ...){
 
-  plot(taus,type="l",ylab="% explained", xlab="Component", main=main,...)
-  points(1:length(taus),taus,pch=20)
+  plot(taus,type="l",ylab=ylab, xlab=xlab, main=main, lty=lty, lwd = lwd)
+  points(1:length(taus),taus,pch=pch,col=col, cex = cex, ...)
 
 }
