@@ -3,6 +3,7 @@
 #' @export
 plot.expo <- function(expo.output, type="row.scores", ...){
 
+
   if( !(type %in% c("row.scores","col.scores","row.loadings","col.loadings","scree","lvs","biplot")) ){
     stop("Unknown plot type")
   }

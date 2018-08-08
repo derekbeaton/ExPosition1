@@ -16,29 +16,7 @@ ep.mca <- function(DATA, make.data.nominal = T, asymmetric = F, benzecri.correct
   res <- ep.ca(DATA,asymmetric=F, k=k, compact=F, graphs=F, tol=tol)
 
   if(benzecri.correction){
-
-    keepers <- which(res$d.orig^2 > (1/num.variables))
-    k.length <- length(res$d)
-    this.k <- min(k.length,length(keepers))
-
-    new.eigvals <- ((num.variables/(num.variables - 1)) * ( (res$d.orig[keepers]^2) - (1/num.variables)))^2
-    res$d.orig <- sqrt(new.eigvals)
-    res$tau <- (new.eigvals / sum(new.eigvals)) * 100
-
-
-    scale.factors <- res$d.orig[1:this.k] / res$d[1:this.k]
-
-
-    res$fi <- res$fi[,1:this.k]
-    res$fj <- res$fj[,1:this.k]
-
-    res$fi <- sweep(res$fi[,1:this.k], 2, scale.factors, "*")
-    res$fj <- sweep(res$fj[,1:this.k], 2, scale.factors, "*")
-    res$p <- res$p[,this.k]
-    res$q <- res$q[,this.k]
-    res$u <- res$u[,this.k]
-    res$v <- res$v[,this.k]
-    res$d <- res$d[this.k]
+    res <- benzecri.correction(res, num.variables)
   }
 
   res$asymmetric <- asymmetric
