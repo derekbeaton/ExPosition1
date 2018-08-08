@@ -10,8 +10,13 @@ svd.norm <- function(x){
 
 }
 
-#' Compute normalization for rows or columns of a matrix.
-#' @title \code{data.norms}
+
+##### ROLL THIS BACK
+  ### make this more akin to the existing rowNorms
+  ### but margin==1 will just t()
+  ### also record what happens to center/scale?
+#' Compute standardization/normalization for rows or columns of a matrix.
+#' @title \code{data.norm}
 #' @param X a matrix for input
 #' @param type the type of scaling to perform. Options: "ca" which is item divided by row sums, "hellinger" which is sqrt of "ca", "z" which is the same as scale(x), and "ss1" which is sum of squares 1. Also available is "scale" and requires use of center and scale parameters
 #' @param center the intended center (see \code{\link{scale}})
@@ -35,43 +40,52 @@ data.norm <- function(X,type=NULL,center=F,scale=F,margin=2){
   if(is.null(type) & (center==F | is.na(center) | is.null(center)) & (scale==F | is.na(scale) | is.null(scale))){
     return(X)
   }else if(type=="ca"){
-    attributes(X)$`scaled:type` <- "ca"
-    attributes(X)$`scaled:center` <- NULL
-    attributes(X)$`scaled:scale` <- NULL
 
     X <- apply(X,margin,function(x){ x/sum(x) })
 
+    attributes(X)$`scaled:type` <- "ca"
+    attributes(X)$`scaled:center` <- 0
+    attributes(X)$`scaled:scale` <- 1
+
   }else if(type=="hellinger"){
-    attributes(X)$`scaled:type` <- "hellinger"
-    attributes(X)$`scaled:center` <- NULL
-    attributes(X)$`scaled:scale` <- NULL
 
     X <- apply(X,margin,function(x){ sqrt(x/sum(x)) })
 
-  }else if(type == "z"){
-    attributes(X)$`scaled:center` <- colMeans(X)
-    attributes(X)$`scaled:scale` <- apply(X,margin,sd)
+    attributes(X)$`scaled:type` <- "hellinger"
+    attributes(X)$`scaled:center` <- 0
+    attributes(X)$`scaled:scale` <- 1
+
+  }else if(type == "z"){ ## this can be replaced by a scale call... except the t()
+    # dat.colmeans <- apply(X,margin,means)
+    # dat.sd <- apply(X,margin,sd)
+
+    X <- ifelse(margin==2,scale(X,center=T,scale=T),scale(t(X),center=T,scale=T))
+      ## can be replaced by sweeps?
+    #X <- apply(X,margin,function(x){scale(x,center=T,scale=T)})
+    # attributes(X)$`scaled:center` <- dat.colmeans
+    # attributes(X)$`scaled:scale` <- dat.sd
+
     attributes(X)$`scaled:type` <- "z"
 
-      ## can be replaced by sweeps?
-    X <- apply(X,margin,function(x){scale(x,center=T,scale=T)})
+  }else if(type=="ss1"){ ## this can be replaced by a scale call... except the t()
 
-  }else if(type=="ss1"){
-    attributes(X)$`scaled:center` <- colMeans(X)
-    attributes(X)$`scaled:scale` <- apply(X, margin, sd)*(sqrt(orig.dims[-margin]-1))
+    X <- ifelse(margin==2,scale(X,center=T,scale=T),scale(t(X),center=T,scale=T))
+    X <- X / sqrt(orig.dims[-margin]-1)
+      ## can be replaced by sweeps?
+    #X <- apply(X,margin,function(x){scale(x,center=T,scale=sd(x))}) / sqrt(orig.dims[-margin]-1)
+    # attributes(X)$`scaled:center` <- colMeans(X)
+    attributes(X)$`scaled:scale` <- attributes(X)$`scaled:scale`*(sqrt(orig.dims[-margin]-1))
+
     attributes(X)$`scaled:type` <- "ss1"
 
-      ## can be replaced by sweeps?
-    X <- apply(X,margin,function(x){scale(x,center=T,scale=sd(x))}) / sqrt(orig.dims[-margin]-1)
 
   }else if(type=="rms"){
-
-    attributes(X)$`scaled:center` <- rep(0,orig.dims[margin])
-    attributes(X)$`scaled:scale` <- apply(X, margin, sd)
-    attributes(X)$`scaled:type` <- "rms"
-
       ## can be replaced by sweeps?
-    X <- apply(X,margin,function(x){scale(x,center=F,scale=sd(x))})
+    #X <- apply(X,margin,function(x){scale(x,center=F,scale=sd(x))})
+    X <- ifelse(margin==2,scale(X,center=T,scale=T),scale(t(X),center=F,scale=T))
+    attributes(X)$`scaled:center` <- rep(0,orig.dims[margin])
+    #attributes(X)$`scaled:scale` <- apply(X, margin, sd)
+    attributes(X)$`scaled:type` <- "rms"
 
   }else if(type=="scale"){
 
@@ -80,6 +94,7 @@ data.norm <- function(X,type=NULL,center=F,scale=F,margin=2){
     ## check if c/s are logical, or numeric of size 1, or if they are vectors of length of margin
     ## if none of those fail...
     ## then it's a double sweep: center & scale.
+        ## actually -- it is probably faster if I just let scale() do the work.
 
     if(margin==1){
       X <- scale(t(X),center=center,scale=scale)
@@ -87,14 +102,14 @@ data.norm <- function(X,type=NULL,center=F,scale=F,margin=2){
       X <- scale(X,center=center,scale=scale)
     }
 
-    if( !(names(attributes(X)) %in% c("scaled:center")) ){
+    attributes(X)$`scaled:type` <- "scale"
+    if( !any(names(attributes(X)) %in% c("scaled:center")) ){
       attributes(X)$`scaled:center` <- rep(0,orig.dims[margin])
     }
-    if( !(names(attributes(X)) %in% c("scaled:scale")) ){
-      attributes(X)$`scaled:type` <- rep(1,orig.dims[margin])
+    if( !any(names(attributes(X)) %in% c("scaled:scale")) ){
+      attributes(X)$`scaled:scale` <- rep(1,orig.dims[margin])
     }
-    # attributes(X)$`scaled:center` <- center
-    # attributes(X)$`scaled:scale` <- scale
+
 
   }else{
     return(X)
@@ -255,11 +270,11 @@ make.data.nominal <- function(datain,impute.NA.to.mean=T){
 
 #' @export
 row.norm <- function(X,type=NULL,center=T,scale=F){
-  data.norms(X,type=type,center=center,scale=scale,margin=1)
+  return(data.norm(X,type=type,center=center,scale=scale,margin=1))
 }
 #' @export
 col.norm <- function(X,type=NULL,center=T,scale=F){
-  data.norms(X,type=type,center=center,scale=scale,margin=2)
+  return(data.norm(X,type=type,center=center,scale=scale,margin=2))
 }
 
 #' @export

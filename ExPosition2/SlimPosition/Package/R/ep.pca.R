@@ -1,10 +1,21 @@
+## note to self: forget about the normalization schemes. just deal with the typical ones for now and grow later.
+  ## retain the attributes() on return.
+
+
 #' @export
 ep.pca <- function(DATA, center = T, scale = "SS1", k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
 
-    ## no messing around with negatives and a bunch of stupid values!
+  if(any(is.na(DATA))){
+    stop("No NAs allowed.")
+  }
   k <- ceiling(abs(k))
 
-  res <- gsvd(expo.scale(DATA, center = center, scale = scale), k = k, tol = tol)
+  ## as for data, there's only so much I can know and record
+    ### if you get weird, you get weird. I can't bootstrap weird.
+
+    ## REALIZATION: most of expo.scale doesn't actually matter...
+  DATA <- scale(DATA, center = center, scale = scale)
+  res <- gsvd(DATA, k = k, tol = tol)
 
   if(graphs){
     ep.component.plot(res$fi)
@@ -15,5 +26,6 @@ ep.pca <- function(DATA, center = T, scale = "SS1", k = 0, compact = T, graphs =
     res <- list(fi=res$fi, fj=res$fj, d.orig=res$d.orig, u=res$u, v=res$v)
   }
 
+  res$data.attributes <- attributes(DATA) ## maybe it's none?
   return(res)
 }
