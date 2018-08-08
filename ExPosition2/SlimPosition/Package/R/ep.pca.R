@@ -3,29 +3,49 @@
 
 
 #' @export
-ep.pca <- function(DATA, center = T, scale = "SS1", k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
+ep.pca <- function(DATA, col.scale.type="ss1", k = 0, compact = T, graphs = F, tol = .Machine$double.eps){
 
   if(any(is.na(DATA))){
     stop("No NAs allowed.")
   }
+
   k <- ceiling(abs(k))
 
-  ## as for data, there's only so much I can know and record
-    ### if you get weird, you get weird. I can't bootstrap weird.
-
-    ## REALIZATION: most of expo.scale doesn't actually matter...
-  DATA <- scale(DATA, center = center, scale = scale)
+  if( is.null(col.scale.type) ){
+    col.scale.type <- "none"
+  }
+  if( !(col.scale.type %in% c("center","z","ss1","none")) ){
+    stop("Only 'center', 'z', 'ss1', or 'none' scaling type allowed. If other types are needed then transform the data before analysis and use 'none'.")
+  }
+  DATA <- col.scale(DATA, type = col.scale.type)
   res <- gsvd(DATA, k = k, tol = tol)
 
-  if(graphs){
-    ep.component.plot(res$fi)
-    ep.component.plot(res$fj)
-    ep.scree(res$d.orig^2)
-  }
+  res$compact <- F
   if(compact){
-    res <- list(fi=res$fi, fj=res$fj, d.orig=res$d.orig, u=res$u, v=res$v)
+    res <- list(fi=res$fi, fj=res$fj, tau = res$tau, d.orig=res$d.orig, u=res$u, v=res$v)
+    res$compact <- T
+  }
+  res$data.attributes <- attributes(DATA) ## maybe it's none?
+  res$analysis <- "pca"
+  class(res) <- "expo"
+
+
+  if(graphs){
+    # ep.component.plot(res$fi)
+    # ep.component.plot(res$fj)
+    # ep.scree(res$d.orig^2)
+    max.lims <- apply(rbind(res$fi[,1:2], res$fj[,1:2]),2,max) * 1.3
+    min.lims <- apply(rbind(res$fi[,1:2], res$fj[,1:2]),2,min) * 1.3
+
+    xlims <- c(min.lims[1],max.lims[1])
+    ylims <- c(min.lims[2],max.lims[2])
+    c1.label <- paste0("Component 1: ", round(res$tau[1],digits=3), " % variance" )
+    c2.label <- paste0("Component 2: ", round(res$tau[2],digits=3), " % variance" )
+    plot(res,type="row.scores", main="Row component scores", xlim = xlims, ylim = ylims, xlab= c1.label, ylab = c2.label)
+    plot(res,type="col.scores", main="Column component scores", xlim = xlims, ylim = ylims, xlab= c1.label, ylab = c2.label)
+    plot(res,type="scree")
   }
 
-  res$data.attributes <- attributes(DATA) ## maybe it's none?
+
   return(res)
 }

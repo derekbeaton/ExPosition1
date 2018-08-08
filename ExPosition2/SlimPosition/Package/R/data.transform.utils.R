@@ -11,118 +11,127 @@ svd.norm <- function(x){
 }
 
 
-##### ROLL THIS BACK
-  ### make this more akin to the existing rowNorms
-  ### but margin==1 will just t()
-  ### also record what happens to center/scale?
+
+### I need better names for these .norm functions.
+  ## norm is far too specific when it comes to statistics.
+#' @export
+row.scale <- function(X,type=NULL,center=T,scale=F,keep.original.attributes = F){
+  return(margin.scale(X,type=type,center=center,scale=scale,margin=1,keep.original.attributes=keep.original.attributes))
+}
+#' @export
+col.scale <- function(X,type=NULL,center=T,scale=F,keep.original.attributes = F){
+  return(margin.scale(X,type=type,center=center,scale=scale,margin=2,keep.original.attributes=keep.original.attributes))
+}
+
 #' Compute standardization/normalization for rows or columns of a matrix.
-#' @title \code{data.norm}
+#' @title \code{margin.scale}
 #' @param X a matrix for input
-#' @param type the type of scaling to perform. Options: "ca" which is item divided by row sums, "hellinger" which is sqrt of "ca", "z" which is the same as scale(x), and "ss1" which is sum of squares 1. Also available is "scale" and requires use of center and scale parameters
+#' @param type the type of scaling to perform. Options: "rp" (row profile) which is item divided by row sums, "hellinger" which is sqrt of "rp", "z" which is the same as scale(x), and "ss1" which is sum of squares 1. Also available is "scale" and requires use of center and scale parameters
 #' @param center the intended center (see \code{\link{scale}})
 #' @param scale the intended scale (see \code{\link{scale}})
 #' @param margin which margin to perform this on (i.e., 1 for rows and 2 for columns)
 #' @return column or row normalized version of the matrix.
 #' @export
-data.norm <- function(X,type=NULL,center=F,scale=F,margin=2){
-
-  ## this eventually needs simplification..
+margin.scale <- function(X,type=NULL,center=F,scale=F,margin=2, keep.original.attributes = F){
 
   if( !(margin %in% c(1,2)) ){
     stop("`margin` must be either 1 or 2.")
   }
-  orig.dims <- dim(X)
-  if(length(orig.dims) > 2){
-    stop("X is required to be a matrix.")
+
+  if(length(dim(X)) != 2){
+    stop("X is required to be a data.frame or matrix of only two dimensions (rows and columns).")
   }
+
   orig.names <- dimnames(X)
+  if(keep.original.attributes){ #storing stuff just incase someone needs them.
+    orig.attributes <- attributes(X)
+  }
 
-  if(is.null(type) & (center==F | is.na(center) | is.null(center)) & (scale==F | is.na(scale) | is.null(scale))){
-    return(X)
-  }else if(type=="ca"){
+  if(margin==1){
+    X <- t(X)
+  }
 
-    X <- apply(X,margin,function(x){ x/sum(x) })
+  type <- tolower(type)
 
-    attributes(X)$`scaled:type` <- "ca"
-    attributes(X)$`scaled:center` <- 0
-    attributes(X)$`scaled:scale` <- 1
+  if( !(type %in% c("rp","hellinger","z","ss1","center","rms","scale")) | is.null(type) | type=="none" ){
+    attributes(X)$norm.type <- "none"
+    attributes(X)$`scaled:center` <- rep(0,ncol(X))
+    attributes(X)$`scaled:scale` <- rep(1,ncol(X))
+    # do nothing.
+
+  }else if(type=="rp"){
+
+    X <- apply(X,2,function(x){ x/sum(x) })
+
+    attributes(X)$norm.type <- "rp"
+    attributes(X)$`scaled:center` <- rep(0,ncol(X))
+    attributes(X)$`scaled:scale` <- rep(1,ncol(X))
 
   }else if(type=="hellinger"){
 
-    X <- apply(X,margin,function(x){ sqrt(x/sum(x)) })
+    X <- apply(X,2,function(x){ sqrt(x/sum(x)) })
 
-    attributes(X)$`scaled:type` <- "hellinger"
-    attributes(X)$`scaled:center` <- 0
-    attributes(X)$`scaled:scale` <- 1
+    attributes(X)$norm.type <- "hellinger"
+    attributes(X)$`scaled:center` <- rep(0,ncol(X))
+    attributes(X)$`scaled:scale` <- rep(1,ncol(X))
 
   }else if(type == "z"){ ## this can be replaced by a scale call... except the t()
-    # dat.colmeans <- apply(X,margin,means)
-    # dat.sd <- apply(X,margin,sd)
 
-    X <- ifelse(margin==2,scale(X,center=T,scale=T),scale(t(X),center=T,scale=T))
-      ## can be replaced by sweeps?
-    #X <- apply(X,margin,function(x){scale(x,center=T,scale=T)})
-    # attributes(X)$`scaled:center` <- dat.colmeans
-    # attributes(X)$`scaled:scale` <- dat.sd
-
-    attributes(X)$`scaled:type` <- "z"
+    X <- scale(X,center=T,scale=T)
+    attributes(X)$norm.type <- "z"
+    ## center & scale are already covered.
 
   }else if(type=="ss1"){ ## this can be replaced by a scale call... except the t()
 
-    X <- ifelse(margin==2,scale(X,center=T,scale=T),scale(t(X),center=T,scale=T))
-    X <- X / sqrt(orig.dims[-margin]-1)
-      ## can be replaced by sweeps?
-    #X <- apply(X,margin,function(x){scale(x,center=T,scale=sd(x))}) / sqrt(orig.dims[-margin]-1)
-    # attributes(X)$`scaled:center` <- colMeans(X)
-    attributes(X)$`scaled:scale` <- attributes(X)$`scaled:scale`*(sqrt(orig.dims[-margin]-1))
 
-    attributes(X)$`scaled:type` <- "ss1"
-
+    X <- scale(X,center=T,scale=apply(X,2,function(x){ sd(x) * sqrt(length(x)-1) }))
+    attributes(X)$norm.type <- "ss1"
+    ## center & scale are already covered.
 
   }else if(type=="rms"){
-      ## can be replaced by sweeps?
-    #X <- apply(X,margin,function(x){scale(x,center=F,scale=sd(x))})
-    X <- ifelse(margin==2,scale(X,center=T,scale=T),scale(t(X),center=F,scale=T))
-    attributes(X)$`scaled:center` <- rep(0,orig.dims[margin])
-    #attributes(X)$`scaled:scale` <- apply(X, margin, sd)
-    attributes(X)$`scaled:type` <- "rms"
+
+    X <- scale(X,center=F,scale=T)
+    attributes(X)$`scaled:center` <- rep(0,ncol(X))
+    attributes(X)$norm.type <- "rms"
+
+  }else if(type=="center"){
+
+    X <- scale(X,center=T,scale=F)
+    attributes(X)$`scaled:scale` <- rep(1,ncol(X))
+    attributes(X)$norm.type <- "center"
 
   }else if(type=="scale"){
 
-    ## I can probably replace this with some sweeps:
-    ## ok do this with sweeps...
-    ## check if c/s are logical, or numeric of size 1, or if they are vectors of length of margin
-    ## if none of those fail...
-    ## then it's a double sweep: center & scale.
-        ## actually -- it is probably faster if I just let scale() do the work.
-
-    if(margin==1){
-      X <- scale(t(X),center=center,scale=scale)
-    }else{
-      X <- scale(X,center=center,scale=scale)
-    }
-
-    attributes(X)$`scaled:type` <- "scale"
+    # you do you
+    X <- scale(X,center=center,scale=scale)
+    attributes(X)$norm.type <- "scale"
     if( !any(names(attributes(X)) %in% c("scaled:center")) ){
-      attributes(X)$`scaled:center` <- rep(0,orig.dims[margin])
+      attributes(X)$`scaled:center` <- rep(0,ncol(X))
     }
     if( !any(names(attributes(X)) %in% c("scaled:scale")) ){
-      attributes(X)$`scaled:scale` <- rep(1,orig.dims[margin])
+      attributes(X)$`scaled:scale` <- rep(1,ncol(X))
     }
 
 
   }else{
-    return(X)
+    warning("No margin.scale parameter conditions were met. Returning data as they are.")
+    attributes(X)$norm.type <- "none"
+    attributes(X)$`scaled:center` <- rep(0,ncol(X))
+    attributes(X)$`scaled:scale` <- rep(1,ncol(X))
   }
+
 
   attributes(X)$`scaled:margin` <- margin
-
-  new.dims <- dim(X)
-  if(new.dims[1]==orig.dims[2] & new.dims[2]==orig.dims[1]){
+  if(margin==1){
     X <- t(X)
   }
+
+  # just to be safe.
   dimnames(X) <- orig.names
 
+  if(keep.original.attributes){ #storing stuff just incase someone needs them.
+    attributes(X)$original.attributes <- orig.attributes
+  }
 
   return(X)
 }
@@ -244,122 +253,4 @@ make.data.nominal <- function(datain,impute.NA.to.mean=T){
   return(dataout)
 }
 
-# ## consider not using this one...; or calling into data.norms
-# rowNorms <- function(X,type=NULL,center=FALSE,scale=FALSE){
-#   if(is.null(type)){
-#     return(X)
-#   }else if(type=='hellinger'){
-#     return(sqrt(X/matrix(rowSums(X),nrow(X),ncol(X))))
-#   }else if(type == 'ca'){
-#     return(X/matrix(rowSums(X),nrow(X),ncol(X)))
-#   }else if (type == 'z'){
-#     return(t(apply(X,1,scale,T,T)))
-#   }else if(type == 'other'){
-#     ## this one is expensive.
-#     return(t(expo.scale(t(X),center=center,scale=scale)))
-#   }else{
-#     return(X)
-#   }
-# }
-#
-# ## consider not using this one...; or calling into data.norms
-#   ## or into expo.scale...
-# colNorms <- function(x){
-#
-# }
 
-#' @export
-row.norm <- function(X,type=NULL,center=T,scale=F){
-  return(data.norm(X,type=type,center=center,scale=scale,margin=1))
-}
-#' @export
-col.norm <- function(X,type=NULL,center=T,scale=F){
-  return(data.norm(X,type=type,center=center,scale=scale,margin=2))
-}
-
-#' @export
-expo.scale <- function(DATA,center=TRUE,scale=TRUE){
-
-  column.names <- colnames(DATA)
-  DATA_dims <- dim(DATA)
-
-  ######THIS BLOCK INTENDED TO CREATE CENTERS AND SCALES BASED ON REQUESTS.
-  if(class(scale)=="character"){
-    if(tolower(scale)=="ss1"){ ##if you want to get SS1
-      if(is.logical(center) && center){
-        center <- apply(DATA, 2, mean, na.rm = TRUE)
-      }else if(is.logical(center) && !center){
-        center <- rep(0,DATA_dims[2])
-      }##else, you are on your own. I perform rudimentary checks later for lengths and whatnot.
-      scale <- apply(DATA, 2, sd, na.rm = TRUE)*(sqrt(DATA_dims[1]-1))
-    }
-    else if(tolower(scale)=="sd"){ ##if you want to get sd-norm; no center.
-      center <- rep(0,DATA_dims[2])
-      scale <- apply(DATA, 2, sd, na.rm = TRUE)
-    }
-    else if(tolower(scale)=="rms"){ ##I probably don't need this, but will be consistent.
-      if(is.logical(center) && !center){
-        center<-FALSE #=rep(0,DATA_dims[2])
-        scale<-TRUE #=sqrt(colSums(DATA^2)/(nrow(DATA)-1))
-      }else if(is.logical(center) && center){ ##you just wanted a z score then...
-        center<-TRUE #=apply(DATA, 2, mean, na.rm = TRUE)
-        scale<-TRUE #=apply(DATA, 2, sd, na.rm = TRUE)
-      }##else, you are on your own. I perform rudimentary checks later for lengths and whatnot.
-    }
-    else if(tolower(scale)=="z"){ ##both z and SS1 need center/scale
-      center<-TRUE #=apply(DATA, 2, mean, na.rm = TRUE)
-      scale<-TRUE #=apply(DATA, 2, sd, na.rm = TRUE)
-    }else if(tolower(center)=="median" | tolower(center)=="med"){
-      center <- apply(DATA,2,median,na.rm=T)
-      if(tolower(scale)=="mad"){
-        scale <- apply(DATA,2,mad,na.rm=T)
-      }else if(tolower(scale)=="iqr"){
-        scale <- apply(DATA,2,IQR,na.rm=T)
-      }
-    }
-    else{ ## you made a booboo
-      center<-TRUE
-      scale<-TRUE
-      print("Something is wrong with 'center' and 'scale'. 'center' and 'scale' both set to TRUE.")
-    }
-    ##will include other normalization schemes in the future. The Mu-methods will need row norms and other norms.
-  }
-
-
-  ######THIS BLOCK INTENDED TO PERFORM A SET OF CHECKS
-  if((!is.logical(center)) && (!(class(center)=="numeric" && length(center)==DATA_dims[2]))){
-    center <- TRUE
-    print("Something is wrong with 'center'. 'center' set to TRUE.")
-  }
-  if((!is.logical(scale)) && (!(class(scale)=="numeric" && length(scale)==DATA_dims[2]))){
-    scale <- TRUE
-    print("Something is wrong with 'scale'. 'scale' set to TRUE.")
-  }
-
-
-  ###NOW PERFORM THE ACTUAL NORMS.
-  scale.info <- scale(DATA,center=center,scale=scale)
-
-  #center checks
-  center.out <- attributes(scale.info)$`scaled:center`
-  if(is.null(center.out)){
-    center.out <- rep(0,DATA_dims[2]) ##create a 0 center
-  }
-  if(is.null(names(center.out))){
-    names(center.out) <- column.names
-  }
-  #scale checks
-  scale.out <- attributes(scale.info)$`scaled:scale`
-  if(is.null(scale.out)){
-    scale.out <- rep(1,DATA_dims[2]) ##create a 1 scale
-  }
-  if(is.null(names(scale.out))){
-    names(scale.out) <- column.names
-  }
-
-  #this forces every data matrix to pass through here to have a center and a scale attribute.
-  attributes(scale.info)$`scaled:center` <- center.out
-  attributes(scale.info)$`scaled:scale` <- scale.out
-  #recall DATA - 0 center * 1 scale = DATA.
-  return(scale.info)
-}

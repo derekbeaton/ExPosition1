@@ -7,7 +7,7 @@ ep.component.plot <- function(scores, axes=c(1,2), pch=20, col="mediumorchid4", 
                               ylab=paste0("Component ",axes[2]),
                               xlim=c(-max(abs(scores[,axes])),max(abs(scores[,axes])))*1.3,
                               ylim=c(-max(abs(scores[,axes])),max(abs(scores[,axes])))*1.3,
-                              asp=1, pos=3, display_names=T,cex=1,text.cex=1,
+                              asp=1, pos=3, display_names=T,cex=1,text.cex=.8,
                               ...){
 
   ## this will be kept simple (with intent) for quite a while
@@ -28,10 +28,9 @@ ep.component.plot <- function(scores, axes=c(1,2), pch=20, col="mediumorchid4", 
 
 
 #' @export
-ep.scree <- function(eigs,main="Scree"){
+ep.scree <- function(taus,main="Scree",...){
 
-  taus <- eigs/sum(eigs)*100
-  plot(taus,type="l",ylab="% explained", xlab="Component", main=main)
+  plot(taus,type="l",ylab="% explained", xlab="Component", main=main,...)
   points(1:length(taus),taus,pch=20)
 
 }
