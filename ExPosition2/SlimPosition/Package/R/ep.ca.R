@@ -6,33 +6,27 @@ ep.ca <- function(DATA, asymmetric = F, k = 0, compact = T, graphs = F, tol = .M
   }
 
 
-  sum.data <- sum(DATA)
-  wi <- rowSums(DATA)/sum.data
-  wj <- colSums(DATA)/sum.data
+  DATA <- table.scale(DATA, type="ca") # no user choice here.
+  wi <- rowSums(DATA)
+  wj <- colSums(DATA)
+
 
   k <- ceiling(abs(k))
-
-    ## big question: which is faster:
-    ## (1)
-  #res <- gsvd( (DATA/sum.data) - (wi %o% wj), 1/wi, 1/wj, k = k )
-    ## (1)
-    ## (2)
-  #res <- gsvd( sweep(sweep(DATA,1,rowSums.data,"/"),2,wj), wi, 1/wj, k = k , tol = tol)
-  res <- gsvd( sweep(sweep(DATA,1,wi*sum.data,"/"),2,wj), wi, 1/wj, k = k , tol = tol)
-  #res <- gsvd( sweep(sweep(DATA,1,wi,"*"),2,wj), wi, 1/wj, k = k , tol = tol)
-  res$fi <- sweep(res$fi,1,wi,"/")
-    ## (2)
+  res <- gsvd( sweep(sweep(DATA, 1, wi, "/"), 2, wj), wi, 1/wj)
+  res$fi <- sweep(res$fi, 1, wi, "/")
 
   res$asymmetric <- asymmetric
   if(asymmetric){
     res$fj <- sweep(res$fj,2,res$d,"/")
   }
+
   res$compact <- F
   if(compact){
     res <- list(fi=res$fi, fj=res$fj, tau = res$tau, d.orig=res$d.orig, u=res$u, v=res$v)
   }
+  res$wi <- wi
+  res$wj <- wj
   res$data.attributes <- attributes(DATA) ## maybe it's none?
-  res$data.attributes$sum <- sum.data
   res$analysis <- "ca"
   class(res) <- "expo"
 

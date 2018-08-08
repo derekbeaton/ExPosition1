@@ -53,27 +53,11 @@ margin.scale <- function(X,type=NULL,center=F,scale=F,margin=2, keep.original.at
 
   type <- tolower(type)
 
-  if( !(type %in% c("rp","hellinger","z","ss1","center","rms","scale")) | is.null(type) | type=="none" ){
+  if( !(type %in% c("z","ss1","center","rms","scale")) | is.null(type) | type=="none" ){
     attributes(X)$norm.type <- "none"
     attributes(X)$`scaled:center` <- rep(0,ncol(X))
     attributes(X)$`scaled:scale` <- rep(1,ncol(X))
     # do nothing.
-
-  }else if(type=="rp"){
-
-    X <- apply(X,2,function(x){ x/sum(x) })
-
-    attributes(X)$norm.type <- "rp"
-    attributes(X)$`scaled:center` <- rep(0,ncol(X))
-    attributes(X)$`scaled:scale` <- rep(1,ncol(X))
-
-  }else if(type=="hellinger"){
-
-    X <- apply(X,2,function(x){ sqrt(x/sum(x)) })
-
-    attributes(X)$norm.type <- "hellinger"
-    attributes(X)$`scaled:center` <- rep(0,ncol(X))
-    attributes(X)$`scaled:scale` <- rep(1,ncol(X))
 
   }else if(type == "z"){ ## this can be replaced by a scale call... except the t()
 
@@ -133,7 +117,50 @@ margin.scale <- function(X,type=NULL,center=F,scale=F,margin=2, keep.original.at
     attributes(X)$original.attributes <- orig.attributes
   }
 
+  attributes(X)$func <- "margin.scale"
+
   return(X)
+}
+
+
+#' @export
+table.scale <- function(X, type="ca", power=1, keep.original.attributes = F){ # primarily for CA-based work.
+
+  if( !(type %in% c("ca","rp","hellinger","power")) | is.null(type) | type=="none" ){
+    attributes(X)$norm.type <- "none"
+  }
+
+  table.sum <- sum(X)
+  if(type=="ca"){
+
+    X <- X / table.sum
+    attributes(X)$norm.type <- "ca"
+
+  }else if(type=="rp"){
+
+    row.sums <- rowSums(X)
+    X <- sweep(X, 1, row.sums, "/")
+    attributes(X)$norm.type <- "rp"
+    attributes(X)$row.sums <- row.sums
+
+  }else if(type=="hellinger"){
+
+    X <- t(apply(table.scale(X,type="rp")),1,sqrt)
+    attributes(X)$norm.type <- "hellinger"
+
+  }else if(type=="power"){
+
+    X <- t(apply(table.scale(X,type="rp")),1,function(x){x^power})
+    attributes(X)$norm.type <- "power"
+    attributes(X)$exponent <- power
+
+  }
+
+  attributes(X)$sum <- table.sum
+  attributes(X)$func <- "table.scale"
+
+  return(X)
+
 }
 
 #' @export

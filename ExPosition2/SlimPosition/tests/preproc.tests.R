@@ -16,12 +16,12 @@ t(expo.scale(t(test.dat),scale="SS1")) / margin.scale(test.dat,margin = 1,type="
 
 
 
-row.scale(test.dat,type="rp") / rowNorms(test.dat,type = "ca")
-row.scale(test.dat,type="hellinger") / rowNorms(test.dat, type="hellinger")
+#row.scale(test.dat,type="rp") / rowNorms(test.dat,type = "ca")
+#row.scale(test.dat,type="hellinger") / rowNorms(test.dat, type="hellinger")
 row.scale(test.dat,type="z") / rowNorms(test.dat,type="z")
 
-row.scale(test.dat,type="rp") / margin.scale(test.dat,margin = 1,type="rp")
-row.scale(test.dat,type="hellinger") / margin.scale(test.dat,margin = 1,type="hellinger")
+#row.scale(test.dat,type="rp") / margin.scale(test.dat,margin = 1,type="rp")
+#row.scale(test.dat,type="hellinger") / margin.scale(test.dat,margin = 1,type="hellinger")
 row.scale(test.dat,type="z") / margin.scale(test.dat,margin = 1,type="z")
 
 
