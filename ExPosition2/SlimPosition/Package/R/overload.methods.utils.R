@@ -74,14 +74,43 @@ plot.expo <- function(expo.output, type="row.scores", ...){
 
 }
 
-# summary.expo <- function(expo.output, ...){
-#
-#   ## need to check type here, e.g., PCA, CA, MDS vs. PLS, CCA, RDA
-#     ## or an alternative is to just base this on the GSVD but know the type.
-#
-# }
-#
-#
+  ## all I can guarnatee here is: (1) the type, (2) fi/fj, u/v, and d/t
+summary.expo <- function(expo.output, ...){
+
+  ## need to check type here, e.g., PCA, CA, MDS vs. PLS, CCA, RDA
+    ## or an alternative is to just base this on the GSVD but know the type.
+
+  if(expo.output$analysis %in% c("pca","ca","mca")){ ## add to the list.
+
+    # make summary for the results like what we would include in a paper
+
+
+    # make a print statement like the summary.princomp
+      ## a PCA/CA/MCA whatever here
+    analysis.type <- "A [placeholde] analysis "
+    cat( paste0(analysis.type, "was performed on a I = ", nrow(expo.output$fi), "rows by J = ", nrow(expo.output$fj), " matrix. The total number of components (i.e., rank of the matrix) was: ", length(expo.output$d.orig)," with ", length(expo.output$d), " components computed (retained). \nComponents information:\n") )
+    cat("Information for retained components:\n")
+    print(
+      rbind(`Singular values (standard deviation)` = expo.output$d,
+            `Percent of Variance` = expo.output$tau[1:length(expo.output$d)],
+            `Cumulative Percent` = cumsum(expo.output$tau[1:length(expo.output$d)]))
+      )
+
+
+
+  }#else if(){ ## the two table techniques.
+
+  #}
+  else{
+    warning("$analysis type not found.")
+  }
+
+  invisible(x)
+
+}
+
+
+  ## this will be like before where it describes the output.
 # print.expo <- function(expo.output,...){
 #
 # }

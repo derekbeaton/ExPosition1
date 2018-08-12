@@ -7,9 +7,10 @@ ep.mca <- function(DATA, make.data.nominal = T, asymmetric = F, benzecri.correct
 
   if(make.data.nominal){  ## if not I hope you know what you're doing!
     DATA <- make.data.nominal(DATA)
-  }else{ ## all rowsums better be the same...
-    stopifnot(all.equal(rowSums(DATA)))
   }
+  ## actually replace stopifnot so I can be more verbose
+  stopifnot(all.equal(rowSums(DATA)))
+
   num.variables <- rowSums(DATA)[1]
 
   # ship off to CA.
