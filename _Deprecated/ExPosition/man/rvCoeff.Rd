@@ -8,7 +8,7 @@ Perform Rv coefficient computation.
 Perform Rv coefficient computation.
 }
 \usage{
-rvCoeff(Smat, Tmat, type = -1)
+rvCoeff(Smat, Tmat)
 }
 \arguments{
   \item{Smat}{A square covariance matrix}
