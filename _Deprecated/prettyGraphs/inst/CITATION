@@ -9,9 +9,9 @@ citEntry(entry = "Article",
   volume = "72",
   number = "0",
   pages = "176 - 189",
-  year = "In press, 2014",
+  year = "2014",
   issn = "0167-9473",
-  doi = "http://dx.doi.org/10.1016/j.csda.2013.11.006",
+  doi = "10.1016/j.csda.2013.11.006",
   url = "http://www.sciencedirect.com/science/article/pii/S0167947313004441",
 
   textVersion  =

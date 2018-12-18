@@ -11,15 +11,15 @@ prettyGraphs is a package that produces simple, crisp, publication-quality graph
 \tabular{ll}{
 Package: \tab prettyGraphs\cr
 Type: \tab Package\cr
-Version: \tab 2.1.5\cr
-Date: \tab 2013-12-09\cr
+Version: \tab 2.1.6\cr
+Date: \tab 2018-12-15\cr
 License: \tab GPL-2\cr
 Suggests: ExPosition
 }
 }
 \author{Derek Beaton <exposition.software@gmail.com>}
 \references{
-	Two functions were copied/derived for use in prettyGraphs: peeledHull and repmat.\cr \cr
+	Three functions were copied/derived for use in prettyGraphs: peeledHull, add.alpha, and repmat.\cr \cr
 	
 	For peeledHull see:\cr
 	http://carme-n.org/?sec=code2\cr
@@ -27,6 +27,9 @@ Suggests: ExPosition
 	
 	For repmat see:\cr
 	http://cran.r-project.org/doc/contrib/R-and-octave.txt
+	
+	For add.alpha see:\cr
+	https://magesblog.com/post/2013-04-30-how-to-change-alpha-value-of-colours-in/
 }
 \keyword{ package }
 \seealso{

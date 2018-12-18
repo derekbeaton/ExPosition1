@@ -1,4 +1,4 @@
-export(minmaxHelper,contributionBars,correlationPlotter,prettyPlot,peeledHull,repmat,createColorVectorsByDesign,prettyGraphsColors,prettyBars,prettyGraphsColorSelection,prettyGraphsHSVColorSelection,prettyScree)
+export(minmaxHelper,contributionBars,correlationPlotter,prettyPlot,peeledHull,repmat,createColorVectorsByDesign,prettyGraphsColors,prettyBars,prettyGraphsColorSelection,prettyGraphsHSVColorSelection,prettyScree,add.alpha)
 
 importFrom("grDevices", "chull", "col2rgb", "colors", "dev.new", "hsv","rgb")
 importFrom("graphics", "abline", "axis", "barplot", "box", "lines","mtext", "par", "plot", "points", "text")

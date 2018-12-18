@@ -14,18 +14,18 @@ The core of ExPosition is the singular value decomposition (SVD; see: \code{\lin
 \tabular{ll}{
 Package: \tab ExPosition\cr
 Type: \tab Package\cr
-Version: \tab 2.8.20\cr
-Date: \tab 2013-12-09\cr
+Version: \tab 2.8.22\cr
+Date: \tab 2018-12-15\cr
 Depends: \tab R (>=2.15.0), prettyGraphs (>= 2.1.4)\cr
 License: \tab GPL-2\cr
-URL: \tab http://www.utdallas.edu/~derekbeaton/software/exposition\cr
+URL: \tab https://github.com/derekbeaton/ExPosition-Family_OLD\cr
 }
 }
 \author{
 Questions, comments, compliments, and complaints go to Derek Beaton \email{exposition.software@gmail.com}.\cr\cr
 
 The following people are authors or contributors to ExPosition code, data, or examples:\cr
-Derek Beaton, Hervé Abdi, Cherise Chin-Fatt, Joseph Dunlop, Jenny Rieck, Rachel Williams,  Anjali Krishnan, and Francesca Filbey.
+Derek Beaton, Hervé Abdi, Cherise Chin-Fatt, Joseph Dunlop, Jenny Rieck, Rachel Williams,  Anjali Krishnan, and Francesca M. Filbey.
 }
 \references{
 Abdi, H., and Williams, L.J. (2010). Principal component analysis. \emph{Wiley Interdisciplinary Reviews: Computational Statistics}, 2, 433-459.\cr
