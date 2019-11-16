@@ -1,7 +1,7 @@
 tepGraphs <-
 function(res,x_axis=1,y_axis=2,tepPlotInfo=NULL,DESIGN=NULL,fi.col=NULL, fi.pch=NULL, fii.col=NULL, fii.pch = NULL, fj.col=NULL, fj.pch = NULL,col.offset=NULL,constraints=NULL,lv.constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,lvPlots=TRUE,lvAgainst=TRUE,contributionPlots=TRUE,correlationPlotter=TRUE,showHulls=1,graphs=TRUE){
 
-	pca.types <- c('tepBADA','tepPLS','tepGPLS')
+	pca.types <- c('tepBADA','tepPLS')
 	ca.types <- c('tepDICA','tepPLSCA')
 	bary.types <- c('tepBADA','tepDICA')
 	

@@ -1,12 +1,15 @@
 Package: TExPosition
 Type: Package
-Title: Two-table ExPosition
-Version: 2.X.XX
+Title: Two-Table ExPosition
+Version: 2.6.10.1
 Date: 2014-12-19
 Author: Derek Beaton, Jenny Rieck, Aida Eslami, Cherise R. Chin Fatt, Herve Abdi
 Maintainer: Derek Beaton <exposition.software@gmail.com>
-Description: TExPosition is an extension of ExPosition for two table analyses, specifically, discriminant analyses.
+Description: An extension of ExPosition for two table analyses, specifically, discriminant analyses.
 License: GPL-2
 Depends: prettyGraphs (>= 2.1.4), ExPosition (>= 2.0.0)
-Packaged: 2013-12-09; dbeaton
-BugReports: http://code.google.com/p/exposition-family/issues/list
+Packaged: 2019-01-31 17:22:24 UTC; hornik
+BugReports: https://github.com/derekbeaton/ExPosition1
+NeedsCompilation: no
+Repository: CRAN
+Date/Publication: 2019-01-31 17:27:48 UTC

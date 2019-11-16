@@ -1,1 +1,10 @@
 exportPattern("^[[:alpha:]]+")
+
+S3method(print, Cmat)
+S3method(print, DistatisR)
+S3method(print, Splus)
+
+importFrom("graphics", "points")
+importFrom("stats", "model.matrix")
+importFrom("car", "dataEllipse")
+importFrom("prettyGraphs", createColorVectorsByDesign, peeledHull, prettyPlot)

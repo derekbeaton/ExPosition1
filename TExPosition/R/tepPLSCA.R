@@ -1,6 +1,6 @@
 #Hellinger not available yet. Not until I can get the caNorm pipeline fixed.
 tepPLSCA <-
-function(DATA1,DATA2,make_data1_nominal=FALSE,make_data2_nominal=FALSE,DESIGN=NULL,make_design_nominal=TRUE,weights1=NULL,weights2=NULL,symmetric=TRUE,graphs=TRUE,k=0){
+function(DATA1,DATA2,make_data1_nominal=FALSE,make_data2_nominal=FALSE,DESIGN=NULL,make_design_nominal=TRUE,symmetric=TRUE,graphs=TRUE,k=0){
 
 	main <- paste("PLSCA: ",deparse(substitute(DATA1))," & ", deparse(substitute(DATA2)),sep="")		
 	if(nrow(DATA1) != nrow(DATA2)){
@@ -20,12 +20,12 @@ function(DATA1,DATA2,make_data1_nominal=FALSE,make_data2_nominal=FALSE,DESIGN=NU
 	DATA2 <- as.matrix(DATA2)	
 	R <- t(DATA1) %*% DATA2
 	
-	res <- coreCA(R,masses=weights1,weights=weights2,hellinger=FALSE,symmetric=symmetric,k=k)
-	#res <- epCA(R, masses = weights1, weights = weights2, hellinger = FALSE, symmetric = symmetric, graphs = FALSE, k=k)
-	#res <- res$ExPosition.Data
+	res <- coreCA(R,hellinger=FALSE,symmetric=symmetric,k=k)
+	
 	res$W1 <- res$M
 	res$W2 <- res$W
 	res$M <- res$W <- NULL
+	
 	res$lx <- supplementalProjection(makeRowProfiles(DATA1)$rowProfiles,res$fi,Dv=res$pdq$Dv)$f.out / sqrt(nrow(DATA1))
 	if(symmetric){
 		res$ly <- supplementalProjection(makeRowProfiles(DATA2)$rowProfiles,res$fj,Dv=res$pdq$Dv)$f.out / sqrt(nrow(DATA2))

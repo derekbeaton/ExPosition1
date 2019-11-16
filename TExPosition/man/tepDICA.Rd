@@ -9,15 +9,13 @@ Discriminant Correspondence Analysis (DICA) via TExPosition.
 }
 \usage{
 tepDICA(DATA, make_data_nominal = FALSE, DESIGN = NULL, make_design_nominal = TRUE, 
-group.masses = NULL, weights = NULL, symmetric = TRUE, graphs = TRUE, k = 0)
+symmetric = TRUE, graphs = TRUE, k = 0)
 }
 \arguments{
   \item{DATA}{original data to perform a DICA on. Data can be contingency (like CA) or categorical (like MCA).}
   \item{make_data_nominal}{a boolean. If TRUE (default), DATA is recoded as a dummy-coded matrix. If FALSE, DATA is a dummy-coded matrix.}
   \item{DESIGN}{a design matrix to indicate if rows belong to groups. Required for DICA.}
   \item{make_design_nominal}{a boolean. If TRUE (default), DESIGN is a vector that indicates groups (and will be dummy-coded). If FALSE, DESIGN is a dummy-coded matrix.}
-  \item{group.masses}{a diagonal matrix or column-vector of masses for the groups.}
-  \item{weights}{a diagonal matrix or column-vector of weights for the column it}
   \item{symmetric}{a boolean. If TRUE (default) symmetric factor scores for rows.}
   \item{graphs}{a boolean. If TRUE (default), graphs and plots are provided (via \code{\link{tepGraphs}})}
   \item{k}{number of components to return.}
@@ -50,8 +48,6 @@ Derek Beaton, Hervé Abdi
 
 \seealso{
 \code{\link{coreCA}}, \code{\link{epCA}}, \code{\link{epMCA}} \cr
-	For MatLab code: http://utd.edu/~herve/HerveAbdi_MatlabPrograms4MUDICA.zip
-	For additional R code (with inference tests): http://utdallas.edu/~dfb090020/attachments/MuDiCA.zip
 }
 \examples{
 data(dica.wine)

@@ -1,1 +1,16 @@
 exportPattern("^[^\\.]")
+
+S3method(print, tepBADA.inference.battery)
+S3method(print, tepDICA.inference.battery)
+S3method(print, tinpoAllBoots)
+S3method(print, tinpoBoot)
+S3method(print, tinpoBootTests)
+S3method(print, tinpoComponents)
+S3method(print, tinpoLOO)
+S3method(print, tinpoOmni)
+S3method(print, tinpoOutput)
+S3method(print, tinpoR2)
+
+import(prettyGraphs, TExPosition, ExPosition, InPosition)
+
+importFrom("utils", "setTxtProgressBar", "txtProgressBar")

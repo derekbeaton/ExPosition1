@@ -8,7 +8,7 @@ Barycentric Discriminant Analysis (BADA) via TExPosition.
 }
 \usage{
 tepBADA(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = TRUE, 
-	group.masses = NULL, weights = NULL, graphs = TRUE, k = 0)
+	graphs = TRUE, k = 0)
 }
 \arguments{
   \item{DATA}{original data to perform a BADA on.}
@@ -16,13 +16,11 @@ tepBADA(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = 
   \item{center}{a boolean, vector, or string. See \code{\link{expo.scale}} for details.}
   \item{DESIGN}{a design matrix to indicate if rows belong to groups. Required for BADA.}
   \item{make_design_nominal}{a boolean. If TRUE (default), DESIGN is a vector that indicates groups (and will be dummy-coded). If FALSE, DESIGN is a dummy-coded matrix.}
-  \item{group.masses}{a diagonal matrix or column-vector of masses for the groups.}
-  \item{weights}{a diagonal matrix or column-vector of weights for the column items.}
   \item{graphs}{a boolean. If TRUE (default), graphs and plots are provided (via \code{\link{tepGraphs}})}
   \item{k}{number of components to return.}
 }
 \value{
-	See \code{\link{epGPCA}} (and also \code{\link{corePCA}}) for details on what is returned. In addition to the values returned:\cr
+	See \code{\link{corePCA}} for details on what is returned. In addition to the values returned:\cr
 	\item{fii}{factor scores computed for supplemental observations}
 	\item{dii}{squared distances for supplemental observations}
 	\item{rii}{cosines for supplemental observations}
@@ -47,8 +45,7 @@ Derek Beaton
 }
 
 \seealso{
-	\code{\link{corePCA}}, \code{\link{epPCA}}, \code{\link{epGPCA}},  \code{\link{epMDS}}\cr
-	For MatLab code: http://utd.edu/~derekbeaton/attachments/Software/matlab/MuSuBADA_V3.zip
+	\code{\link{corePCA}}, \code{\link{epPCA}}, \code{\link{epMDS}}\cr
 }
 \examples{
 data(bada.wine)
