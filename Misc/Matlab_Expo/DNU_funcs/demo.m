@@ -1,3 +1,0 @@
-data=[1    4    7;2    5    8;3    6    9];
-[fi, di, ri, ci, fj, dj, rj, cj,...
-    t, eigsss,M,W,p, q, Dv, Dd, ng] = corePCA(data);
