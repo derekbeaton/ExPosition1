@@ -8,11 +8,12 @@ Perform Rv coefficient computation.
 Perform Rv coefficient computation.
 }
 \usage{
-rvCoeff(Smat, Tmat)
+rvCoeff(Smat, Tmat, type)
 }
 \arguments{
   \item{Smat}{A square covariance matrix}
   \item{Tmat}{A square covariance matrix}
+  \item{type}{DEPRECATED. Any value here will be ignored}
 }
 \value{
 	A single value that is the Rv coefficient. 

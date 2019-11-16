@@ -1,9 +1,8 @@
-rvCoeff <- function(Smat,Tmat){
+rvCoeff <- function(Smat,Tmat, type){
 ##private function
 matrixTrace <- function(squareMatrix){
 	return(sum(diag(squareMatrix)))
 }	
-	
 	#rv = 0
 	if(sum(dim(Smat) == dim(Tmat)) != 2){
 		print('Dimensions do not match')
