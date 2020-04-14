@@ -13,17 +13,19 @@ tepBADA <- function(DATA,scale=TRUE,center=TRUE,DESIGN=NULL,make_design_nominal=
 	DATA <- expo.scale(as.matrix(DATA),scale=scale,center=center)
   R <- t(massedDESIGN) %*% DATA
 	
-	this.center <- attributes(R)$`scaled:center`
-	this.scale <- attributes(R)$`scaled:scale`	
+	#this.center <- attributes(DATA)$`scaled:center`
+	#this.scale <- attributes(DATA)$`scaled:scale`	
 
 	colnames(R) <- colnames(DATA)
 	rownames(R) <- colnames(DESIGN)	
 	
-	res <- corePCA(R,k=k)
-
+	#res <- corePCA(R,k=k)
+	
+	
+	res <- epPCA(R, scale = FALSE, center = FALSE, graphs = FALSE, k = k)
 	res <- res$ExPosition.Data
-	res$center <- this.center
-	res$scale <- this.scale
+	#res$center <- this.center
+	#res$scale <- this.scale
 
 	supplementaryRes <- supplementaryRows(DATA,res)
 	res$fii <- supplementaryRes$fii
@@ -34,7 +36,7 @@ tepBADA <- function(DATA,scale=TRUE,center=TRUE,DESIGN=NULL,make_design_nominal=
 	res$ly <- supplementaryCols(t(massedDESIGN),res,center=FALSE,scale=FALSE)$fjj
 
 	assignments <- fii2fi(DESIGN,res$fii,res$fi)
-	assignments$r2 <- R2(RMW$M,res$di,ind.masses=NULL,res$dii)
+	assignments$r2 <- R2(NULL,res$di,ind.masses=NULL,res$dii)
 	class(assignments) <- c("tepAssign","list")
 	res$assign <- assignments
 
