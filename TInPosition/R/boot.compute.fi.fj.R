@@ -16,7 +16,7 @@ boot.compute.fi.fj <- function(DATA,DESIGN,res){
 	
 	boot.sample.vector <- boot.samples(DATA,DESIGN,constrained=TRUE)	
 	BootX <- DATA[boot.sample.vector,]	
-	
+	BootX <- expo.scale(BootX, center = res$center, scale = res$scale)
 	
 	if((class(res)[1] %in% c(pca.types))){
 		massedDESIGN <- t(t(DESIGN) * (1/(colSums(DESIGN))))		
@@ -24,7 +24,7 @@ boot.compute.fi.fj <- function(DATA,DESIGN,res){
 	}
 	if((class(res)[1] %in% c(ca.types))){
 		BootY <- DESIGN[boot.sample.vector,]		
-	}	
+	}
 	Rboot<-t(BootY) %*% BootX
 	
 	
