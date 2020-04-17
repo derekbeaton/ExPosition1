@@ -22,8 +22,13 @@ function(datain){
         mini.mat <- matrix(0, data_dims[1], length(unique_no_na))
         for (j in 1:ncol(mini.mat)) {
             mini.mat[which(datain[, i] == unique_no_na[j]), j] <- 1
-            new_colnames <- cbind(new_colnames, paste(var_names[i], 
-                ".", unique_no_na[j], sep = ""))
+            if(data_dims[2] > 1){
+                new_colnames <- cbind(new_colnames, paste(var_names[i], 
+                    ".", unique_no_na[j], sep = ""))
+            }
+            else{
+                new_colnames <- cbind(new_colnames, unique_no_na[j])
+            }
         }
         
         if(length(which(rowSums(mini.mat) == 0)) > 0){

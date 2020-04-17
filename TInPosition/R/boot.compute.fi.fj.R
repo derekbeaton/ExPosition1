@@ -18,8 +18,8 @@ boot.compute.fi.fj <- function(DATA,DESIGN,res){
 	BootX <- DATA[boot.sample.vector,]	
 	BootX <- expo.scale(BootX, center = res$center, scale = res$scale)
 	
-	# changed so that Rboot is not centered and scaled a second time
-	# will this break tepPLS? only time will tell
+	# changed so that Rboot is not centered and scaled a second time when
+	# it goes into supplementaryRows/Cols
 	res$center <- FALSE
 	res$scale <- FALSE
 	

@@ -22,11 +22,13 @@ tepBADA <- function(DATA,scale=TRUE,center=TRUE,DESIGN=NULL,make_design_nominal=
 	
 	#res <- corePCA(R,k=k)
 	
+	#res needs to be a class that supplementaryRows recognizes
 	res <- epPCA(R, scale = FALSE, center = FALSE, graphs = FALSE, k = k)
 	res <- res$ExPosition.Data
 	res$center <- this.center
 	res$scale <- this.scale
-
+  
+	#DATA is now scaled, so supplementary takes the original data
 	supplementaryRes <- supplementaryRows(OGDATA,res)
 	res$fii <- supplementaryRes$fii
 	res$dii <- supplementaryRes$dii
