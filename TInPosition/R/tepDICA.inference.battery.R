@@ -8,7 +8,7 @@ tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = 
 		Xminus1 <- DATA[-i,]
 		Yminus1 <- DESIGN[-i,]
 		#DICAminus1 <- tepDICA(Xminus1,DESIGN=Yminus1,make_design_nominal=FALSE,make_data_nominal=FALSE,hellinger=hellinger,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)
-	DICAminus1 <- tepDICA(Xminus1,DESIGN=Yminus1,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)		
+	DICAminus1 <- tepDICA(Xminus1,DESIGN=Yminus1,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,graphs=FALSE,k=k)		
 		supX <- supplementaryRows(SUP.DATA=t(DATA[i,]), res=DICAminus1)
 		assignSup <- fii2fi(DESIGN=t(DESIGN[i,]), fii=supX$fii, fi=DICAminus1$TExPosition.Data$fi)
 		return(list(assignSup=assignSup,supX=supX))
@@ -19,7 +19,7 @@ tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = 
 		
 		PermDATA <- DATA[sample(nrow(DATA),nrow(DATA),FALSE),]
 		#res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,hellinger=hellinger,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)
-		res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)
+		res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,graphs=FALSE,k=k)
 		
 		perm.r2 <- res.perm$TExPosition.Data$assign$r2
 		perm.eigs <- res.perm$TExPosition.Data$eigs	
@@ -39,7 +39,7 @@ tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = 
 	}
 	
 	#fixed.res <- tepDICA(DATA=DATA, make_data_nominal = FALSE, DESIGN = DESIGN, make_design_nominal = FALSE, group.masses = group.masses, ind.masses = ind.masses, weights = weights, hellinger = hellinger, symmetric = symmetric, graphs = FALSE, k = k)
-	fixed.res <- tepDICA(DATA=DATA, make_data_nominal = FALSE, DESIGN = DESIGN, make_design_nominal = FALSE, group.masses = group.masses, weights = weights, symmetric = symmetric, graphs = FALSE, k = k)
+	fixed.res <- tepDICA(DATA=DATA, make_data_nominal = FALSE, DESIGN = DESIGN, make_design_nominal = FALSE,symmetric = symmetric, graphs = FALSE, k = k)
 
 	n.rows <- nrow(DATA)
 	resamp.iters <- max(n.rows,test.iters)
