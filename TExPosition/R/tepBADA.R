@@ -11,6 +11,10 @@ tepBADA <- function(DATA,scale=TRUE,center=TRUE,DESIGN=NULL,make_design_nominal=
 	
 	main <- deparse(substitute(DATA))		
 	
+	#Don't want to carry over previous centering and scaling from outside tepBADA
+	attributes(DATA)$`scaled:center` <- rep(0, dim(DATA)[2])
+	attributes(DATA)$`scaled:scale` <- rep(1, dim(DATA)[2])
+	
 	DATA <- expo.scale(as.matrix(DATA),scale=scale,center=center)
   R <- t(massedDESIGN) %*% DATA
 	
