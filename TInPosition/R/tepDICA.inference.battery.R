@@ -1,25 +1,25 @@
 #tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = NULL, make_design_nominal = TRUE, group.masses = NULL, ind.masses = NULL, weights = NULL, hellinger = FALSE, symmetric = TRUE, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){
-
-tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = NULL, make_design_nominal = TRUE, group.masses = NULL, weights = NULL, symmetric = TRUE, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){	
+#tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = NULL, make_design_nominal = TRUE, group.masses = NULL, weights = NULL, symmetric = TRUE, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){
+tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = NULL, make_design_nominal = TRUE, symmetric = TRUE, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){	
 	############################	
 	###private functions for now
 	#loo.test <- function(DATA, DESIGN, group.masses = NULL, weights = NULL, hellinger = FALSE, symmetric = TRUE,k = k, i){
-	loo.test <- function(DATA, DESIGN, group.masses = NULL, weights = NULL, symmetric = TRUE,k = k, i){		
+	loo.test <- function(DATA, DESIGN, symmetric = TRUE,k = k, i){		
 		Xminus1 <- DATA[-i,]
 		Yminus1 <- DESIGN[-i,]
 		#DICAminus1 <- tepDICA(Xminus1,DESIGN=Yminus1,make_design_nominal=FALSE,make_data_nominal=FALSE,hellinger=hellinger,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)
-	DICAminus1 <- tepDICA(Xminus1,DESIGN=Yminus1,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)		
+	DICAminus1 <- tepDICA(Xminus1,DESIGN=Yminus1,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,graphs=FALSE,k=k)		
 		supX <- supplementaryRows(SUP.DATA=t(DATA[i,]), res=DICAminus1)
 		assignSup <- fii2fi(DESIGN=t(DESIGN[i,]), fii=supX$fii, fi=DICAminus1$TExPosition.Data$fi)
 		return(list(assignSup=assignSup,supX=supX))
 	}
 	
 	#permute.tests <- function(DATA, DESIGN = NULL, group.masses = NULL, weights = NULL, hellinger = FALSE, symmetric = TRUE, k = 0){
-	permute.tests <- function(DATA, DESIGN = NULL, group.masses = NULL, weights = NULL, symmetric = TRUE, k = 0){		
+	permute.tests <- function(DATA, DESIGN = NULL, symmetric = TRUE, k = 0){		
 		
 		PermDATA <- DATA[sample(nrow(DATA),nrow(DATA),FALSE),]
 		#res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,hellinger=hellinger,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)
-		res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)
+		res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,weights=weights,graphs=FALSE,k=k)
 		
 		perm.r2 <- res.perm$TExPosition.Data$assign$r2
 		perm.eigs <- res.perm$TExPosition.Data$eigs	
@@ -39,7 +39,7 @@ tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = 
 	}
 	
 	#fixed.res <- tepDICA(DATA=DATA, make_data_nominal = FALSE, DESIGN = DESIGN, make_design_nominal = FALSE, group.masses = group.masses, ind.masses = ind.masses, weights = weights, hellinger = hellinger, symmetric = symmetric, graphs = FALSE, k = k)
-	fixed.res <- tepDICA(DATA=DATA, make_data_nominal = FALSE, DESIGN = DESIGN, make_design_nominal = FALSE, group.masses = group.masses, weights = weights, symmetric = symmetric, graphs = FALSE, k = k)
+	fixed.res <- tepDICA(DATA=DATA, make_data_nominal = FALSE, DESIGN = DESIGN, make_design_nominal = FALSE, symmetric = symmetric, graphs = FALSE, k = k)
 
 	n.rows <- nrow(DATA)
 	resamp.iters <- max(n.rows,test.iters)
@@ -68,7 +68,7 @@ tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = 
 			FBX[,,i] <- boot.res$FBX
 			FBY[,,i] <- boot.res$FBY
 			#permute.res <- permute.tests(DATA=DATA, DESIGN = DESIGN, group.masses = group.masses, weights = weights, hellinger = hellinger, symmetric = symmetric, k = k)
-			permute.res <- permute.tests(DATA=DATA, DESIGN = DESIGN, group.masses = group.masses, weights = weights, symmetric = symmetric, k = k)
+			permute.res <- permute.tests(DATA=DATA, DESIGN = DESIGN, symmetric = symmetric, k = k)
 			eigs.perm.matrix[i,] <- permute.res$perm.eigs
 			r2.perm[i,] <- permute.res$perm.r2
 			inertia.perm[i,] <- permute.res$perm.inertia
@@ -82,7 +82,7 @@ tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = 
 
 		if(i <= n.rows){
 			#loo.test.res <- loo.test(DATA=DATA, DESIGN = DESIGN, group.masses = group.masses, weights = weights, hellinger = hellinger, symmetric = symmetric, k = k, i)
-			loo.test.res <- loo.test(DATA=DATA, DESIGN = DESIGN, group.masses = group.masses, weights = weights, symmetric = symmetric, k = k, i)
+			loo.test.res <- loo.test(DATA=DATA, DESIGN = DESIGN, symmetric = symmetric, k = k, i)
 			loo.assign[i,] <- loo.test.res$assignSup$assignments
 			loo.fii[i,] <- loo.test.res$supX$fii
 		}

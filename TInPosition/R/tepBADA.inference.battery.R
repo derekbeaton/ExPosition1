@@ -1,22 +1,23 @@
 #tepBADA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = TRUE, group.masses = NULL, ind.masses = NULL, weights = NULL, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){
-tepBADA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = TRUE, group.masses = NULL, weights = NULL, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){	
+#tepBADA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = TRUE, group.masses = NULL, weights = NULL, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){
+tepBADA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = TRUE, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){	
 	
 	############################
 	###private functions for now
-	loo.test <- function(DATA,DESIGN,scale=TRUE,center=TRUE,group.masses=group.masses,weights=weights,k=0,i){
+	loo.test <- function(DATA,DESIGN,scale=TRUE,center=TRUE,k=0,i){
 		Xminus1 <- DATA[-i,]
 		Yminus1 <- DESIGN[-i,]
-		BADAminus1 <- tepBADA(DATA=Xminus1,DESIGN=Yminus1, make_design_nominal=FALSE,center=center, scale=scale,graphs=FALSE,group.masses=group.masses,weights=weights,k=k)
+		BADAminus1 <- tepBADA(DATA=Xminus1,DESIGN=Yminus1, make_design_nominal=FALSE,center=center, scale=scale,graphs=FALSE,k=k)
 		supX <- supplementaryRows(SUP.DATA=t(DATA[i,]), res=BADAminus1)
 		assignSup <- fii2fi(DESIGN=t(DESIGN[i,]), fii=supX$fii, fi=BADAminus1$TExPosition.Data$fi)
 		return(list(assignSup=assignSup,supX=supX))
 	}
 	
 	##private functions for now	
-	permute.tests <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, group.masses = NULL, weights = NULL, k = 0){
+	permute.tests <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, k = 0){
 		
 		PermDATA <- DATA[sample(nrow(DATA),nrow(DATA),FALSE),]
-		perm.res <- tepBADA(DATA=PermDATA, scale=scale, center=center, DESIGN=DESIGN, make_design_nominal=FALSE, group.masses=group.masses, weights=weights, graphs = FALSE, k=k)
+		perm.res <- tepBADA(DATA=PermDATA, scale=scale, center=center, DESIGN=DESIGN, make_design_nominal=FALSE,graphs = FALSE, k=k)
 		
 		perm.r2 <- perm.res$TExPosition.Data$assign$r2
 		perm.eigs <- perm.res$TExPosition.Data$eigs		
@@ -32,7 +33,8 @@ tepBADA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN 
 	}
 	
 	#fixed.res <- tepBADA(DATA = DATA, scale = scale, center = center, DESIGN = DESIGN, make_design_nominal = FALSE, group.masses = group.masses, ind.masses = ind.masses, weights = weights, graphs = FALSE, k = k)
-	fixed.res <- tepBADA(DATA = DATA, scale = scale, center = center, DESIGN = DESIGN, make_design_nominal = FALSE, group.masses = group.masses, weights = weights, graphs = FALSE, k = k)	
+	#fixed.res <- tepBADA(DATA = DATA, scale = scale, center = center, DESIGN = DESIGN, make_design_nominal = FALSE, group.masses = group.masses, weights = weights, graphs = FALSE, k = k)
+	fixed.res <- tepBADA(DATA = DATA, scale = scale, center = center, DESIGN = DESIGN, make_design_nominal = FALSE, graphs = FALSE, k = k)	
 	
 	n.rows <- nrow(DATA)
 	resamp.iters <- max(n.rows,test.iters)
@@ -60,7 +62,7 @@ tepBADA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN 
 			boot.res <- boot.compute.fi.fj(DATA,DESIGN,fixed.res)
 			FBX[,,i] <- boot.res$FBX
 			FBY[,,i] <- boot.res$FBY
-			permute.res <- permute.tests(DATA = DATA, scale = scale, center = center, DESIGN = DESIGN, group.masses = group.masses, weights = weights, k = k)
+			permute.res <- permute.tests(DATA = DATA, scale = scale, center = center, DESIGN = DESIGN, k = k)
 			eigs.perm.matrix[i,] <- permute.res$perm.eigs
 			r2.perm[i,] <- permute.res$perm.r2
 			inertia.perm[i,] <- permute.res$perm.inertia
@@ -73,7 +75,7 @@ tepBADA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN 
 		}
 
 		if(i <= n.rows){
-			loo.test.res <- loo.test(DATA=DATA,DESIGN=DESIGN,scale=scale,center=center,i=i,k=k,group.masses=group.masses,weights=weights)
+			loo.test.res <- loo.test(DATA=DATA,DESIGN=DESIGN,scale=scale,center=center,i=i,k=k)
 			loo.assign[i,] <- loo.test.res$assignSup$assignments
 			loo.fii[i,] <- loo.test.res$supX$fii
 		}

@@ -87,5 +87,6 @@ function(data_matrix,x_axis=1,y_axis=2,col=NULL,pch=NULL,cex=NULL,text.cex=NULL,
 		plotText(data_matrix,col,x_axis,y_axis,pos=pos,text.cex=text.cex,contributionCircles=contributionCircles,contributions=contributions)
 	}		
 	
-	return(list(col=col,pch=pch,constraints=constraints))
+	# return(list(col=col,pch=pch,constraints=constraints))
+	invisible(list(col=col,pch=pch,constraints=constraints))
 }

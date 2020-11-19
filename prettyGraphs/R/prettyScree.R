@@ -66,6 +66,7 @@ prettyScree <- function(eigs,retain.col="mediumorchid4",dismiss.col="gray",perc.
 	mtext("Explained Variance",4,line=4)
 	axis(1,at=1:length(exp.var),lwd=3)	
 
-	return(comps.tests)
+	#return(comps.tests)
+	invisible(comps.tests)
 
 }
