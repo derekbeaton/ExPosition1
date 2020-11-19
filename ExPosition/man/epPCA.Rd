@@ -34,7 +34,7 @@ Derek Beaton
 }
 
 \seealso{
-	\code{\link{corePCA}}, \code{\link{epMDS}}, \code{\link{epGPCA}}
+	\code{\link{corePCA}}, \code{\link{epMDS}}
 }
 \examples{
 	data(words)

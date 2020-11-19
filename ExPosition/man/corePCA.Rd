@@ -18,7 +18,7 @@ corePCA(DATA, M = NULL, W = NULL, decomp.approach = 'svd', k = 0)
   \item{k}{number of components to return (this is not a rotation, just an \emph{a priori} selection of how much data should be returned).}
 }
 \details{
-This function should not be used directly. Please use \code{\link{epPCA}} or \code{\link{epGPCA}} unless you plan on writing extensions to ExPosition.
+This function should not be used directly. Please use \code{\link{epPCA}} unless you plan on writing extensions to ExPosition.
 }
 \value{
 Returns a large list of items which are also returned in \code{\link{epPCA}} and \code{\link{epGPCA}} (the help files for those functions will refer to this as well).\cr
