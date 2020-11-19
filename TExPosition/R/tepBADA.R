@@ -19,11 +19,9 @@ tepBADA <- function(DATA,scale=TRUE,center=TRUE,DESIGN=NULL,make_design_nominal=
 	colnames(R) <- colnames(DATA)
 	rownames(R) <- colnames(DESIGN)	
 	
-	res <- corePCA(R,k=k)
-
+	res <- epPCA(R, scale = FALSE, center = FALSE, graphs = FALSE, k = k)
 	res <- res$ExPosition.Data
-	res$center <- this.center
-	res$scale <- this.scale
+
 
 	supplementaryRes <- supplementaryRows(DATA,res)
 	res$fii <- supplementaryRes$fii
@@ -34,10 +32,13 @@ tepBADA <- function(DATA,scale=TRUE,center=TRUE,DESIGN=NULL,make_design_nominal=
 	res$ly <- supplementaryCols(t(massedDESIGN),res,center=FALSE,scale=FALSE)$fjj
 
 	assignments <- fii2fi(DESIGN,res$fii,res$fi)
-	assignments$r2 <- R2(RMW$M,res$di,ind.masses=NULL,res$dii)
+	assignments$r2 <- R2(NULL,res$di,ind.masses=NULL,res$dii)
 	class(assignments) <- c("tepAssign","list")
 	res$assign <- assignments
 
+	res$center <- this.center
+	res$scale <- this.scale
+	
 	#new res here
 	class(res) <- c("tepBADA","list")		
 	tepPlotInfo <- tepGraphs(res=res,DESIGN=DESIGN,main=main,graphs=graphs,lvPlots=FALSE)
