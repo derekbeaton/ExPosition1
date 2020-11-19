@@ -2,7 +2,7 @@ inGraphs <- function(res,DESIGN=NULL,x_axis=NULL,y_axis=NULL,inference.info=NULL
 
 ##update this to get the pchs.
 
-	pca.types <- c('epPCA','epMDS','epGPCA')
+	pca.types <- c('epPCA','epMDS')
 	ca.types <- c('epCA','epMCA')
 
 	#A simple override/check. If someone puts in expoOutput class data, epGraphs will recognize it.

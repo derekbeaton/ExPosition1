@@ -1,7 +1,7 @@
 Package: InPosition
 Type: Package
 Title: Inference Tests for ExPosition
-Version: 0.12.7.1
+Version: 0.12.8
 Date: 2013-12-09
 Author: Derek Beaton, Joseph Dunlop, Herve Abdi
 Maintainer: Derek Beaton <exposition.software@gmail.com>

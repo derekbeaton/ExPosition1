@@ -47,8 +47,8 @@ Derek Beaton
 	data(ep.iris)
 	data<-ep.iris$data
 	design<-ep.iris$design
-	gpca.iris.res <- epGPCA.inference.battery(data,DESIGN=design,make_design_nominal=FALSE)
-	inGraphs(gpca.iris.res,y_axis=3)
+	pca.iris.res <- epPCA.inference.battery(data,DESIGN=design,make_design_nominal=FALSE)
+	inGraphs(pca.iris.res,y_axis=3)
 }
 \keyword{misc}
 \keyword{multivariate}

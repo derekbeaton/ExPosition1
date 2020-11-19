@@ -1,7 +1,6 @@
 exportPattern("^[^\\.]")
 
 S3method(print, epCA.inference.battery)
-S3method(print, epGPCA.inference.battery)
 S3method(print, epMCA.inference.battery)
 S3method(print, epPCA.inference.battery)
 S3method(print, inpoBoot)
@@ -14,5 +13,5 @@ importFrom("stats", "pchisq", "pnorm")
 importFrom("utils", "setTxtProgressBar", "txtProgressBar")
 importFrom(prettyGraphs, createColorVectorsByDesign, prettyBars,
            prettyPlot) 
-importFrom(ExPosition, calculateConstraints, epCA, epGPCA, epMCA,
+importFrom(ExPosition, calculateConstraints, epCA, epMCA,
            epPCA, makeNominalData, supplementaryCols)

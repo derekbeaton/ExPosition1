@@ -40,7 +40,7 @@ Derek Beaton and Hervé Abdi.
 }
 
 \seealso{
-	\code{\link{epPCA}}, \code{\link{epGPCA}}, \code{\link{epGPCA.inference.battery}}
+	\code{\link{epPCA}}
 }
 \examples{
 	data(words)
