@@ -1,7 +1,7 @@
 epGraphs <-
 function(res,x_axis=1,y_axis=2,epPlotInfo=NULL,DESIGN=NULL,fi.col=NULL,fi.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,contributionPlots=TRUE,correlationPlotter=TRUE,graphs=TRUE){
 
-	pca.types <- c('epPCA','epMDS','epGPCA')
+	pca.types <- c('epPCA','epMDS')
 	ca.types <- c('epCA','epMCA')	
 	
 	#A simple override/check. If someone puts in expoOutput class data, epGraphs will recognize it.
