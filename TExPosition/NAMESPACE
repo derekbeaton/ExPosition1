@@ -1,15 +1,13 @@
 export(fastEucCalc, fii2fi, print.tepAssign, print.tepBADA,
-       print.tepDICA, print.tepGraphs, print.texpoOutput, print.tepGPLS,
+       print.tepDICA, print.tepGraphs, print.texpoOutput, 
        print.tepPLS,  print.tepPLSCA, R2, tepBADA, tepDICA, tepGraphs,
-       texpoDesignCheck, calculateLVConstraints, tepPLS, tepGPLS,
-       tepPLSCA)
+       texpoDesignCheck, calculateLVConstraints, tepPLS, tepPLSCA)
 
 import(ExPosition, prettyGraphs)
 
 S3method(print, tepAssign)
 S3method(print, tepBADA)
 S3method(print, tepDICA)
-S3method(print, tepGPLS)
 S3method(print, tepGraphs)
 S3method(print, tepPLS)
 S3method(print, tepPLSCA)

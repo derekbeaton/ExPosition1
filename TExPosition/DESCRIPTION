@@ -1,7 +1,7 @@
 Package: TExPosition
 Type: Package
 Title: Two-Table ExPosition
-Version: 2.6.11
+Version: 2.6.12
 Date: 2014-12-19
 Author: Derek Beaton, Jenny Rieck, Cherise R. Chin Fatt, Herve Abdi
 Maintainer: Derek Beaton <exposition.software@gmail.com>

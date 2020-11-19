@@ -26,7 +26,7 @@ graphs = TRUE, k = 0)
   \item{k}{number of components to return.}
 }
 \value{
-	See \code{\link{epGPCA}} (and also \code{\link{corePCA}}) for details on what is returned. In addition to the values returned:\cr
+	See \code{\link{corePCA}} for details on what is returned. In addition to the values returned:\cr
 	\item{lx}{latent variables from DATA1 computed for observations}
 	\item{ly}{latent variables from DATA2 computed for observations}	
 	\item{data1.norm}{center and scale information for DATA1}
@@ -48,7 +48,7 @@ Derek Beaton
 }
 
 \seealso{
-	\code{\link{corePCA}}, \code{\link{epPCA}}, \code{\link{epGPCA}}, \code{\link{tepBADA}}, \code{\link{tepGPLS}}, \code{\link{tepPLSCA}}\cr
+	\code{\link{corePCA}}, \code{\link{epPCA}}, \code{\link{tepBADA}}, \code{\link{tepPLSCA}}\cr
 }
 \examples{
 data(beer.tasting.notes)

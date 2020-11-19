@@ -29,7 +29,7 @@ tepBADA(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = 
 	\item{ly}{latent variables from DATA2 computed for observations}
 }
 \details{
-		Note: BADA is a special case of PLS (\code{\link{tepPLS}},\code{\link{tepGPLS}}) wherein DATA1 are data and DATA2 are a group-coded disjunctive matrix. This is also called mean-centered PLS (Krishnan et al., 2011).
+		Note: BADA is a special case of PLS (\code{\link{tepPLS}}) wherein DATA1 are data and DATA2 are a group-coded disjunctive matrix. This is also called mean-centered PLS (Krishnan et al., 2011).
 }
 \references{
 Abdi, H., and Williams, L.J. (2010). Principal component analysis. \emph{Wiley Interdisciplinary Reviews: Computational Statistics}, 2, 433-459.\cr
