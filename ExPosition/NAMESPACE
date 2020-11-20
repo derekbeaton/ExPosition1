@@ -1,6 +1,6 @@
 export(corePCA,epPCA,epMDS,coreCA,epCA,epMCA,epGraphs,makeNominalData,mca.eigen.fix,pause,designCheck,createDefaultDesign,computeMW,print.epCA,print.epGraphs,print.epMCA,print.epMDS,print.epPCA,print.epSVD,print.expoOutput,calculateConstraints,supplementaryRows,supplementaryCols,supplementalProjection,pcaSupplementaryColsPreProcessing,pcaSupplementaryRowsPreProcessing,mdsSupplementalElementsPreProcessing,mdsTransform,nominalCheck,caSupplementalElementsPreProcessing,chi2Dist,expo.scale,rvCoeff,acknowledgements,makeRowProfiles,pickSVD,genPDQ,rowNorms,hellingerNorm,caNorm,coreMDS)
 
-importFrom("prettyGraphs", "prettyPlot", "contributionBars", "createColorVectorsByDesign", "minmaxHelper")
+import("prettyGraphs")
 importFrom("stats", "cor", "dist", "sd")
 
 S3method(print, epCA)

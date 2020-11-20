@@ -41,7 +41,7 @@ Derek Beaton
 }
 
 \seealso{
-	\code{\link{corePCA}}, \code{\link{epPCA}}, \code{\link{epGPCA}}
+	\code{\link{corePCA}}, \code{\link{epPCA}}
 }
 \examples{	
 	data(jocn.2005.fmri)

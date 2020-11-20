@@ -26,8 +26,5 @@ Returns a list with the following items:\cr
 	Derek Beaton
 }
 
-\seealso{
-	\code{\link{epGPCA}}
-}
 \keyword{ misc }
 \keyword{ multivariate }

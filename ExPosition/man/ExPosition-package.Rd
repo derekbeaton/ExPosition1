@@ -18,7 +18,7 @@ Version: \tab 2.8.23\cr
 Date: \tab 2018-12-27\cr
 Depends: \tab R (>=2.15.0), prettyGraphs (>= 2.1.4)\cr
 License: \tab GPL-2\cr
-URL: \tab https://github.com/derekbeaton/ExPosition-Family_OLD\cr
+URL: \tab https://github.com/derekbeaton/ExPosition1\cr
 }
 }
 \author{
@@ -38,7 +38,7 @@ Benzécri, J. P. (1979). Sur le calcul des taux d'inertie dans l'analyse d'un qu
 \keyword{ package }
 \keyword{ multivariate }
 \seealso{
-\code{\link{epPCA}}, \code{\link{epGPCA}}, \code{\link{epMDS}}, \code{\link{epCA}}, \code{\link{epMCA}}
+\code{\link{epPCA}}, \code{\link{epMDS}}, \code{\link{epCA}}, \code{\link{epMCA}}
 }
 \examples{
 #For more examples, see each individual function (as noted above).
