@@ -7,7 +7,7 @@ supplementaryCols <- function(SUP.DATA,res,center=TRUE,scale=TRUE){
 	output.types <- c("expoOutput","texpoOutput","mexpoOutput")
 	data.types <- c("ExPosition.Data","TExPosition.Data","MExPosition.Data")
 	mds.types <- c('epMDS')#can add DiSTATIS to this.
-	pca.types <- c('epPCA','epGPCA','tepBADA')
+	pca.types <- c('epPCA','tepBADA')
 	ca.types <- c('epCA','epMCA','tepDICA')	
 		
 	if(class(res)[1] %in% output.types){

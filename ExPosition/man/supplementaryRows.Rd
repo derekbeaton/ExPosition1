@@ -14,7 +14,7 @@ supplementaryRows(SUP.DATA, res)
 \item{res}{ExPosition or TExPosition results}
 }
 \details{
-This function recognizes the class types of: \code{\link{epPCA}}, \code{\link{epGPCA}}, \code{\link{epMDS}}, \code{\link{epCA}}, \code{\link{epMCA}} and \code{TExPosition} methods. Further, the function recognizes if Hellinger (as opposed to row profiles; in CA, MCA and DICA) were used. 
+This function recognizes the class types of: \code{\link{epPCA}}, \code{\link{epMDS}}, \code{\link{epCA}}, \code{\link{epMCA}} and \code{TExPosition} methods. Further, the function recognizes if Hellinger (as opposed to row profiles; in CA, MCA and DICA) were used. 
 }
 \value{
 A list of values containing:\cr

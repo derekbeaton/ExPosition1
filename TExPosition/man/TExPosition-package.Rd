@@ -38,7 +38,8 @@ Abdi, H. (2007). Discriminant correspondence analysis. In N.J. Salkind (Ed.): \e
 \keyword{ package }
 \keyword{ multivariate }
 \seealso{
-\code{\link{tepBADA}}, \code{\link{tepPLS}}, \code{\link{tepGPLS}}, \code{\link{tepDICA}}, \code{\link{tepPLSCA}}
+\code{\link{tepBADA}}, \code{\link{tepPLS}}, 
+\code{\link{tepDICA}}, \code{\link{tepPLSCA}}
 }
 \examples{
 #For more examples, see each individual function (as noted above).

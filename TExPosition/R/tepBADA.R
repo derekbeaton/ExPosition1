@@ -13,8 +13,8 @@ tepBADA <- function(DATA,scale=TRUE,center=TRUE,DESIGN=NULL,make_design_nominal=
 	DATA <- expo.scale(as.matrix(DATA),scale=scale,center=center)
   R <- t(massedDESIGN) %*% DATA
 	
-	this.center <- attributes(R)$`scaled:center`
-	this.scale <- attributes(R)$`scaled:scale`	
+	this.center <- attributes(DATA)$`scaled:center`
+	this.scale <- attributes(DATA)$`scaled:scale`	
 
 	colnames(R) <- colnames(DATA)
 	rownames(R) <- colnames(DESIGN)	

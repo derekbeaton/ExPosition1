@@ -36,7 +36,7 @@ Primary authors and contributors are: Derek Beaton, Joseph Dunlop, and Hervé Ab
 \keyword{ package }
 \keyword{ multivariate }
 \seealso{
-\code{\link{epPCA.inference.battery}}, \code{\link{epGPCA.inference.battery}}, \code{\link{epCA.inference.battery}}, \code{\link{epMCA.inference.battery}}. There are no inference tests for MDS at this time. We recommend PCA for inference instead of MDS (some MDS inference tests require the rectangluar table, not the distances, so it is easier to just use PCA).\cr\cr
+\code{\link{epPCA.inference.battery}}, \code{\link{epCA.inference.battery}}, \code{\link{epMCA.inference.battery}}. There are no inference tests for MDS at this time. We recommend PCA for inference instead of MDS (some MDS inference tests require the rectangluar table, not the distances, so it is easier to just use PCA).\cr\cr
 
 See also \code{\link{inGraphs}} for graphing and \code{\link{caChiTest}} for an alternate to resampling methods for Correspondence Analysis.
 }

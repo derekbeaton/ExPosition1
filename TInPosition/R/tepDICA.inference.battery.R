@@ -19,7 +19,7 @@ tepDICA.inference.battery <- function(DATA, make_data_nominal = FALSE, DESIGN = 
 		
 		PermDATA <- DATA[sample(nrow(DATA),nrow(DATA),FALSE),]
 		#res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,hellinger=hellinger,symmetric=symmetric,weights=weights,group.masses=group.masses,graphs=FALSE,k=k)
-		res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,weights=weights,graphs=FALSE,k=k)
+		res.perm <- tepDICA(PermDATA,DESIGN=DESIGN,make_design_nominal=FALSE,make_data_nominal=FALSE,symmetric=symmetric,graphs=FALSE,k=k)
 		
 		perm.r2 <- res.perm$TExPosition.Data$assign$r2
 		perm.eigs <- res.perm$TExPosition.Data$eigs	

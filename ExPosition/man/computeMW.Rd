@@ -4,7 +4,7 @@
 computeMW
 }
 \description{
-Computes masses and weights for \code{\link{epGPCA}}.
+Computes masses and weights for use.
 }
 \usage{
 computeMW(DATA, masses = NULL, weights = NULL)

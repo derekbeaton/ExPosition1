@@ -5,7 +5,7 @@
 corePCA
 }
 \description{
-corePCA performs the core of principal components analysis (PCA), generalized PCA (GPCA), multidimensionsal scaling (MDS), and related techniques.
+corePCA performs the core of principal components analysis (PCA), and related techniques.
 }
 \usage{
 corePCA(DATA, M = NULL, W = NULL, decomp.approach = 'svd', k = 0)
@@ -21,7 +21,7 @@ corePCA(DATA, M = NULL, W = NULL, decomp.approach = 'svd', k = 0)
 This function should not be used directly. Please use \code{\link{epPCA}} unless you plan on writing extensions to ExPosition.
 }
 \value{
-Returns a large list of items which are also returned in \code{\link{epPCA}} and \code{\link{epGPCA}} (the help files for those functions will refer to this as well).\cr
+Returns a large list of items which are also returned in \code{\link{epPCA}} (the help files for those functions will refer to this as well).\cr
 All items with a letter followed by an \emph{i} are for the \emph{I} rows of a DATA matrix. All items with a letter followed by an \emph{j} are for the \emph{J} rows of a DATA matrix.\cr\cr
 \item{fi}{factor scores for the row items.}
 \item{di}{square distances of the row items.}
@@ -44,7 +44,7 @@ Abdi, H. (2007). Singular Value Decomposition (SVD) and Generalized Singular Val
 Derek Beaton and Hervé Abdi.
 }
 \seealso{
-	\code{\link{epPCA}}, \code{\link{epGPCA}}
+	\code{\link{epPCA}}
 }
 \keyword{ misc }
 \keyword{ multivariate }

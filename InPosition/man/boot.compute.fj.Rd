@@ -44,7 +44,7 @@ See the functions \code{\link{supplementaryCols}} and \code{link{boot.samples}}
 	data(ep.iris)
 	data <- ep.iris$data
 	design <- ep.iris$design
-	iris.pca <- epGPCA(data,scale="SS1",DESIGN=design,make_design_nominal=FALSE)
+	iris.pca <- epPCA(data,scale="SS1",DESIGN=design,make_design_nominal=FALSE)
 	boot.fjs.unconstrained <- array(0,dim=c(dim(iris.pca$ExPosition.Data$fj),100))
 	boot.fjs.constrained <- array(0,dim=c(dim(iris.pca$ExPosition.Data$fj),100))
 	for(i in 1:100){

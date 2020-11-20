@@ -2,7 +2,7 @@ corePCA <-
 function(DATA,M=NULL,W=NULL,decomp.approach='svd',k=0){
 
 	DATA_dims <- dim(DATA)
-#DATA comes in already scaled & centered or not. That happens at the PCA, GPCA	& BADA level.
+#DATA comes in already scaled & centered or not. That happens at the PCA	& BADA level.
 	
 	if(is.null(M)){
 		M <- rep(1,nrow(DATA))
