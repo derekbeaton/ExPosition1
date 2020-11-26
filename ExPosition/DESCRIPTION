@@ -1,8 +1,8 @@
 Package: ExPosition
 Type: Package
 Title: Exploratory Analysis with the Singular Value Decomposition
-Version: 2.8.24
-Date: 2018-12-27
+Version: 2.9.0
+Date: 2020-11-20
 Author: Derek Beaton, Cherise R. Chin Fatt, Herve Abdi
 Maintainer: Derek Beaton <exposition.software@gmail.com>
 Description: A variety of descriptive multivariate analyses with the singular value decomposition,

@@ -13,15 +13,15 @@ TInPosition provides multiple forms of inference tests for the \code{\link{TExPo
 \tabular{ll}{
 Package: \tab TInPosition\cr
 Type: \tab Package\cr
-Version: \tab 0.13.6\cr
-Date: \tab 2013-12-09\cr
+Version: \tab 0.13.8\cr
+Date: \tab 2020-11-19\cr
 Depends: \tab R (>=2.15.0), prettyGraphs (>= 2.1.4), TExPosition (>= 2.6.10), ExPosition (>= 2.8.19), InPosition (>= 0.12.7)\cr
 License: \tab GPL-2\cr
-URL: \tab http://www.utdallas.edu/~derekbeaton/software/ExPosition\cr
+URL: \tab https://github.com/derekbeaton/ExPosition1\cr
 }
 }
 \author{
-Questions, comments, compliments, and complaints go to Derek Beaton \email{exposition.software@gmail.com}. Also see the bug-tracking and live update website for ExPosition: http://code.google.com/p/exposition-family/\cr\cr 
+Questions, comments, compliments, and complaints go to Derek Beaton \email{exposition.software@gmail.com}. Also see the bug-tracking and live update website for ExPosition: https://github.com/derekbeaton/ExPosition1/\cr\cr 
 Primary authors and contributors are: Derek Beaton, Jenny Rieck, and Hervé Abdi
 }
 \references{

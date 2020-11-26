@@ -13,11 +13,11 @@ TExPosition is two-table \code{\link{ExPosition}} and includes discriminant meth
 \tabular{ll}{
 Package: \tab TExPosition\cr
 Type: \tab Package\cr
-Version: \tab 2.6.10\cr
-Date: \tab 2013-12-00\cr
+Version: \tab 2.7.0\cr
+Date: \tab 2020-11-20\cr
 Depends: \tab R (>=2.15.0), prettyGraphs (>= 2.1.4), ExPosition (>= 2.0.0)\cr
 License: \tab GPL-2\cr
-URL: \tab http://www.utdallas.edu/~derekbeaton/software/ExPosition\cr
+URL: \tab https://github.com/derekbeaton/ExPosition1\cr
 }
 }
 \author{

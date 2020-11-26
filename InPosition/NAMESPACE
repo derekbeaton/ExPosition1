@@ -11,7 +11,5 @@ S3method(print, inpoOutput)
 
 importFrom("stats", "pchisq", "pnorm")
 importFrom("utils", "setTxtProgressBar", "txtProgressBar")
-importFrom(prettyGraphs, createColorVectorsByDesign, prettyBars,
-           prettyPlot) 
-importFrom(ExPosition, calculateConstraints, epCA, epMCA,
-           epPCA, makeNominalData, supplementaryCols)
+import("prettyGraphs") 
+import("ExPosition")
