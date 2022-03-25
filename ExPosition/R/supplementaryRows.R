@@ -14,7 +14,7 @@ supplementaryRows <- function(SUP.DATA,res){
 	#TEST THIS FURTHER... I SHOULD BE ABLE TO RECOGNZIE TEHSE...	
 	if(class(res)[1] %in% output.types){
 		indicator <- which(output.types %in% class(res)[1])
-		if(names(res) %in% data.types && length(names(res))==2){
+		if(any(names(res) %in% data.types) && length(names(res))==2){
 			if(output.types[indicator]=="expoOutput"){
 				res <- res$ExPosition.Data
 			}
