@@ -24,7 +24,7 @@ URL: \tab https://github.com/derekbeaton/ExPosition1\cr
 Questions, comments, compliments, and complaints go to Derek Beaton \email{exposition.software@gmail.com}.\cr\cr
 
 The following people are authors or contributors to TExPosition code, data, or examples:\cr
-Derek Beaton, Jenny Rieck, Cherise Chin-Fatt, Francesca Filbey, and Hervé Abdi.
+Derek Beaton, Jenny Rieck, Cherise Chin-Fatt, Francesca Filbey, Ju-Chi Yu, Luke Moraglia, and Hervé Abdi.
 }
 \references{
 Abdi, H., and Williams, L.J. (2010). Principal component analysis. \emph{Wiley Interdisciplinary Reviews: Computational Statistics}, 2, 433-459.\cr

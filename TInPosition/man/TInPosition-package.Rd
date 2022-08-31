@@ -22,7 +22,7 @@ URL: \tab https://github.com/derekbeaton/ExPosition1\cr
 }
 \author{
 Questions, comments, compliments, and complaints go to Derek Beaton \email{exposition.software@gmail.com}. Also see the bug-tracking and live update website for ExPosition: https://github.com/derekbeaton/ExPosition1/\cr\cr 
-Primary authors and contributors are: Derek Beaton, Jenny Rieck, and Hervé Abdi
+Primary authors and contributors are: Derek Beaton, Jenny Rieck, Ju-Chi Yu, Luke Moraglia, and Hervé Abdi
 }
 \references{
 	Permutation:\cr

@@ -3,7 +3,7 @@ Type: Package
 Title: Two-Table ExPosition
 Version: 2.8.0
 Date: 2022-08-30
-Author: Derek Beaton, Jenny Rieck, Cherise R. Chin Fatt, Herve Abdi
+Author: Derek Beaton, Jenny Rieck, Cherise R. Chin Fatt, Ju-Chi Yu, Luke Moraglia, Herve Abdi
 Maintainer: Derek Beaton <exposition.software@gmail.com>
 Description: An extension of ExPosition for two table analyses, specifically, discriminant analyses.
 License: GPL-2
