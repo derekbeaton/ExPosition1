@@ -8,6 +8,6 @@ pcaSupplementaryColsPreProcessing <- function(SUP.DATA=NULL,center=TRUE,scale=TR
 	}else if(length(M)!=nrow(SUP.DATA)){
 		stop('Length of M does not match row dim of SUP.DATA')
 	}
-	
+  
 	return( t( expo.scale(SUP.DATA,center=center,scale=scale) * matrix(M,length(M),ncol(SUP.DATA)) ) )
 }

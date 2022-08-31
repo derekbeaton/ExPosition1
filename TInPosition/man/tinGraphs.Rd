@@ -7,7 +7,7 @@ tinGraphs: TInPosition plotting function
 	TInPosition plotting function which is an interface to \code{\link{prettyGraphs}}.
 }
 \usage{
-tinGraphs(res, DESIGN = NULL, x_axis = NULL, y_axis = NULL, inference.info = NULL, 
+tinGraphs(res, DESIGN = NULL, x_axis = 1, y_axis = 2, inference.info = NULL, 
 	color.by.boots = TRUE, boot.cols = c("plum4", "darkseagreen", "firebrick3"), 
 	fi.col = NULL, fi.pch = NULL, fii.col = NULL, fii.pch = NULL, 
 	fj.col = NULL, fj.pch = NULL, col.offset = NULL, 

@@ -1,4 +1,4 @@
-tinGraphs <- function(res,DESIGN=NULL,x_axis=NULL,y_axis=NULL,inference.info=NULL,color.by.boots=TRUE,boot.cols=c('plum4','darkseagreen','firebrick3'),fi.col=NULL, fi.pch=NULL,fii.col=NULL,fii.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,bootstrapBars=TRUE,correlationPlotter=TRUE,showHulls=0.95){
+tinGraphs <- function(res,DESIGN=NULL,x_axis=1,y_axis=2,inference.info=NULL,color.by.boots=TRUE,boot.cols=c('plum4','darkseagreen','firebrick3'),fi.col=NULL, fi.pch=NULL,fii.col=NULL,fii.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,bootstrapBars=TRUE,correlationPlotter=TRUE,showHulls=0.95){
 		
 	pca.types <- c('tepBADA')
 	ca.types <- c('tepDICA')
@@ -24,15 +24,17 @@ tinGraphs <- function(res,DESIGN=NULL,x_axis=NULL,y_axis=NULL,inference.info=NUL
 		stop("inGraphs requires inference.info")
 	}##could use some more checks...	
 
-	component.p.order <- order(inference.info$components$p.vals)
-	which.axes <- sort(component.p.order[1:2])	
 	
-	if(is.null(x_axis)){
-		x_axis <- which.axes[1]
-	}
-	if(is.null(y_axis)){
-		y_axis <- which.axes[2]		
-	}	
+	## again, WTF was I thinking 12 years ago?
+	# component.p.order <- order(inference.info$components$p.vals)
+	# which.axes <- sort(component.p.order[1:2])	
+	# 
+	# if(is.null(x_axis)){
+	# 	x_axis <- which.axes[1]
+	# }
+	# if(is.null(y_axis)){
+	# 	y_axis <- which.axes[2]		
+	# }	
 	
 	#perhaps make this stuff a function, or have TExPosition call all of tepGraphs.
 	if(!(class(res)[1] %in% c(pca.types,ca.types))){

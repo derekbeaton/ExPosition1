@@ -1,4 +1,5 @@
-inGraphs <- function(res,DESIGN=NULL,x_axis=NULL,y_axis=NULL,inference.info=NULL,color.by.boots=TRUE,boot.cols=c('plum4','darkseagreen','firebrick3'), fi.col=NULL,fi.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,bootstrapBars=TRUE,correlationPlotter=TRUE){
+### changed to have 1 and 2 as default axes
+inGraphs <- function(res,DESIGN=NULL,x_axis=1,y_axis=2,inference.info=NULL,color.by.boots=TRUE,boot.cols=c('plum4','darkseagreen','firebrick3'), fi.col=NULL,fi.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,bootstrapBars=TRUE,correlationPlotter=TRUE){
 
 ##update this to get the pchs.
 
@@ -26,15 +27,17 @@ inGraphs <- function(res,DESIGN=NULL,x_axis=NULL,y_axis=NULL,inference.info=NULL
 		stop("inGraphs requires inference.info")
 	}##could use some more checks...	
 
-	component.p.order <- order(inference.info$components$p.vals)
-	which.axes <- sort(component.p.order[1:2])	
 	
-	if(is.null(x_axis)){
-		x_axis <- which.axes[1]
-	}
-	if(is.null(y_axis)){
-		y_axis <- which.axes[2]		
-	}
+	### REMOVED BECAUSE WTF WAS I THINKING 12 YEARS AGO?
+	# component.p.order <- order(inference.info$components$p.vals)
+	# which.axes <- sort(component.p.order[1:2])	
+	# 
+	# if(is.null(x_axis)){
+	# 	x_axis <- which.axes[1]
+	# }
+	# if(is.null(y_axis)){
+	# 	y_axis <- which.axes[2]		
+	# }
 		
 	#if the override/check fails, it skips to this. Which means it was internal to ep*()
 	if(!(class(res)[1] %in% c(pca.types,ca.types))){

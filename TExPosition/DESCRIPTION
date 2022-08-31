@@ -1,8 +1,8 @@
 Package: TExPosition
 Type: Package
 Title: Two-Table ExPosition
-Version: 2.7.0
-Date: 2020-11-20
+Version: 2.7.0.9999
+Date: 2022-03-25
 Author: Derek Beaton, Jenny Rieck, Cherise R. Chin Fatt, Herve Abdi
 Maintainer: Derek Beaton <exposition.software@gmail.com>
 Description: An extension of ExPosition for two table analyses, specifically, discriminant analyses.

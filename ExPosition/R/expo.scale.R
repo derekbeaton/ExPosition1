@@ -3,9 +3,9 @@ expo.scale <- function(DATA,center=TRUE,scale=TRUE){
 	column.names <- colnames(DATA)
 	DATA_dims <- dim(DATA)
 	
-	
 	######THIS BLOCK INTENDED TO CREATE CENTERS AND SCALES BASED ON REQUESTS.
-	if(class(scale)=="character"){
+	#if(class(scale)=="character"){
+	if(is.character(scale)){
 		if(tolower(scale)=="ss1"){ ##if you want to get SS1
 			if(is.logical(center) && center){
 				center <- apply(DATA, 2, mean, na.rm = TRUE)
@@ -40,11 +40,13 @@ expo.scale <- function(DATA,center=TRUE,scale=TRUE){
 
 
 	######THIS BLOCK INTENDED TO PERFORM A SET OF CHECKS
-	if((!is.logical(center)) && (!(class(center)=="numeric" && length(center)==DATA_dims[2]))){
+	#if((!is.logical(center)) && (!(class(center)=="numeric" && length(center)==DATA_dims[2]))){
+	if((!is.logical(center)) && (!(is.numeric(center) && length(center)==DATA_dims[2]))){
 		center <- TRUE
 		print("Something is wrong with 'center'. 'center' set to TRUE.")
 	}
-	if((!is.logical(scale)) && (!(class(scale)=="numeric" && length(scale)==DATA_dims[2]))){
+	#if((!is.logical(scale)) && (!(class(scale)=="numeric" && length(scale)==DATA_dims[2]))){
+	if((!is.logical(scale)) && (!(is.numeric(scale) && length(scale)==DATA_dims[2]))){
 		scale <- TRUE
 		print("Something is wrong with 'scale'. 'scale' set to TRUE.")
 	}

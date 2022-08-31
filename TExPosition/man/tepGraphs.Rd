@@ -67,7 +67,8 @@ Derek Beaton
 \examples{
 	#this is for TExPosition's iris data
 	data(ep.iris)
-	bada.iris <- tepBADA(ep.iris$data,DESIGN=ep.iris$design,make_design_nominal=FALSE,graphs=FALSE)
+	bada.iris <- tepBADA(ep.iris$data,DESIGN=ep.iris$design,
+	  make_design_nominal=FALSE,graphs=FALSE)
 	#there are only 2 components, not 3.		
 	bada.iris.plotting.data <- tepGraphs(bada.iris,x_axis=1,y_axis=2)
 }
