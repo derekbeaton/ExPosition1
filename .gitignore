@@ -3,6 +3,7 @@
 
 *.Rproj.user
 *.Rhistory
+*.Rprofile
 
 *.RData
 *.DS_Store
