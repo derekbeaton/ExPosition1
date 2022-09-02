@@ -28,7 +28,7 @@ function (x,...) {
   res[15,] <- c("$pdq.uncor","Uncorrected SVD data")  
   res[16,] <- c("$X","X matrix to decompose")    
   res[17,] <- c("$hellinger","a boolean. TRUE if Hellinger distance was used.")      
-  res[18,] <- c("$symmetric","a boolean. TRUE if symmetric scores used for biplot.")        
+  res[18,] <- c("$symmetric","a boolean. TRUE if symmetric scores used.")        
   
   print(res)
 

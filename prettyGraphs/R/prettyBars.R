@@ -91,5 +91,6 @@ prettyBars <- function(data,axis=1,cex.names=0.5,fg.col=NULL,axis.lims=NULL,show
 		}
 	}
 	
-	return(bp.cols)
+	# return(bp.cols)
+	invisible(bp.cols)
 }

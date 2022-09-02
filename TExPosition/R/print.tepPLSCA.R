@@ -27,7 +27,7 @@ function (x,...) {
   res[14,] <- c("$W2","weights for DATA2")
   res[15,] <- c("$pdq","GSVD data")    
   res[16,] <- c("$X","X matrix to decompose")    
-  res[17,] <- c("$symmetric","a boolean. TRUE if symmetric scores used for biplot.")  
+  res[17,] <- c("$symmetric","a boolean. TRUE if symmetric scores used.")  
   
   print(res)
 

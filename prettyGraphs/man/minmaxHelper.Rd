@@ -14,7 +14,7 @@ minmaxHelper(mat1, mat2 = NULL, axis1 = 1, axis2 = 2, findBounds = TRUE)
 Matrix that will be plotted. Must be at least 2 rows by 2 columns.
 }
   \item{mat2}{
-if NULL, mat2=mat2. Second matrix that will be plotted (if a biplot). Must be at least 2 rows by 2 columns.
+if NULL, mat2=mat2. Second matrix that will be plotted. Must be at least 2 rows by 2 columns.
 }
   \item{axis1}{
 Which column of the matrix will be the x-axis? Default = 1.

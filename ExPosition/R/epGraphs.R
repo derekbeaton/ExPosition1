@@ -153,5 +153,6 @@ function(res,x_axis=1,y_axis=2,epPlotInfo=NULL,DESIGN=NULL,fi.col=NULL,fi.pch=NU
 	}
 
 	class(epPlotInfo) <- c("epGraphs", "list")
-	return(epPlotInfo)	
+	# return(epPlotInfo)	
+	invisible(epPlotInfo)
 }

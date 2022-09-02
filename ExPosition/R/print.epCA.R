@@ -27,7 +27,7 @@ function (x,...) {
   res[14,] <- c("$pdq","GSVD data")    
   res[15,] <- c("$X","X matrix to decompose")    
   res[16,] <- c("$hellinger","a boolean. TRUE if Hellinger distance was used.")        
-  res[17,] <- c("$symmetric","a boolean. TRUE if symmetric scores used for biplot.")          
+  res[17,] <- c("$symmetric","a boolean. TRUE if symmetric scores used.")          
   
   print(res)
 

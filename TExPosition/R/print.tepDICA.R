@@ -29,7 +29,7 @@ function (x,...) {
   res[16,] <- c("$pdq","GSVD data")    
   res[17,] <- c("$X","X matrix to decompose")    
   res[18,] <- c("$hellinger","a boolean. TRUE if Hellinger distance was used")        
-  res[19,] <- c("$symmetric","a boolean. TRUE if symmetric scores used for biplot.")
+  res[19,] <- c("$symmetric","a boolean. TRUE if symmetric scores used.")
   res[20,] <- c("$fii","Factor scores of the individuals")
   res[21,] <- c("$dii","Squared distances of the individuals")
   res[22,] <- c("$rii", "Cosines of the individuals")

@@ -232,5 +232,6 @@ function(res,x_axis=1,y_axis=2,tepPlotInfo=NULL,DESIGN=NULL,fi.col=NULL, fi.pch=
 	
 	tepPlotInfo <- list(fii.col=fii.col, fii.pch=fii.pch,fi.col=fi.col, fi.pch=fi.pch,fj.col=fj.col,fj.pch=fj.pch,constraints=constraints,lv.constraints=lv.constraints)
 	class(tepPlotInfo) <- c("tepGraphs", "list")
-	return(tepPlotInfo)	
+	#return(tepPlotInfo)
+	invisible(tepPlotInfo)	
 }

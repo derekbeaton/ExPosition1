@@ -4,8 +4,8 @@
 supplementaryCols <- function(SUP.DATA,res,center=TRUE,scale=TRUE){
 	SUP.DATA <- as.matrix(SUP.DATA)
 	
-	output.types <- c("expoOutput","texpoOutput","mexpoOutput")
-	data.types <- c("ExPosition.Data","TExPosition.Data","MExPosition.Data")
+	output.types <- c("expoOutput","texpoOutput")
+	data.types <- c("ExPosition.Data","TExPosition.Data")
 	mds.types <- c('epMDS')#can add DiSTATIS to this.
 	pca.types <- c('epPCA','tepBADA')
 	ca.types <- c('epCA','epMCA','tepDICA')	
@@ -19,9 +19,6 @@ supplementaryCols <- function(SUP.DATA,res,center=TRUE,scale=TRUE){
 			if(output.types[indicator]=="texpoOutput"){
 				res <- res$TExPosition.Data
 			}
-			if(output.types[indicator]=="mexpoOutput"){
-				res <- res$MExPosition.Data
-			}						
 		}else{
 			stop(paste("res class type is unknown:",names(res),sep=" "))
 		}
