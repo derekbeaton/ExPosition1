@@ -1,4 +1,4 @@
-epPCA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = TRUE, graphs = TRUE, k = 0, test.iters=100, constrained=FALSE,critical.value=2){
+epPCA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = TRUE, graphs = TRUE, k = 0, test.iters=100, constrained=FALSE, critical.value=2){
 
 ###some private functions
 permute.components.pca <- function(DATA,scale=TRUE,center=TRUE,k=0){

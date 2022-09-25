@@ -3,7 +3,7 @@ continueResampling <- function(cycle.time){
 	print(paste("It is estimated that your iterations will take",round(iter.time,digits=2),"minutes.",sep=" "))
 	if(interactive()){
 		valueCaptured <- ""
-		if(iter.time > 1){ #greater than 1 minute.
+		if(iter.time > 10){ #greater than 10 minutes.
 			while(tolower(valueCaptured) != "n" && tolower(valueCaptured) != "y"){
 				valueCaptured <- readline("Do you want to proceed: Y/N")	
 			}
