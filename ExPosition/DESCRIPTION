@@ -9,6 +9,8 @@ Description: A variety of descriptive multivariate analyses with the singular va
     such as principal components analysis, correspondence analysis, and multidimensional scaling.
     See An ExPosition of the Singular Value Decomposition in R (Beaton et al 2014) <doi:10.1016/j.csda.2013.11.006>.
 License: GPL-2
+Encoding: UTF-8
 Depends: prettyGraphs (>= 2.1.4)
 Packaged: 2022-08-30; dbeaton
 BugReports: https://github.com/derekbeaton/ExPosition1
+RoxygenNote: 7.2.1
