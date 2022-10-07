@@ -1,3 +1,32 @@
+#' contributionBars
+#' 
+#' Produces bar charts for multivariate analyses. Plots the contribution to the
+#' variance from each data point for upwards of two axes (components).
+#' 
+#' 
+#' @param factor_scores The factor scores, or x- and y-axis points of a data
+#' set.
+#' @param contributions The amount of contribution to the variance (between
+#' 0-1) by each data point.
+#' @param x_axis Which axis is the x-axis? Default is 1.
+#' @param y_axis Which axis is the y-axis? Default is 2.
+#' @param col A single-column matrix of colors for each data point.
+#' @param main A title to be placed at the top of the graph.
+#' @param upper The color used to identify the upper bound items that
+#' contribute above average variance.
+#' @param lower The color used to identify the lower bound items that
+#' contribute above average variance.
+#' @param threshold A threshold (between 0-1) to draw upper and lower bounds
+#' for important items. Default is 1/number of items.
+#' @param sortContributions boolean, if TRUE, items will be sorted by
+#' contribution. if FALSE, items will appear in their row order.
+#' @param pretty a boolean. If FALSE, use the current version. If TRUE, make
+#' the bars with \code{\link{prettyBars}}.
+#' @param show.bg.bars a boolean. Only used if \code{pretty} is TRUE. If TRUE,
+#' background bars are plotted for a fill effect.
+#' @author Derek Beaton
+#' @keywords graphs multivariate
+#' @export contributionBars
 contributionBars <-
 function(factor_scores,contributions,x_axis=1,y_axis=2,col=NULL,main=NULL,upper='steelblue4',lower='firebrick2',threshold=0,sortContributions=TRUE,pretty=FALSE,show.bg.bars=FALSE){
 

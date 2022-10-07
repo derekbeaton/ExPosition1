@@ -1,3 +1,30 @@
+#' correlationPlotter
+#' 
+#' Computes and plots a correlation circle (used in multivariate analyses).
+#' Correlation is computed between measured items and components (factors,
+#' dimensions, principal axes, etc...).
+#' 
+#' 
+#' @param data_matrix A set of data (i.e., original measures and observations)
+#' @param factor_scores One set of factor scores that were computed from the
+#' original data matrix.
+#' @param x_axis Which axis is the x-axis? Default is 1.
+#' @param y_axis Which axis is the y-axis? Default is 2.
+#' @param col A single-column matrix of colors for each data point.
+#' @param pch A single-column matrix of pch for each data point. Indicates
+#' which point style to use for each item. See \code{\link{par}}.
+#' @param xlab A label to be placed along the x-axis.
+#' @param ylab A label to be placed along the y-axis.
+#' @param main A title to be placed at the top of the graph.
+#' @param axis.lwd numeric. Line width for the axes.
+#' @param circle.lwd numeric. Line width for the circle.
+#' @param circle.col color for the circle
+#' @param asp numeric. Aspect ratio (see \code{asp} in \code{\link{par}}).
+#' @param dev.new boolean. If TRUE, \code{\link{dev.new}} is called internally
+#' to create new device. If FALSE, a device must already be open.
+#' @author Derek Beaton
+#' @keywords graphs multivariate
+#' @export correlationPlotter
 correlationPlotter <-
 function(data_matrix,factor_scores,x_axis=1,y_axis=2,
 	col=NULL,pch=NULL,xlab="",ylab="",

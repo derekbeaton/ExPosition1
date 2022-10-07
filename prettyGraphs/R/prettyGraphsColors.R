@@ -1,3 +1,13 @@
+#' prettyGraphsColors
+#' 
+#' A function to return only a subset of R colors used by the prettyGraphs
+#' package.
+#' 
+#' 
+#' @return \item{possibleColors}{A list of colors used by prettyGraphs}
+#' @author Derek Beaton
+#' @keywords misc
+#' @export prettyGraphsColors
 prettyGraphsColors <-
 function(){
 	possibleColors = colors()

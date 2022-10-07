@@ -1,4 +1,25 @@
 #http://stackoverflow.com/questions/3789968/generate-a-list-of-primes-in-r-up-to-a-certain-number
+
+
+#' Algorithmically select colors from prettyGraphs
+#' 
+#' This function uses prime numbers to select colors from
+#' \code{\link{prettyGraphsColors}}.
+#' 
+#' 
+#' @param n.colors number of colors needed
+#' @param offset numeric. Should be a prime number, if it is not, the closest
+#' prime is selected. This number decides the distance between indices for
+#' color selection.
+#' @param starting.color numeric. This is the starting location (e.g., color)
+#' in a matrix of \code{\link{prettyGraphsColors}}.
+#' @return \item{a matrix}{a matrix of colors are returned.}
+#' @author Derek Beaton\cr\cr prime number selection from here:\cr
+#' http://stackoverflow.com/questions/3789968/generate-a-list-of-primes-in-r-up-to-a-certain-number
+#' @seealso \code{\link{prettyGraphsColors}},
+#' \code{\link{prettyGraphsHSVColorSelection}}
+#' @keywords graphs
+#' @export prettyGraphsColorSelection
 prettyGraphsColorSelection <- function(n.colors=1,offset=NULL,starting.color=163){
 	if(is.null(offset)){
 		offset <- 19

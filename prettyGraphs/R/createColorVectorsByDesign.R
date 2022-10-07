@@ -1,3 +1,20 @@
+#' createColorVectorsByDesign
+#' 
+#' Produces a color vector for items by using a design matrix.
+#' 
+#' 
+#' @param design_matrix A dummy coded design matrix.
+#' @param hsv a boolean. If TRUE, use
+#' \code{\link{prettyGraphsHSVColorSelection}}. If FALSE, use
+#' \code{\link{prettyGraphsColorSelection}}.
+#' @param offset numeric. An offset value to be passed to
+#' \code{\link{prettyGraphsHSVColorSelection}} or
+#' \code{\link{prettyGraphsColorSelection}}.
+#' @return Produces a list with the following items\cr \item{oc}{The colors of
+#' the observations (based on group)} \item{gc}{The colors of the groups}
+#' @author Derek Beaton
+#' @keywords misc
+#' @export createColorVectorsByDesign
 createColorVectorsByDesign <-
 function(design_matrix,hsv=TRUE,offset=NULL){
 

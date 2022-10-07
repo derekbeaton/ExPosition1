@@ -1,7 +1,7 @@
 Package: prettyGraphs
 Type: Package
 Title: Publication-Quality Graphics
-Version: 2.1.10
+Version: 2.1.10.9999
 Date: 2022-08-30
 Author: Derek Beaton
 Maintainer: Derek Beaton <exposition.software@gmail.com>
@@ -10,3 +10,4 @@ Description: Simple and crisp publication-quality graphics for the ExPosition fa
 License: GPL-2
 Packaged: 2022-08-30; dbeaton
 BugReports: https://github.com/derekbeaton/ExPosition1
+RoxygenNote: 7.2.1
