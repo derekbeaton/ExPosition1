@@ -1,3 +1,32 @@
+#' genPDQ: the GSVD
+#' 
+#' genPDQ performs the SVD and GSVD for all methods in
+#' \code{\link{ExPosition}}.
+#' 
+#' This function should only be used to create new methods based on the SVD or
+#' GSVD.
+#' 
+#' @usage genPDQ(datain, M = NULL, W = NULL, is.mds = FALSE, decomp.approach =
+#' "svd", k = 0)
+#' @param datain fully preprocessed data to be decomposed.
+#' @param M vector of masses (for the rows)
+#' @param W vector of weights (for the columns)
+#' @param is.mds a boolean. If the method is of MDS (e.g.,
+#' \code{\link{epMDS}}), use TRUE. All other methods: FALSE
+#' @param decomp.approach a string. Allows for the user to choose which
+#' decomposition method to perform. Current options are SVD or Eigen.
+#' @param k number of components to return (this is not a rotation, just an
+#' \emph{a priori} selection of how much data should be returned).
+#' @return Data of class \code{epSVD} which is a list of matrices and
+#' vectors:\cr \item{P}{The left singular vectors (rows).} \item{Q}{The right
+#' singular vectors (columns).} \item{Dv}{Vector of the singular values.}
+#' \item{Dd}{Diagonal matrix of the singular values.} \item{ng}{Number of
+#' singular values/vectors} \item{rank}{Rank of the decomposed matrix. If it is
+#' 1, 0s are padded to the above items for plotting purposes.}
+#' \item{tau}{Explained variance per component}
+#' @author Derek Beaton
+#' @seealso \code{\link{pickSVD}}
+#' @export genPDQ
 genPDQ <- function(datain,M=NULL,W=NULL,is.mds=FALSE,decomp.approach='svd',k=0){
 		
 	na.check <- is.na(datain)

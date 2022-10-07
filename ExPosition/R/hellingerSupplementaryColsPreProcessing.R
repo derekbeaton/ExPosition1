@@ -1,3 +1,19 @@
+#' Preprocessing for supplementary columns in Hellinger analyses.
+#' 
+#' Preprocessing for supplementary columns in Hellinger analyses.
+#' 
+#' 
+#' @usage hellingerSupplementaryColsPreProcessing(SUP.DATA, W = NULL, M = NULL)
+#' @param SUP.DATA A supplemental matrix that has the same number of rows as an
+#' active data set.
+#' @param W A vector or matrix of Weights. If none are provided, a default is
+#' computed.
+#' @param M A vector or matrix of Masses. If none are provided, a default is
+#' computed.
+#' @return a matrix that has been preprocessed to project supplementary rows
+#' for Hellinger methods.
+#' @author Derek Beaton
+#' @keywords misc multivariate
 hellingerSupplementaryColsPreProcessing <- function(SUP.DATA,W=NULL,M=NULL){
 
 

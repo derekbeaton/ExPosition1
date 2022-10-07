@@ -1,3 +1,18 @@
+#' MDS preprocessing
+#' 
+#' Preprocessing of supplemental data for MDS analyses.
+#' 
+#' 
+#' @usage mdsSupplementalElementsPreProcessing(SUP.DATA = NULL, D = NULL, M =
+#' NULL)
+#' @param SUP.DATA A supplementary data matrix.
+#' @param D The original (active) distance matrix that \code{SUP.DATA} is
+#' supplementary to.
+#' @param M masses from the original (active) analysis for \code{D}.
+#' @return a matrix that is preprocessed for supplementary projection in MDS.
+#' @author Derek Beaton
+#' @keywords misc multivariate
+#' @export mdsSupplementalElementsPreProcessing
 mdsSupplementalElementsPreProcessing <- function(SUP.DATA=NULL,D=NULL,M=NULL){
 
 	if(is.null(SUP.DATA) || is.null(D)){

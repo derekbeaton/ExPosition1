@@ -1,3 +1,17 @@
+#' Preprocessing for supplementary rows in Hellinger analyses.
+#' 
+#' Preprocessing for supplementary rows in Hellinger analyses.
+#' 
+#' 
+#' @usage hellingerSupplementaryRowsPreProcessing(SUP.DATA, center = NULL)
+#' @param SUP.DATA A supplemental matrix that has the same number of rows as an
+#' active data set.
+#' @param center The center from the active data. NULL will center
+#' \code{SUP.DATA} to itself.
+#' @return a matrix that has been preprocessed to project supplementary columns
+#' for Hellinger methods.
+#' @author Derek Beaton
+#' @keywords misc multivariate
 hellingerSupplementaryRowsPreProcessing <- function(SUP.DATA,center=NULL){
 	
 	if(is.null(center)){

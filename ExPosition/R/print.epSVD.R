@@ -1,3 +1,14 @@
+#' Print results from the singular value decomposition (SVD) in ExPosition
+#' 
+#' Print results from the singular value decomposition (SVD) in ExPosition.
+#' 
+#' 
+#' @usage \method{printepSVD}(x,\dots{})
+#' @param x an list that contains items to make into the epSVD class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
+#' @export print.epSVD
 print.epSVD <-
 function (x,...) {
 

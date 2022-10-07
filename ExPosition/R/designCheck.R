@@ -1,3 +1,26 @@
+#' designCheck
+#' 
+#' Checks and/or creates a dummy-coded design matrix.
+#' 
+#' Returns a properly formatted, dummy-coded (or disjunctive coding) design
+#' matrix.
+#' 
+#' @usage designCheck(DATA, DESIGN = NULL, make_design_nominal = TRUE)
+#' @param DATA original data that should be matched to a design matrix
+#' @param DESIGN a column vector with levels for observations or a dummy-coded
+#' matrix
+#' @param make_design_nominal a boolean. Will make DESIGN nominal if TRUE
+#' (default).
+#' @return \item{DESIGN}{dummy-coded design matrix}
+#' @author Derek Beaton
+#' @keywords misc
+#' @examples
+#' 
+#' 	data <- iris[,c(1:4)]
+#' 	design <- as.matrix(iris[,c('Species')])
+#' 	iris.design <- designCheck(data,DESIGN=design,make_design_nominal=TRUE)
+#' 
+#' @export designCheck
 designCheck <-
 function(DATA,DESIGN=NULL,make_design_nominal=TRUE){
 

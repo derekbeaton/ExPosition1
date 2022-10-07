@@ -1,3 +1,22 @@
+#' makeNominalData
+#' 
+#' Transforms each column into measure-response columns with disjunctive (0/1)
+#' coding. If NA is found somewhere in matrix, barycentric recoding is peformed
+#' for the missing value(s).
+#' 
+#' 
+#' @usage makeNominalData(datain)
+#' @param datain a data matrix where the \emph{columns} will be recoded.
+#' @return \item{dataout}{a transformed version of \emph{datain}.}
+#' @author Derek Beaton
+#' @seealso \code{\link{epMCA}}
+#' @keywords misc multivariate
+#' @examples
+#' 
+#' 	data(mca.wine)
+#' 	nominal.wine <- makeNominalData(mca.wine$data)
+#' 
+#' @export makeNominalData
 makeNominalData <-
 function(datain){
     num.nas <- sum(is.na(datain))

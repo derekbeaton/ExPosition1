@@ -1,5 +1,19 @@
 #compute the chi2 distance between the rows of a matrix. Send back the distance and the vector of mass	
 #this function closely matches the CA preprocessing. But, this will be reserved for use on its own.
+
+
+#' Chi-square Distance computation
+#' 
+#' Performs a chi-square distance. Primarily used for \code{\link{epMDS}}.
+#' 
+#' 
+#' @usage chi2Dist(X)
+#' @param X Compute chi-square distances between row items.
+#' @return \item{D}{Distance matrix for \code{\link{epMDS}} analysis.}
+#' \item{MW}{a list of masses and weights. Weights not used in MDS.}
+#' @author Hervé Abdi
+#' @keywords misc multivariate
+#' @export chi2Dist
 chi2Dist<-function(X){
     # 1. transform X into Row profiles
     xip = rowSums(X)

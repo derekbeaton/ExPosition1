@@ -1,3 +1,14 @@
+#' Print Multiple Correspondence Analysis (MCA) results
+#' 
+#' Print Multiple Correspondence Analysis (MCA) results.
+#' 
+#' 
+#' @usage \method{printepMCA}(x,\dots{})
+#' @param x an list that contains items to make into the epMCA class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
+#' @export print.epMCA
 print.epMCA <-
 function (x,...) {
 

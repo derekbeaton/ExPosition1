@@ -1,3 +1,14 @@
+#' Print Multidimensional Scaling (MDS) results
+#' 
+#' Print Multidimensional Scaling (MDS) results.
+#' 
+#' 
+#' @usage \method{printepMDS}(x,\dots{})
+#' @param x an list that contains items to make into the epMDS class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
+#' @export print.epMDS
 print.epMDS <-
 function (x,...) {
 

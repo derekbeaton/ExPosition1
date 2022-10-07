@@ -1,3 +1,15 @@
+#' Transform data for MDS analysis.
+#' 
+#' Transform data for MDS analysis.
+#' 
+#' 
+#' @usage mdsTransform(D, masses)
+#' @param D A distance matrix
+#' @param masses A vector or matrix of masses (see \code{computeMW}).
+#' @return \item{S}{a preprocessed matrix that can be decomposed.}
+#' @author Derek Beaton
+#' @keywords misc multivariate
+#' @export mdsTransform
 mdsTransform <- function(D,masses){
 	DATA_dimensions <- dim(D)
 	#do this every time.

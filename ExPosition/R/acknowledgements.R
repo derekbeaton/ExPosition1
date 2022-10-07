@@ -1,3 +1,15 @@
+#' acknowledgements
+#' 
+#' \code{acknowledgements} returns a list of people who have contributed to
+#' ExPosition.
+#' 
+#' 
+#' @usage acknowledgements()
+#' @return A list of people who have contributed something beyond code to the
+#' ExPosition family of packages.
+#' @author Derek Beaton
+#' @keywords misc
+#' @export acknowledgements
 acknowledgements <-
 function(){
 	print("This function serves to keep a list of those who have contributed to ExPosition (and related packages) throughout development.")

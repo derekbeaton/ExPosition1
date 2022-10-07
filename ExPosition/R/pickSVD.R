@@ -1,3 +1,23 @@
+#' Pick which generalized SVD (or related) decomposition to use.
+#' 
+#' This function is an interface for the user to a general SVD or related
+#' decomposition. It provides direct access to \code{\link{svd}} and
+#' \code{\link{eigen}}. Future decompositions will be available.
+#' 
+#' 
+#' @usage pickSVD(datain, is.mds = FALSE, decomp.approach = "svd", k = 0)
+#' @param datain a data matrix to decompose.
+#' @param is.mds a boolean. TRUE for a MDS decomposition.
+#' @param decomp.approach a string. 'svd' for singular value decomposition,
+#' 'eigen' for an eigendecomposition. All approaches provide identical output.
+#' Some approaches are (in some cases) faster than others.
+#' @param k numeric. The number of components to return.
+#' @return A list with the following items:\cr \item{u}{Left singular vectors
+#' (rows)} \item{v}{Right singular vectors (columns)} \item{d}{Singular values}
+#' \item{tau}{Explained variance per component}
+#' @author Derek Beaton
+#' @keywords misc multivariate
+#' @export pickSVD
 pickSVD <-
 function(datain,is.mds=FALSE,decomp.approach='svd',k=0){
 

@@ -1,6 +1,27 @@
 #this function works as a shortcut for users. It's a "recognition engine" to auto perform 1) correct preprocessing and 2) supplemental projection.
 
 #RE: PCA -- supplementary measures should always be center/scaled by active variable constraints
+
+
+#' Supplementary rows
+#' 
+#' Computes factor scores for supplementary observations (rows).
+#' 
+#' This function recognizes the class types of: \code{\link{epPCA}},
+#' \code{\link{epMDS}}, \code{\link{epCA}}, \code{\link{epMCA}} and
+#' \code{TExPosition} methods. Further, the function recognizes if Hellinger
+#' (as opposed to row profiles; in CA, MCA and DICA) were used.
+#' 
+#' @usage supplementaryRows(SUP.DATA, res)
+#' @param SUP.DATA a data matrix of supplementary observations (must have the
+#' same measures [columns] as active data)
+#' @param res ExPosition or TExPosition results
+#' @return A list of values containing:\cr \item{fii}{factor scores computed
+#' for supplemental observations} \item{dii}{squared distances for supplemental
+#' observations} \item{rii}{cosines for supplemental observations}
+#' @author Derek Beaton
+#' @keywords misc multivariate
+#' @export supplementaryRows
 supplementaryRows <- function(SUP.DATA,res){
 	SUP.DATA <- as.matrix(SUP.DATA)
 	

@@ -1,6 +1,29 @@
 #this function works as a shortcut for users. It's a "recognition engine" to auto perform 1) correct preprocessing and 2) supplemental projection.
 
 #RE: PCA -- with cols, the normalization gets tricky. With variables, center/scale should occur as it did with active.
+
+
+#' Supplementary columns
+#' 
+#' Computes factor scores for supplementary measures (columns).
+#' 
+#' This function recognizes the class types of: \code{\link{epPCA}},
+#' \code{\link{epMDS}}, \code{\link{epCA}}, \code{\link{epMCA}}, and
+#' \code{TExPosition} methods. Further, the function recognizes if Hellinger
+#' (as opposed to row profiles; in CA, MCA and DICA) were used.
+#' 
+#' @usage supplementaryCols(SUP.DATA, res, center = TRUE, scale = TRUE)
+#' @param SUP.DATA a data matrix of supplementary measures (must have the same
+#' observations [rows] as active data)
+#' @param res ExPosition or TExPosition results
+#' @param center a boolean, string, or numeric. See \code{\link{expo.scale}}
+#' @param scale a boolean, string, or numeric. See \code{\link{expo.scale}}
+#' @return A list of values containing:\cr \item{fjj}{factor scores computed
+#' for supplemental columns} \item{djj}{squared distances for supplemental
+#' columns} \item{rjj}{cosines for supplemental columns}
+#' @author Derek Beaton
+#' @keywords misc multivariate
+#' @export supplementaryCols
 supplementaryCols <- function(SUP.DATA,res,center=TRUE,scale=TRUE){
 	SUP.DATA <- as.matrix(SUP.DATA)
 	

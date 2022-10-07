@@ -1,3 +1,63 @@
+#' epGraphs: ExPosition plotting function
+#' 
+#' ExPosition plotting function which is an interface to
+#' \code{\link{prettyGraphs}}.
+#' 
+#' epGraphs is an interface between \code{\link{ExPosition}} and
+#' \code{\link{prettyGraphs}}.
+#' 
+#' @usage epGraphs(res, x_axis = 1, y_axis = 2, epPlotInfo = NULL, DESIGN=NULL,
+#' fi.col = NULL, fi.pch = NULL, fj.col = NULL, fj.pch = NULL, col.offset =
+#' NULL, constraints = NULL, xlab = NULL, ylab = NULL, main = NULL,
+#' contributionPlots = TRUE, correlationPlotter = TRUE, graphs = TRUE)
+#' @param res results from ExPosition
+#' @param x_axis which component should be on the x axis?
+#' @param y_axis which component should be on the y axis?
+#' @param epPlotInfo A list (\code{$Plotting.Data}) from \code{epGraphs} or
+#' \code{ExPosition}.
+#' @param DESIGN A design matrix to apply colors (by pallete selection) to row
+#' items
+#' @param fi.col A matrix of colors for the row items. If NULL, colors will be
+#' selected.
+#' @param fi.pch A matrix of pch values for the row items. If NULL, pch values
+#' are all 21.
+#' @param fj.col A matrix of colors for the column items. If NULL, colors will
+#' be selected.
+#' @param fj.pch A matrix of pch values for the column items. If NULL, pch
+#' values are all 21.
+#' @param col.offset A numeric offset value. Is passed to
+#' \code{\link{createColorVectorsByDesign}}.
+#' @param constraints Plot constraints as returned from
+#' \code{\link{prettyPlot}}. If NULL, constraints are selected.
+#' @param xlab x axis label
+#' @param ylab y axis label
+#' @param main main label for the graph window
+#' @param contributionPlots a boolean. If TRUE (default), contribution bar
+#' plots will be created.
+#' @param correlationPlotter a boolean. If TRUE (default), a correlation circle
+#' plot will be created. Applies to PCA family of methods (CA is excluded for
+#' now).
+#' @param graphs a boolean. If TRUE, graphs are created. If FALSE, only data
+#' associated to plotting (e.g., constraints, colors) are returned.
+#' @return The following items are bundled inside of $Plotting.Data:\cr
+#' \item{$fi.col}{the colors that are associated to the row items ($fi).}
+#' \item{$fi.pch}{the pch values associated to the row items ($fi).}
+#' \item{$fj.col}{the colors that are associated to the column items ($fj).}
+#' \item{$fj.pch}{the pch values associated to the column items ($fj).}
+#' \item{$constraints}{axis constraints for the plots (determines end points of
+#' the plots).}
+#' @author Derek Beaton
+#' @seealso \code{\link{prettyGraphs}}
+#' @keywords multivariate graphs misc
+#' @examples
+#' 
+#' 	#this is for ExPosition's iris data
+#' 	data(ep.iris)
+#' 	pca.iris.res <- epPCA(ep.iris$data)
+#' 	#this will put plotting data into a new variable.
+#' 	epGraphs.2.and.3 <- epGraphs(pca.iris.res,x_axis=2,y_axis=3)
+#' 
+#' @export epGraphs
 epGraphs <-
 function(res,x_axis=1,y_axis=2,epPlotInfo=NULL,DESIGN=NULL,fi.col=NULL,fi.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,contributionPlots=TRUE,correlationPlotter=TRUE,graphs=TRUE){
 
