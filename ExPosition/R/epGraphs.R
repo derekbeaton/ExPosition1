@@ -1,10 +1,10 @@
 #' epGraphs: ExPosition plotting function
 #' 
 #' ExPosition plotting function which is an interface to
-#' \code{\link{prettyGraphs}}.
+#' \code{\link[prettyGraphs]{prettyGraphs}}.
 #' 
 #' epGraphs is an interface between \code{\link{ExPosition}} and
-#' \code{\link{prettyGraphs}}.
+#' \code{\link[prettyGraphs]{prettyGraphs}}.
 #' 
 #' @usage epGraphs(res, x_axis = 1, y_axis = 2, epPlotInfo = NULL, DESIGN=NULL,
 #' fi.col = NULL, fi.pch = NULL, fj.col = NULL, fj.pch = NULL, col.offset =
@@ -26,9 +26,9 @@
 #' @param fj.pch A matrix of pch values for the column items. If NULL, pch
 #' values are all 21.
 #' @param col.offset A numeric offset value. Is passed to
-#' \code{\link{createColorVectorsByDesign}}.
+#' \code{\link[prettyGraphs]{createColorVectorsByDesign}}.
 #' @param constraints Plot constraints as returned from
-#' \code{\link{prettyPlot}}. If NULL, constraints are selected.
+#' \code{\link[prettyGraphs]{prettyPlot}}. If NULL, constraints are selected.
 #' @param xlab x axis label
 #' @param ylab y axis label
 #' @param main main label for the graph window
@@ -47,7 +47,7 @@
 #' \item{$constraints}{axis constraints for the plots (determines end points of
 #' the plots).}
 #' @author Derek Beaton
-#' @seealso \code{\link{prettyGraphs}}
+#' @seealso \code{\link[prettyGraphs]{prettyGraphs}}
 #' @keywords multivariate graphs misc
 #' @examples
 #' 
