@@ -9,17 +9,6 @@ TExPosition: Two-table analyses with via ExPosition.
 \description{
 TExPosition is two-table \code{\link{ExPosition}} and includes discriminant methods of the singular value decomposition (SVD). The core of TExPosition is \code{\link{ExPosition}} and the \code{\link{svd}}.
 }
-\details{
-\tabular{ll}{
-Package: \tab TExPosition\cr
-Type: \tab Package\cr
-Version: \tab 2.8.0\cr
-Date: \tab 2022-08-30\cr
-Depends: \tab R (>=2.15.0), prettyGraphs (>= 2.1.4), ExPosition (>= 2.0.0)\cr
-License: \tab GPL-2\cr
-URL: \tab https://github.com/derekbeaton/ExPosition1\cr
-}
-}
 \author{
 Questions, comments, compliments, and complaints go to Derek Beaton \email{exposition.software@gmail.com}.\cr\cr
 

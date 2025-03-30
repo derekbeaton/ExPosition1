@@ -1,14 +1,14 @@
 Package: prettyGraphs
 Type: Package
 Title: Publication-Quality Graphics
-Version: 2.1.10.9999
-Date: 2022-10-07
+Version: 2.1.11.9999
+Date: 2023-09-17
 Author: Derek Beaton
 Maintainer: Derek Beaton <exposition.software@gmail.com>
 Description: Simple and crisp publication-quality graphics for the ExPosition family of packages.
   See An ExPosition of the Singular Value Decomposition in R (Beaton et al 2014) <doi:10.1016/j.csda.2013.11.006>.
 License: GPL-2
-Packaged: 2022-10-07; dbeaton
+Packaged: 2023-09-17; dbeaton
 Encoding: UTF-8
 BugReports: https://github.com/derekbeaton/ExPosition1
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

@@ -1,16 +1,12 @@
 #' Print Principal Components Analysis (PCA) results
 #' 
-#' Print Principal Components Analysis (PCA) results.
-#' 
-#' 
-#' @usage \method{printepPCA}(x,\dots{})
+#' @usage \method{print}{epPCA}(x,\dots)
 #' @param x an list that contains items to make into the epPCA class.
 #' @param \dots inherited/passed arguments for S3 print method(s).
 #' @author Derek Beaton and Cherise Chin-Fatt
 #' @keywords print
 #' @export print.epPCA
-print.epPCA <-
-function (x,...) {
+print.epPCA <- function (x,...) {
 
 #(list(fi=fi,di=di,ci=ci,ri=ri,fj=fj,cj=cj,rj=rj,dj=dj,t=taus,pdq=pca_results))
 

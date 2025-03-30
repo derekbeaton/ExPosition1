@@ -3,15 +3,11 @@
 \docType{package}
 \name{prettyGraphs}
 \alias{prettyGraphs}
+\alias{prettyGraphs-package}
 \title{prettyGraphs: for publication-quality graphics.}
 \description{
 prettyGraphs is a package that produces simple, crisp, publication-quality
 graphics for multivariate analyses.
-}
-\details{
-\tabular{ll}{ Package: \tab prettyGraphs\cr Type: \tab Package\cr Version:
-\tab 2.1.10\cr Date: \tab 2022-08-30\cr License: \tab GPL-2\cr Suggests:
-ExPosition }
 }
 \references{
 Three functions were copied/derived for use in prettyGraphs:

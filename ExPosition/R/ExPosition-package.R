@@ -198,10 +198,6 @@ NULL
 #' can provide. ExPosition includes several techniques that depend on the SVD
 #' (see below for examples and functions).
 #' 
-#' \tabular{ll}{ Package: \tab ExPosition\cr Type: \tab Package\cr Version:
-#' \tab 2.10.0\cr Date: \tab 2022-08-30\cr Depends: \tab R (>=2.15.0),
-#' prettyGraphs (>= 2.1.4)\cr License: \tab GPL-2\cr URL: \tab
-#' https://github.com/derekbeaton/ExPosition1\cr }
 #' 
 #' @name ExPosition-package
 #' @aliases ExPosition-package ExPosition
@@ -228,6 +224,8 @@ NULL
 #' Practice. \emph{Chapman and Hall}.\cr Benzécri, J. P. (1979). Sur le calcul
 #' des taux d'inertie dans l'analyse d'un questionnaire. \emph{Cahiers de
 #' l'Analyse des Données}, \bold{4}, 377-378.\cr
+#' @import prettyGraphs
+#' @importFrom stats cor dist sd
 #' @keywords package multivariate
 #' @examples
 #' 
@@ -408,8 +406,6 @@ NULL
 
 
 
-#' Six wines described by several assessors with rank attributes.
-#' 
 #' Six wines described by several assessors with rank attributes.
 #' 
 #' 

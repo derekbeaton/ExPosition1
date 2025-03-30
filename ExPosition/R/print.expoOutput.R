@@ -1,18 +1,14 @@
 #' Print results from ExPosition
 #' 
-#' Print results from the ExPosition. Includes results from a given method and
-#' epGraphs.
 #' 
-#' 
-#' @usage \method{printexpoOutput}(x,\dots{})
+#' @usage \method{print}{expoOutput}(x,\dots)
 #' @param x an list that contains items to make into the expoOutput class.
 #' @param \dots inherited/passed arguments for S3 print method(s).
 #' @author Derek Beaton and Cherise Chin-Fatt
 #' @seealso \code{\link{epPCA}}, \code{\link{epGraphs}}
 #' @keywords print
 #' @export print.expoOutput
-print.expoOutput <-
-function (x,...) {
+print.expoOutput <- function (x,...) {
 
   res.expoOutput <- x
   if (!inherits(res.expoOutput, "expoOutput")) stop ("no convenient data")
