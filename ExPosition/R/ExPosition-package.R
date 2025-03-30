@@ -201,7 +201,6 @@ NULL
 #' 
 #' @name ExPosition-package
 #' @aliases ExPosition-package ExPosition
-#' @docType package
 #' @author Questions, comments, compliments, and complaints go to Derek Beaton
 #' \email{exposition.software@@gmail.com}.\cr\cr
 #' 
@@ -232,6 +231,7 @@ NULL
 #' #For more examples, see each individual function (as noted above).
 #' 
 NULL
+"_PACKAGE"
 
 
 

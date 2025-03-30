@@ -35,10 +35,10 @@ be selected.}
 values are all 21.}
 
 \item{col.offset}{A numeric offset value. Is passed to
-\code{\link{createColorVectorsByDesign}}.}
+\code{\link[prettyGraphs]{createColorVectorsByDesign}}.}
 
 \item{constraints}{Plot constraints as returned from
-\code{\link{prettyPlot}}. If NULL, constraints are selected.}
+\code{\link[prettyGraphs]{prettyPlot}}. If NULL, constraints are selected.}
 
 \item{xlab}{x axis label}
 
@@ -67,11 +67,11 @@ the plots).}
 }
 \description{
 ExPosition plotting function which is an interface to
-\code{\link{prettyGraphs}}.
+\code{\link[prettyGraphs]{prettyGraphs}}.
 }
 \details{
 epGraphs is an interface between \code{\link{ExPosition}} and
-\code{\link{prettyGraphs}}.
+\code{\link[prettyGraphs]{prettyGraphs}}.
 }
 \examples{
 
@@ -83,7 +83,7 @@ epGraphs is an interface between \code{\link{ExPosition}} and
 
 }
 \seealso{
-\code{\link{prettyGraphs}}
+\code{\link[prettyGraphs]{prettyGraphs}}
 }
 \author{
 Derek Beaton

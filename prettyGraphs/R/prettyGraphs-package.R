@@ -7,7 +7,6 @@
 #' 
 #' 
 #' @name prettyGraphs
-#' @docType package
 #' @author Derek Beaton <exposition.software@@gmail.com>
 #' @seealso \code{\link{prettyPlot}} \code{\link{contributionBars}}
 #' \code{\link{correlationPlotter}} \code{\link{peeledHull}}
@@ -29,6 +28,6 @@
 #' @keywords package graphs multivariate
 #' @aliases prettyGraphs-package prettyGraphs
 NULL
-
+"_PACKAGE"
 
 
