@@ -1,3 +1,12 @@
+#' Print TExPosition results
+#' 
+#' Print TExPosition results.
+#' 
+#' 
+#' @param x an list that contains items to make into the texpoOutput class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton, Cherise Chin-Fatt
+#' @keywords print
 print.texpoOutput <-
 function (x,...) {
 

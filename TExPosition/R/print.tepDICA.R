@@ -1,3 +1,12 @@
+#' Print tepDICA results
+#' 
+#' Print tepDICA results.
+#' 
+#' 
+#' @param x an list that contains items to make into the tepDICA class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton, Cherise Chin-Fatt
+#' @keywords print
 print.tepDICA <-
 function (x,...) {
 

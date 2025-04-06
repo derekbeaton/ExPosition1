@@ -1,3 +1,15 @@
+#' R-squared computations
+#' 
+#' A function to compute R-squared for BADA and DICA
+#' 
+#' 
+#' @param group.masses a masses matrix for the groups
+#' @param di a set of squared distances of the groups
+#' @param ind.masses a masses matrix for the individuals
+#' @param dii a set of squared distances for the individuals
+#' @return \item{R2}{An R-squared}
+#' @author Jenny Rieck, Derek Beaton
+#' @keywords misc multivariate
 R2 <-
 function(group.masses,di,ind.masses=NULL,dii){
 

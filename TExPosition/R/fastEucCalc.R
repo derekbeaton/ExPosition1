@@ -1,3 +1,17 @@
+#' fastEucCalc
+#' 
+#' Fast Euclidean distance calculations.
+#' 
+#' This function is especially useful for discriminant analyses. The distance
+#' from each point in \code{x} to each point in \code{c} is computed and
+#' returned as a \code{nrow(x)} x \code{nrow(c)} matrix.
+#' 
+#' @param x a set of points.
+#' @param c a set of centers.
+#' @return \item{a distance matrix}{Euclidean distances of each point to each
+#' center are returned.}
+#' @author Hervé Abdi, Derek Beaton
+#' @keywords misc
 fastEucCalc <-
 function(x,c){
 	
