@@ -13,6 +13,7 @@
 #' constraints for the plots (determines end points of the plots).}
 #' @author Derek Beaton
 #' @keywords misc
+#' @export calculateLVConstraints
 calculateLVConstraints <-
 function(results,x_axis=1,y_axis=2,constraints=NULL){
 	axis1<-x_axis

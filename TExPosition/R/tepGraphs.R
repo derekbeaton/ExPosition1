@@ -69,6 +69,7 @@
 #' 	#there are only 2 components, not 3.		
 #' 	bada.iris.plotting.data <- tepGraphs(bada.iris,x_axis=1,y_axis=2)
 #' 
+#' @export tepGraphs
 tepGraphs <-
 function(res,x_axis=1,y_axis=2,tepPlotInfo=NULL,DESIGN=NULL,fi.col=NULL, fi.pch=NULL, fii.col=NULL, fii.pch = NULL, fj.col=NULL, fj.pch = NULL,col.offset=NULL,constraints=NULL,lv.constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,lvPlots=TRUE,lvAgainst=TRUE,contributionPlots=TRUE,correlationPlotter=TRUE,showHulls=1,graphs=TRUE){
 

@@ -17,10 +17,10 @@ tepBADA(
 \arguments{
 \item{DATA}{original data to perform a BADA on.}
 
-\item{scale}{a boolean, vector, or string. See \code{\link{expo.scale}} for
+\item{scale}{a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 details.}
 
-\item{center}{a boolean, vector, or string. See \code{\link{expo.scale}} for
+\item{center}{a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 details.}
 
 \item{DESIGN}{a design matrix to indicate if rows belong to groups. Required

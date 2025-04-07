@@ -12,6 +12,7 @@
 #' center are returned.}
 #' @author Hervé Abdi, Derek Beaton
 #' @keywords misc
+#' @export fastEucCalc
 fastEucCalc <-
 function(x,c){
 	

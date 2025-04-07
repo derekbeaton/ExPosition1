@@ -23,16 +23,16 @@ tepPLS(
 \item{DATA2}{Data matrix 2 (Y)}
 
 \item{center1}{a boolean, vector, or string to center \code{DATA1}. See
-\code{\link{expo.scale}} for details.}
+\code{\link[ExPosition]{expo.scale}} for details.}
 
 \item{scale1}{a boolean, vector, or string to scale \code{DATA1}. See
-\code{\link{expo.scale}} for details.}
+\code{\link[ExPosition]{expo.scale}} for details.}
 
 \item{center2}{a boolean, vector, or string to center \code{DATA2}. See
-\code{\link{expo.scale}} for details.}
+\code{\link[ExPosition]{expo.scale}} for details.}
 
 \item{scale2}{a boolean, vector, or string to scale \code{DATA2}. See
-\code{\link{expo.scale}} for details.}
+\code{\link[ExPosition]{expo.scale}} for details.}
 
 \item{DESIGN}{a design matrix to indicate if rows belong to groups.}
 

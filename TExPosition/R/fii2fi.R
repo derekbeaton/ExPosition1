@@ -14,6 +14,7 @@
 #' assigned (and mis-assigned) to each category}
 #' @author Hervé Abdi, Derek Beaton
 #' @keywords misc multivariate
+#' @export fii2fi
 fii2fi <-
 function(DESIGN,fii,fi){
 	Dsup <- fastEucCalc(fii,fi)

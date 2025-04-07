@@ -7,9 +7,9 @@
 #' mean-centered PLS (Krishnan et al., 2011).
 #' 
 #' @param DATA original data to perform a BADA on.
-#' @param scale a boolean, vector, or string. See \code{\link{expo.scale}} for
+#' @param scale a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 #' details.
-#' @param center a boolean, vector, or string. See \code{\link{expo.scale}} for
+#' @param center a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 #' details.
 #' @param DESIGN a design matrix to indicate if rows belong to groups. Required
 #' for BADA.
@@ -58,6 +58,7 @@
 #' data(bada.wine)
 #' bada.res <- tepBADA(bada.wine$data,scale=FALSE,DESIGN=bada.wine$design,make_design_nominal=FALSE)
 #' 
+#' @export tepBADA
 tepBADA <- function(DATA,scale=TRUE,center=TRUE,DESIGN=NULL,make_design_nominal=TRUE,graphs=TRUE,k=0){	
 		
 	

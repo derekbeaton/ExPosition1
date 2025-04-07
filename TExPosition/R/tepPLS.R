@@ -9,13 +9,13 @@
 #' @param DATA1 Data matrix 1 (X)
 #' @param DATA2 Data matrix 2 (Y)
 #' @param center1 a boolean, vector, or string to center \code{DATA1}. See
-#' \code{\link{expo.scale}} for details.
+#' \code{\link[ExPosition]{expo.scale}} for details.
 #' @param scale1 a boolean, vector, or string to scale \code{DATA1}. See
-#' \code{\link{expo.scale}} for details.
+#' \code{\link[ExPosition]{expo.scale}} for details.
 #' @param center2 a boolean, vector, or string to center \code{DATA2}. See
-#' \code{\link{expo.scale}} for details.
+#' \code{\link[ExPosition]{expo.scale}} for details.
 #' @param scale2 a boolean, vector, or string to scale \code{DATA2}. See
-#' \code{\link{expo.scale}} for details.
+#' \code{\link[ExPosition]{expo.scale}} for details.
 #' @param DESIGN a design matrix to indicate if rows belong to groups.
 #' @param make_design_nominal a boolean. If TRUE (default), DESIGN is a vector
 #' that indicates groups (and will be dummy-coded). If FALSE, DESIGN is a
@@ -52,6 +52,7 @@
 #' data2<-beer.tasting.notes$data[,9:16]
 #' pls.res <- tepPLS(data1,data2)
 #' 
+#' @export tepPLS
 tepPLS <- function(DATA1,DATA2,center1=TRUE,scale1="SS1",center2=TRUE,scale2="SS1",DESIGN=NULL,make_design_nominal=TRUE,graphs=TRUE,k=0){
 
 	if(nrow(DATA1) != nrow(DATA2)){

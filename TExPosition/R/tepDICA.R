@@ -56,6 +56,7 @@
 #' data(dica.wine)
 #' dica.res <- tepDICA(dica.wine$data,DESIGN=dica.wine$design,make_design_nominal=FALSE)
 #' 
+#' @export tepDICA
 tepDICA <- function(DATA,make_data_nominal=FALSE,DESIGN=NULL,make_design_nominal=TRUE,symmetric=TRUE,graphs=TRUE,k=0){
 	
 		

@@ -19,6 +19,7 @@
 #' @return \item{DESIGN}{dummy-coded design matrix}
 #' @author Derek Beaton
 #' @keywords misc
+#' @export texpoDesignCheck
 texpoDesignCheck <-
 function(DATA=NULL,DESIGN=NULL,make_design_nominal=TRUE,force_bary = FALSE){
 	

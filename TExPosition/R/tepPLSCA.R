@@ -58,6 +58,7 @@
 #' 	plsca.res <- tepPLSCA(snps.druguse$DATA1,snps.druguse$DATA2,
 #' 			make_data1_nominal=TRUE,make_data2_nominal=TRUE)
 #' 
+#' @export tepPLSCA
 tepPLSCA <-
 function(DATA1,DATA2,make_data1_nominal=FALSE,make_data2_nominal=FALSE,DESIGN=NULL,make_design_nominal=TRUE,symmetric=TRUE,graphs=TRUE,k=0){
 

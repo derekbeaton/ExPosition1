@@ -10,6 +10,7 @@
 #' @return \item{R2}{An R-squared}
 #' @author Jenny Rieck, Derek Beaton
 #' @keywords misc multivariate
+#' @export R2
 R2 <-
 function(group.masses,di,ind.masses=NULL,dii){
 
