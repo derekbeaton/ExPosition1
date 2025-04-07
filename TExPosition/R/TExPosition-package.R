@@ -9,7 +9,6 @@
 #' 
 #' @name TExPosition-package
 #' @aliases TExPosition-package TExPosition
-#' @docType package
 #' @author Questions, comments, compliments, and complaints go to Derek Beaton
 #' \email{exposition.software@@gmail.com}.\cr\cr
 #' 
@@ -37,12 +36,10 @@
 #' R., & Lobaugh, N. J. (2004). Partial least squares analysis of neuroimaging
 #' data: applications and advances. \emph{Neuroimage}, \emph{23},
 #' S250--S263.\cr
+#' @import prettyGraphs ExPosition
 #' @keywords package multivariate
-#' @examples
 #' 
-#' #For more examples, see each individual function (as noted above).
-#' 
-NULL
+"_PACKAGE"
 
 
 

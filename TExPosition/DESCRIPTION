@@ -7,6 +7,7 @@ Author: Derek Beaton, Jenny Rieck, Cherise R. Chin Fatt, Ju-Chi Yu, Luke Moragli
 Maintainer: Derek Beaton <exposition.software@gmail.com>
 Description: An extension of ExPosition for two table analyses, specifically, discriminant analyses.
 License: GPL-2
+Encoding: UTF-8
 Depends: prettyGraphs (>= 2.1.4), ExPosition (>= 2.0.0)
 Packaged: 2025-30-30; dbeaton
 BugReports: https://github.com/derekbeaton/ExPosition1

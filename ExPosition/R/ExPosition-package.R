@@ -230,7 +230,6 @@ NULL
 #' 
 #' #For more examples, see each individual function (as noted above).
 #' 
-NULL
 "_PACKAGE"
 
 
