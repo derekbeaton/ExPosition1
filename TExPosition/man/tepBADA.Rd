@@ -36,7 +36,7 @@ dummy-coded matrix.}
 \item{k}{number of components to return.}
 }
 \value{
-See \code{\link{corePCA}} for details on what is returned. In
+See \code{\link[ExPosition]{corePCA}} for details on what is returned. In
 addition to the values returned:\cr \item{fii}{factor scores computed for
 supplemental observations} \item{dii}{squared distances for supplemental
 observations} \item{rii}{cosines for supplemental observations}
@@ -85,7 +85,7 @@ doi:10.1155/2012/634165.\cr Krishnan, A., Williams, L. J., McIntosh, A. R.,
 tutorial and review. \emph{NeuroImage}, \emph{56}(\bold{2}), 455 -- 475.\cr
 }
 \seealso{
-\code{\link{corePCA}}, \code{\link{epPCA}}, \code{\link{epMDS}}\cr
+\code{\link[ExPosition]{corePCA}}, \code{\link[ExPosition]{epPCA}}, \code{\link[ExPosition]{epMDS}}\cr
 }
 \author{
 Derek Beaton

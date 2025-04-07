@@ -20,7 +20,7 @@
 #' @param graphs a boolean. If TRUE (default), graphs and plots are provided
 #' (via \code{\link{tepGraphs}})
 #' @param k number of components to return.
-#' @return See \code{\link{epCA}} (and also \code{\link{coreCA}}) for details
+#' @return See \code{\link[ExPosition]{epCA}} (and also \code{\link[ExPosition]{coreCA}}) for details
 #' on what is returned. In addition to the values returned:\cr
 #' \item{fii}{factor scores computed for supplemental observations}
 #' \item{dii}{squared distances for supplemental observations}
@@ -29,7 +29,7 @@
 #' \item{lx}{latent variables from DATA1 computed for observations}
 #' \item{ly}{latent variables from DATA2 computed for observations}
 #' @author Derek Beaton, Hervé Abdi
-#' @seealso \code{\link{coreCA}}, \code{\link{epCA}}, \code{\link{epMCA}} \cr
+#' @seealso \code{\link[ExPosition]{coreCA}}, \code{\link[ExPosition]{epCA}}, \code{\link[ExPosition]{epMCA}} \cr
 #' @references Abdi, H., and Williams, L.J. (2010). Principal component
 #' analysis. \emph{Wiley Interdisciplinary Reviews: Computational Statistics},
 #' 2, 433-459.\cr Abdi, H. and Williams, L.J. (2010). Correspondence analysis.

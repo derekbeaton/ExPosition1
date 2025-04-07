@@ -62,10 +62,10 @@ be selected.}
 values are all 21.}
 
 \item{col.offset}{A numeric offset value. Is passed to
-\code{\link{createColorVectorsByDesign}}.}
+\code{\link[prettyGraphs]{createColorVectorsByDesign}}.}
 
 \item{constraints}{Plot constraints as returned from
-\code{\link{prettyPlot}}. If NULL, constraints are selected.}
+\code{\link[prettyGraphs]{prettyPlot}}. If NULL, constraints are selected.}
 
 \item{lv.constraints}{Plot constraints for latent variables. If NULL,
 constraints are selected.}
@@ -109,11 +109,11 @@ the plots).}
 }
 \description{
 TExPosition plotting function which is an interface to
-\code{\link{prettyGraphs}}.
+\code{\link[prettyGraphs]{prettyGraphs}}.
 }
 \details{
 tepGraphs is an interface between \code{\link{TExPosition}} and
-\code{\link{prettyGraphs}}.
+\code{\link[prettyGraphs]{prettyGraphs}}.
 }
 \examples{
 
@@ -126,7 +126,7 @@ tepGraphs is an interface between \code{\link{TExPosition}} and
 
 }
 \seealso{
-\code{\link{prettyGraphs}}
+\code{\link[prettyGraphs]{prettyGraphs}}
 }
 \author{
 Derek Beaton

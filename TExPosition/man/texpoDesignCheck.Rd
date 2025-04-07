@@ -21,7 +21,7 @@ matrix}
 (default).}
 
 \item{force_bary}{a boolean. If TRUE, it forces the check for barycentric
-methods (tepDICA, tepBADA). If FALSE, \code{\link{designCheck}} is
+methods (tepDICA, tepBADA). If FALSE, \code{\link[ExPosition]{designCheck}} is
 performed.}
 }
 \value{
@@ -29,7 +29,7 @@ performed.}
 }
 \description{
 TExPosition's DESIGN matrix check function. Calls into ExPosition's
-\code{\link{designCheck}}.
+\code{\link[ExPosition]{designCheck}}.
 }
 \details{
 For BADA & DICA, execution stops if:\cr 1. DESIGN has more columns (groups)

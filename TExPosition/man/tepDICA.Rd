@@ -37,7 +37,7 @@ rows.}
 \item{k}{number of components to return.}
 }
 \value{
-See \code{\link{epCA}} (and also \code{\link{coreCA}}) for details
+See \code{\link[ExPosition]{epCA}} (and also \code{\link[ExPosition]{coreCA}}) for details
 on what is returned. In addition to the values returned:\cr
 \item{fii}{factor scores computed for supplemental observations}
 \item{dii}{squared distances for supplemental observations}
@@ -83,7 +83,7 @@ age on the variability in the production of text-based global inferences.
 \emph{PLoS One}, 7(5): e36161. doi:10.1371/ journal.pone.0036161 (pp.1-9)
 }
 \seealso{
-\code{\link{coreCA}}, \code{\link{epCA}}, \code{\link{epMCA}} \cr
+\code{\link[ExPosition]{coreCA}}, \code{\link[ExPosition]{epCA}}, \code{\link[ExPosition]{epMCA}} \cr
 }
 \author{
 Derek Beaton, Hervé Abdi

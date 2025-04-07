@@ -1,7 +1,7 @@
 #' texpoDesignCheck
 #' 
 #' TExPosition's DESIGN matrix check function. Calls into ExPosition's
-#' \code{\link{designCheck}}.
+#' \code{\link[ExPosition]{designCheck}}.
 #' 
 #' For BADA & DICA, execution stops if:\cr 1. DESIGN has more columns (groups)
 #' than observations, 2. DESIGN has only 1 column (group), or 3. DESIGN has at
@@ -14,7 +14,7 @@
 #' @param make_design_nominal a boolean. Will make DESIGN nominal if TRUE
 #' (default).
 #' @param force_bary a boolean. If TRUE, it forces the check for barycentric
-#' methods (tepDICA, tepBADA). If FALSE, \code{\link{designCheck}} is
+#' methods (tepDICA, tepBADA). If FALSE, \code{\link[ExPosition]{designCheck}} is
 #' performed.
 #' @return \item{DESIGN}{dummy-coded design matrix}
 #' @author Derek Beaton

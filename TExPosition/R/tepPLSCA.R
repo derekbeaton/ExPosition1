@@ -26,7 +26,7 @@
 #' @param graphs a boolean. If TRUE (default), graphs and plots are provided
 #' (via \code{\link{tepGraphs}})
 #' @param k number of components to return.
-#' @return See \code{\link{epCA}} (and also \code{\link{coreCA}}) for details
+#' @return See \code{\link[ExPosition]{epCA}} (and also \code{\link[ExPosition]{coreCA}}) for details
 #' on what is returned. In addition to the values returned:\cr
 #' \item{W1}{Weights for columns of DATA1, replaces \code{M} from
 #' \code{coreCA}.} \item{W2}{Weights for columns of DATA2, replaces \code{W}
@@ -34,7 +34,7 @@
 #' observations} \item{ly}{latent variables from DATA2 computed for
 #' observations}
 #' @author Derek Beaton, Hervé Abdi
-#' @seealso \code{\link{coreCA}}, \code{\link{epCA}}, \code{\link{epMCA}},
+#' @seealso \code{\link[ExPosition]{coreCA}}, \code{\link[ExPosition]{epCA}}, \code{\link[ExPosition]{epMCA}},
 #' \code{\link{tepDICA}} \cr
 #' @references Tucker, L. R. (1958). An inter-battery method of factor
 #' analysis. \emph{Psychometrika}, \emph{23}(2), 111--136. \cr Bookstein, F.,

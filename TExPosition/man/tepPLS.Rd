@@ -46,7 +46,7 @@ dummy-coded matrix.}
 \item{k}{number of components to return.}
 }
 \value{
-See \code{\link{corePCA}} for details on what is returned. In
+See \code{\link[ExPosition]{corePCA}} for details on what is returned. In
 addition to the values returned:\cr \item{lx}{latent variables from DATA1
 computed for observations} \item{ly}{latent variables from DATA2 computed
 for observations} \item{data1.norm}{center and scale information for DATA1}
@@ -84,7 +84,7 @@ Lobaugh, N. J. (2004). Partial least squares analysis of neuroimaging data:
 applications and advances. \emph{Neuroimage}, \emph{23}, S250--S263.\cr
 }
 \seealso{
-\code{\link{corePCA}}, \code{\link{epPCA}}, \code{\link{tepBADA}},
+\code{\link[ExPosition]{corePCA}}, \code{\link[ExPosition]{epPCA}}, \code{\link{tepBADA}},
 \code{\link{tepPLSCA}}\cr
 }
 \author{

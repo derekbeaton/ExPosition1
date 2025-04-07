@@ -23,13 +23,13 @@
 #' @param graphs a boolean. If TRUE (default), graphs and plots are provided
 #' (via \code{\link{tepGraphs}})
 #' @param k number of components to return.
-#' @return See \code{\link{corePCA}} for details on what is returned. In
+#' @return See \code{\link[ExPosition]{corePCA}} for details on what is returned. In
 #' addition to the values returned:\cr \item{lx}{latent variables from DATA1
 #' computed for observations} \item{ly}{latent variables from DATA2 computed
 #' for observations} \item{data1.norm}{center and scale information for DATA1}
 #' \item{data1.norm}{center and scale information for DATA2}
 #' @author Derek Beaton
-#' @seealso \code{\link{corePCA}}, \code{\link{epPCA}}, \code{\link{tepBADA}},
+#' @seealso \code{\link[ExPosition]{corePCA}}, \code{\link[ExPosition]{epPCA}}, \code{\link{tepBADA}},
 #' \code{\link{tepPLSCA}}\cr
 #' @references Tucker, L. R. (1958). An inter-battery method of factor
 #' analysis. \emph{Psychometrika}, \emph{23}(2), 111--136. \cr Bookstein, F.,

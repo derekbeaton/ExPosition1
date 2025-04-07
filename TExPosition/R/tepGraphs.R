@@ -1,10 +1,10 @@
 #' tepGraphs: TExPosition plotting function
 #' 
 #' TExPosition plotting function which is an interface to
-#' \code{\link{prettyGraphs}}.
+#' \code{\link[prettyGraphs]{prettyGraphs}}.
 #' 
 #' tepGraphs is an interface between \code{\link{TExPosition}} and
-#' \code{\link{prettyGraphs}}.
+#' \code{\link[prettyGraphs]{prettyGraphs}}.
 #' 
 #' @param res results from TExPosition
 #' @param x_axis which component should be on the x axis?
@@ -26,9 +26,9 @@
 #' @param fj.pch A matrix of pch values for the column items. If NULL, pch
 #' values are all 21.
 #' @param col.offset A numeric offset value. Is passed to
-#' \code{\link{createColorVectorsByDesign}}.
+#' \code{\link[prettyGraphs]{createColorVectorsByDesign}}.
 #' @param constraints Plot constraints as returned from
-#' \code{\link{prettyPlot}}. If NULL, constraints are selected.
+#' \code{\link[prettyGraphs]{prettyPlot}}. If NULL, constraints are selected.
 #' @param lv.constraints Plot constraints for latent variables. If NULL,
 #' constraints are selected.
 #' @param xlab x axis label
@@ -58,7 +58,7 @@
 #' \item{$constraints}{axis constraints for the plots (determines end points of
 #' the plots).}
 #' @author Derek Beaton
-#' @seealso \code{\link{prettyGraphs}}
+#' @seealso \code{\link[prettyGraphs]{prettyGraphs}}
 #' @keywords multivariate graphs misc
 #' @examples
 #' 

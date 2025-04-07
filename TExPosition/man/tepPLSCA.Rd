@@ -44,7 +44,7 @@ rows.}
 \item{k}{number of components to return.}
 }
 \value{
-See \code{\link{epCA}} (and also \code{\link{coreCA}}) for details
+See \code{\link[ExPosition]{epCA}} (and also \code{\link[ExPosition]{coreCA}}) for details
 on what is returned. In addition to the values returned:\cr
 \item{W1}{Weights for columns of DATA1, replaces \code{M} from
 \code{coreCA}.} \item{W2}{Weights for columns of DATA2, replaces \code{W}
@@ -85,7 +85,7 @@ Perspectives in Partial Least Squares and Related Methods. New York:
 Springer Verlag.
 }
 \seealso{
-\code{\link{coreCA}}, \code{\link{epCA}}, \code{\link{epMCA}},
+\code{\link[ExPosition]{coreCA}}, \code{\link[ExPosition]{epCA}}, \code{\link[ExPosition]{epMCA}},
 \code{\link{tepDICA}} \cr
 }
 \author{
