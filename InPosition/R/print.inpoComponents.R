@@ -1,3 +1,12 @@
+#' Print results from InPosition Components Permutation Test
+#' 
+#' Print Components permutation test results from the inposition.
+#' 
+#' 
+#' @param x an list that contains items to make into the inpoComponents class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
 print.inpoComponents <-
 function (x,...) {
 

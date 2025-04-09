@@ -1,4 +1,61 @@
 ### changed to have 1 and 2 as default axes
+
+
+#' inGraphs: InPosition plotting function
+#' 
+#' InPosition plotting function which is an interface to
+#' \code{\link{prettyGraphs}}.
+#' 
+#' 
+#' @param res results from InPosition or ExPosition. If results are from
+#' ExPosition, \code{inference.info} must be included.
+#' @param DESIGN A design matrix to apply colors (by pallete selection) to row
+#' items
+#' @param x_axis which component should be on the x axis?
+#' @param y_axis which component should be on the y axis?
+#' @param inference.info Inference data as output by InPosition (of class
+#' inpoOutput).
+#' @param color.by.boots a boolean. If TRUE, items are colored by bootstrap
+#' ratio test. Items larger than \code{critical.value} are colored 'plum4' on
+#' the horizontal component, 'darkseagreen' on the vertical component, or
+#' 'firebrick3' if the item is significant on both components (to be
+#' visualized). If FALSE, the color of the items will be used.
+#' @param boot.cols vector of colors: \code{c(horizontal component color,
+#' vertical component color, color when item is significant on both)}.
+#' @param fi.col A matrix of colors for the row items. If NULL, colors will be
+#' selected.
+#' @param fi.pch A matrix of pch values for the row items. If NULL, pch values
+#' are all 21.
+#' @param fj.col A matrix of colors for the column items. If NULL, colors will
+#' be selected.
+#' @param fj.pch A matrix of pch values for the column items. If NULL, pch
+#' values are all 21.
+#' @param col.offset A numeric offset value. Is passed to
+#' \code{\link{createColorVectorsByDesign}}.
+#' @param constraints Plot constraints as returned from
+#' \code{\link{prettyPlot}}. If NULL, constraints are selected.
+#' @param xlab x axis label
+#' @param ylab y axis label
+#' @param main main label for the graph window
+#' @param bootstrapBars a boolean. If TRUE (default), bootstrap ratio bar plots
+#' will be created.
+#' @param correlationPlotter a boolean. If TRUE (default), a correlation circle
+#' plot will be created. Applies to PCA family of methods (CA is excluded for
+#' now).
+#' @return Currently, nothing is returned. This function, for now, works as a
+#' visualizer for inference tests. Colors and constraints come from the
+#' descriptive (fixed effects) analysis.
+#' @author Derek Beaton
+#' @seealso \code{\link{epGraphs}}
+#' @keywords misc multivariate permutation bootstrap graphs
+#' @examples
+#' 
+#' 	data(ep.iris)
+#' 	data<-ep.iris$data
+#' 	design<-ep.iris$design
+#' 	pca.iris.res <- epPCA.inference.battery(data,DESIGN=design,make_design_nominal=FALSE)
+#' 	inGraphs(pca.iris.res,y_axis=3)
+#' 
 inGraphs <- function(res,DESIGN=NULL,x_axis=1,y_axis=2,inference.info=NULL,color.by.boots=TRUE,boot.cols=c('plum4','darkseagreen','firebrick3'), fi.col=NULL,fi.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,bootstrapBars=TRUE,correlationPlotter=TRUE){
 
 ##update this to get the pchs.

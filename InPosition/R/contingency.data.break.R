@@ -1,3 +1,22 @@
+#' Bootstrap or permutation resampling for contingency tables
+#' 
+#' Bootstrap or permutation resampling for contingency tables. More
+#' specifically, for correspondence analysis (\code{\link{epCA}}).
+#' 
+#' 
+#' @param DATA A contingency table to resample.
+#' @param boot a boolean. If TRUE, use bootstrap (resample with replacement)
+#' resampling. If FALSE, use permutation (resample with no replacement).
+#' @return A resampled contingency table.
+#' @author Joseph Dunlop and Derek Beaton
+#' @seealso \code{\link{epCA}}, \code{\link{epCA.inference.battery}}
+#' @keywords bootstrap permutation
+#' @examples
+#' 
+#' 	data(authors)
+#' 	boot.authors <- contingency.data.break(authors$ca$data,boot=TRUE)
+#' 	perm.authors <- contingency.data.break(authors$ca$data)	
+#' 
 contingency.data.break <- function(DATA,boot=FALSE){#,constrained=FALSE){
 	DATA<-as.matrix(DATA)
 	n.obs <- sum(DATA)

@@ -1,3 +1,12 @@
+#' Print results from InPosition Bootstrap Ratio Tests
+#' 
+#' Print bootstrap ratio tests results from the InPosition.
+#' 
+#' 
+#' @param x an list that contains items to make into the inpoBootTests class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
 print.inpoBootTests <-
 function (x,...) {
 

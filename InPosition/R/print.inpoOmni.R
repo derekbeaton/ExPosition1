@@ -1,3 +1,12 @@
+#' Print results from InPosition Omnibus Permutation Test
+#' 
+#' Print Omnibus permutation test results from the inposition.
+#' 
+#' 
+#' @param x an list that contains items to make into the inpoOmni class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
 print.inpoOmni <-
 function (x,...) {
 
