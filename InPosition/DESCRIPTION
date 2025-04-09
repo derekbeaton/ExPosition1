@@ -11,3 +11,4 @@ Encoding: UTF-8
 Depends: prettyGraphs (>= 2.1.4), ExPosition (>= 2.0.0)
 Packaged: 2025-04-08; dbeaton
 BugReports: https://github.com/derekbeaton/ExPosition1
+RoxygenNote: 7.3.2
