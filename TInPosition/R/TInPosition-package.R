@@ -44,6 +44,8 @@
 #' multi-block barycentric discriminant analysis (MUBADA) methodology.
 #' \emph{Journal of Alzheimer Disease}, \bold{31}, s189--s201.\cr
 #' @keywords package multivariate
+#' @import prettyGraphs ExPosition TExPosition InPosition
+#' @importFrom utils setTxtProgressBar txtProgressBar
 #' 
 "_PACKAGE"
 
