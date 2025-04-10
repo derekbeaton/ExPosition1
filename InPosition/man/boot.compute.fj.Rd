@@ -11,8 +11,8 @@ boot.compute.fj(DATA, res, DESIGN = NULL, constrained = FALSE)
 bootstrapped and are assumed to be observations.}
 
 \item{res}{of class \code{expoOutput}. Results from one of the
-\code{\link{ExPosition}} methods (e.g., \code{\link{epPCA}},
-\code{\link{epMCA}}),}
+\code{\link{ExPosition}} methods (e.g., \code{\link[ExPosition]{epPCA}},
+\code{\link[ExPosition]{epMCA}}),}
 
 \item{DESIGN}{A design matrix (in disjunctive coding). Only used if
 \code{constrained} is TRUE.}
@@ -53,7 +53,7 @@ Hesterberg, T. (2011). Bootstrap. \emph{Wiley Interdisciplinary Reviews:
 Computational Statistics}, \emph{3}, 497–526. \cr
 }
 \seealso{
-See the functions \code{\link{supplementaryCols}} and
+See the functions \code{\link[ExPosition]{supplementaryCols}} and
 \code{link{boot.samples}}
 }
 \author{

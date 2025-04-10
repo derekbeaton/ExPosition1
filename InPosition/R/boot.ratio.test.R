@@ -30,6 +30,7 @@
 #' \emph{Bootstrap methods: A guide for practitioners and researchers} (Vol.
 #' 619). Wiley-Interscience.\cr Hesterberg, T. (2011). Bootstrap. \emph{Wiley
 #' Interdisciplinary Reviews: Computational Statistics}, \emph{3}, 497–526. \cr
+#' @export boot.ratio.test
 #' @keywords multivariate inference bootstrap
 #' @examples
 #' 

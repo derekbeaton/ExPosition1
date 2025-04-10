@@ -17,6 +17,7 @@
 #' indices.
 #' @author Derek Beaton
 #' @seealso \code{\link{boot.compute.fj}} and \code{\link{boot.ratio.test}}
+#' @export boot.samples
 #' @keywords bootstrap
 #' @examples
 #' 

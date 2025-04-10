@@ -1,7 +1,7 @@
 #' Bootstrap or permutation resampling for contingency tables
 #' 
 #' Bootstrap or permutation resampling for contingency tables. More
-#' specifically, for correspondence analysis (\code{\link{epCA}}).
+#' specifically, for correspondence analysis (\code{\link[ExPosition]{epCA}}).
 #' 
 #' 
 #' @param DATA A contingency table to resample.
@@ -9,7 +9,8 @@
 #' resampling. If FALSE, use permutation (resample with no replacement).
 #' @return A resampled contingency table.
 #' @author Joseph Dunlop and Derek Beaton
-#' @seealso \code{\link{epCA}}, \code{\link{epCA.inference.battery}}
+#' @seealso \code{\link[ExPosition]{epCA}}, \code{\link{epCA.inference.battery}}
+#' @export contingency.data.break
 #' @keywords bootstrap permutation
 #' @examples
 #' 

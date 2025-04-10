@@ -30,7 +30,7 @@
 #' @param correction which corrections should be applied? "b" = Benzécri
 #' correction, "bg" = Greenacre adjustment to Benzécri correction.
 #' @param graphs a boolean. If TRUE (default), graphs and plots are provided
-#' (via \code{\link{epGraphs}})
+#' (via \code{\link[ExPosition]{epGraphs}})
 #' @param k number of components to return.
 #' @param test.iters number of iterations
 #' @param constrained a boolean. If a DESIGN matrix is used, this will
@@ -38,7 +38,7 @@
 #' @param critical.value numeric. A value, analogous to a z- or t-score to be
 #' used to determine significance (via bootstrap ratio).
 #' @return Returns two lists ($Fixed.Data and $Inference.Data). For
-#' $Fixed.Data, see \code{\link{epMCA}}, \code{\link{coreCA}} for details on
+#' $Fixed.Data, see \code{\link[ExPosition]{epMCA}}, \code{\link[ExPosition]{coreCA}} for details on
 #' the descriptive (fixed-effects) results.
 #' 
 #' $Inference.Data returns: \item{components}{Permutation tests of components.
@@ -49,14 +49,14 @@
 #' ($inertia.perm). This is only useful if \code{correction}s are performed.
 #' Total inertia is constant for permutation with no corrections in MCA.}
 #' @author Derek Beaton, Joseph Dunlop, and Hervé Abdi.
-#' @seealso \code{\link{epMCA}}, \code{\link{epCA}},
+#' @seealso \code{\link[ExPosition]{epMCA}}, \code{\link[ExPosition]{epCA}},
 #' \code{\link{epCA.inference.battery}}
 #' @keywords multivariate permutation bootstrap
 #' @examples
 #' 
 #' 	data(mca.wine)
 #' 	mca.wine.res <- epMCA.inference.battery(mca.wine$data)
-#' 
+#' @export epMCA.inference.battery
 epMCA.inference.battery <- function(DATA, make_data_nominal = TRUE, DESIGN = NULL, make_design_nominal = TRUE, masses = NULL, weights = NULL, hellinger = FALSE, symmetric = TRUE, correction = c("b"), graphs = TRUE, k = 0, test.iters=100, constrained=FALSE, critical.value=2){
 
 ####private functions

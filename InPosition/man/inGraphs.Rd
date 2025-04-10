@@ -61,10 +61,10 @@ be selected.}
 values are all 21.}
 
 \item{col.offset}{A numeric offset value. Is passed to
-\code{\link{createColorVectorsByDesign}}.}
+\code{\link[prettyGraphs]{createColorVectorsByDesign}}.}
 
 \item{constraints}{Plot constraints as returned from
-\code{\link{prettyPlot}}. If NULL, constraints are selected.}
+\code{\link[prettyGraphs]{prettyPlot}}. If NULL, constraints are selected.}
 
 \item{xlab}{x axis label}
 
@@ -86,19 +86,17 @@ descriptive (fixed effects) analysis.
 }
 \description{
 InPosition plotting function which is an interface to
-\code{\link{prettyGraphs}}.
+\code{\link[prettyGraphs]{prettyGraphs}}.
 }
 \examples{
-
 	data(ep.iris)
 	data<-ep.iris$data
 	design<-ep.iris$design
 	pca.iris.res <- epPCA.inference.battery(data,DESIGN=design,make_design_nominal=FALSE)
 	inGraphs(pca.iris.res,y_axis=3)
-
 }
 \seealso{
-\code{\link{epGraphs}}
+\code{\link[ExPosition]{epGraphs}}
 }
 \author{
 Derek Beaton

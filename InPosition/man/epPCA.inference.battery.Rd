@@ -21,10 +21,10 @@ epPCA.inference.battery(
 \arguments{
 \item{DATA}{original data to perform a PCA on.}
 
-\item{scale}{a boolean, vector, or string. See \code{\link{expo.scale}} for
+\item{scale}{a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 details.}
 
-\item{center}{a boolean, vector, or string. See \code{\link{expo.scale}} for
+\item{center}{a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 details.}
 
 \item{DESIGN}{a design matrix to indicate if rows belong to groups.}
@@ -34,7 +34,7 @@ that indicates groups (and will be dummy-coded). If FALSE, DESIGN is a
 dummy-coded matrix.}
 
 \item{graphs}{a boolean. If TRUE (default), graphs and plots are provided
-(via \code{\link{epGraphs}})}
+(via \code{\link[ExPosition]{epGraphs}})}
 
 \item{k}{number of components to return.}
 
@@ -48,7 +48,7 @@ used to determine significance (via bootstrap ratio).}
 }
 \value{
 Returns two lists ($Fixed.Data and $Inference.Data). For
-$Fixed.Data, see \code{\link{epPCA}}, \code{\link{corePCA}} for details on
+$Fixed.Data, see \code{\link[ExPosition]{epPCA}}, \code{\link[ExPosition]{corePCA}} for details on
 the descriptive (fixed-effects) results.
 
 $Inference.Data returns: \item{components}{Permutation tests of components.
@@ -70,10 +70,9 @@ results (based on \code{test.iters}) exceeds 1 minute, you will be asked
 
 	data(words)
 	pca.words.res <- epPCA.inference.battery(words$data)
-
 }
 \seealso{
-\code{\link{epPCA}}
+\code{\link[ExPosition]{epPCA}}
 }
 \author{
 Derek Beaton and Hervé Abdi.

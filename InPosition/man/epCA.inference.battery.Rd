@@ -42,7 +42,7 @@ rows and columns are computed. If FALSE, the simplex (column-based) will be
 returned.}
 
 \item{graphs}{a boolean. If TRUE (default), graphs and plots are provided
-(via \code{\link{epGraphs}})}
+(via \code{\link[ExPosition]{epGraphs}})}
 
 \item{k}{number of components to return.}
 
@@ -53,7 +53,7 @@ used to determine significance (via bootstrap ratio).}
 }
 \value{
 Returns two lists ($Fixed.Data and $Inference.Data). For
-$Fixed.Data, see \code{\link{epCA}}, \code{\link{coreCA}} for details on the
+$Fixed.Data, see \code{\link[ExPosition]{epCA}}, \code{\link[ExPosition]{coreCA}} for details on the
 descriptive (fixed-effects) results.
 
 $Inference.Data returns: \item{components}{Permutation tests of components.
@@ -78,10 +78,9 @@ command line) if you want to continue.
 	##warning: this example takes a while to compute. This is why it is reduced.
 	data(authors)
 	ca.authors.res <- epCA.inference.battery(authors$ca$data/100)
-
 }
 \seealso{
-\code{\link{epCA}}, \code{\link{epMCA}},
+\code{\link[ExPosition]{epCA}}, \code{\link[ExPosition]{epMCA}},
 \code{\link{epMCA.inference.battery}}, \code{\link{caChiTest}}
 }
 \author{

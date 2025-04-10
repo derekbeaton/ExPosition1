@@ -10,6 +10,7 @@
 #' the disjunctive table in a format that can be permuted.
 #' @author Derek Beaton
 #' @keywords misc multivariate
+#' @export rebuildMCAtable
 rebuildMCAtable <- function(DATA){
 	##private function
 	mat.rep <- function(fill.matrix,which.column,times,items){

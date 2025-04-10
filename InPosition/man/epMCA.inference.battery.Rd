@@ -50,7 +50,7 @@ used. If TRUE, Hellinger distance will be used.}
 correction, "bg" = Greenacre adjustment to Benzécri correction.}
 
 \item{graphs}{a boolean. If TRUE (default), graphs and plots are provided
-(via \code{\link{epGraphs}})}
+(via \code{\link[ExPosition]{epGraphs}})}
 
 \item{k}{number of components to return.}
 
@@ -64,7 +64,7 @@ used to determine significance (via bootstrap ratio).}
 }
 \value{
 Returns two lists ($Fixed.Data and $Inference.Data). For
-$Fixed.Data, see \code{\link{epMCA}}, \code{\link{coreCA}} for details on
+$Fixed.Data, see \code{\link[ExPosition]{epMCA}}, \code{\link[ExPosition]{coreCA}} for details on
 the descriptive (fixed-effects) results.
 
 $Inference.Data returns: \item{components}{Permutation tests of components.
@@ -89,10 +89,9 @@ results (based on \code{test.iters}) exceeds 1 minute, you will be asked
 
 	data(mca.wine)
 	mca.wine.res <- epMCA.inference.battery(mca.wine$data)
-
 }
 \seealso{
-\code{\link{epMCA}}, \code{\link{epCA}},
+\code{\link[ExPosition]{epMCA}}, \code{\link[ExPosition]{epCA}},
 \code{\link{epCA.inference.battery}}
 }
 \author{

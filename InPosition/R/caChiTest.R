@@ -26,6 +26,7 @@
 #' \item{omni.p}{p value associated to a chi-square tests of the table.}
 #' @author Derek Beaton
 #' @seealso \code{\link{epCA.inference.battery}}
+#' @export caChiTest
 #' @keywords inference correspondence analysis misc multivariate
 caChiTest <- function(DATA,res,critical.value=2){
 	

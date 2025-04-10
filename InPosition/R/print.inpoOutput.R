@@ -8,6 +8,7 @@
 #' @author Derek Beaton and Cherise Chin-Fatt
 #' @seealso \code{\link{epPCA.inference.battery}}, \code{\link{inGraphs}}
 #' @keywords print
+#' @export print.inpoOutput
 print.inpoOutput <-
 function (x,...) {
 

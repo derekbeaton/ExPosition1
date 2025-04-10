@@ -17,7 +17,7 @@ A resampled contingency table.
 }
 \description{
 Bootstrap or permutation resampling for contingency tables. More
-specifically, for correspondence analysis (\code{\link{epCA}}).
+specifically, for correspondence analysis (\code{\link[ExPosition]{epCA}}).
 }
 \examples{
 
@@ -27,7 +27,7 @@ specifically, for correspondence analysis (\code{\link{epCA}}).
 
 }
 \seealso{
-\code{\link{epCA}}, \code{\link{epCA.inference.battery}}
+\code{\link[ExPosition]{epCA}}, \code{\link{epCA.inference.battery}}
 }
 \author{
 Joseph Dunlop and Derek Beaton

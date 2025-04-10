@@ -8,6 +8,7 @@
 #' @param \dots inherited/passed arguments for S3 print method(s).
 #' @author Derek Beaton and Cherise Chin-Fatt
 #' @keywords print
+#' @export print.epPCA.inference.battery
 print.epPCA.inference.battery <-
 function (x,...) {
 	
