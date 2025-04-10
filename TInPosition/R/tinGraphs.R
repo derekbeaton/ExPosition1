@@ -1,3 +1,66 @@
+#' tinGraphs: TInPosition plotting function
+#' 
+#' TInPosition plotting function which is an interface to
+#' \code{\link{prettyGraphs}}.
+#' 
+#' tinGraphs is an interface between \code{\link{TInPosition}} and
+#' \code{\link{prettyGraphs}}.
+#' 
+#' @param res results from TExPosition
+#' @param DESIGN A design matrix to apply colors (by pallete selection) to row
+#' items
+#' @param x_axis which component should be on the x axis?
+#' @param y_axis which component should be on the y axis?
+#' @param inference.info Inference data as output by TInPosition (of class
+#' tinpoOutput).
+#' @param color.by.boots a boolean. If TRUE, items are colored by bootstrap
+#' ratio test. Items larger than \code{critical.value} are colored 'plum4' on
+#' the horizontal component, 'darkseagreen' on the vertical component, or
+#' 'firebrick3' if the item is significant on both components (to be
+#' visualized). If FALSE, the color of the items will be used.
+#' @param boot.cols vector of colors: \code{c(horizontal component color,
+#' vertical component color, color when item is significant on both)}.
+#' @param fi.col A matrix of colors for the group items. If NULL, colors will
+#' be selected.
+#' @param fi.pch A matrix of pch values for the group items. If NULL, pch
+#' values are all 21.
+#' @param fii.col A matrix of colors for the row items (observations). If NULL,
+#' colors will be selected.
+#' @param fii.pch A matrix of pch values for the row items (observations). If
+#' NULL, pch values are all 21.
+#' @param fj.col A matrix of colors for the column items. If NULL, colors will
+#' be selected.
+#' @param fj.pch A matrix of pch values for the column items. If NULL, pch
+#' values are all 21.
+#' @param col.offset A numeric offset value. Is passed to
+#' \code{\link{createColorVectorsByDesign}}.
+#' @param constraints Plot constraints as returned from
+#' \code{\link{prettyPlot}}. If NULL, constraints are selected.
+#' @param xlab x axis label
+#' @param ylab y axis label
+#' @param main main label for the graph window
+#' @param bootstrapBars a boolean. If TRUE (default), bootstrap ratio bar plots
+#' will be created.
+#' @param correlationPlotter a boolean. If TRUE (default), a correlation circle
+#' plot will be created. Applies to PCA family of methods (CA is excluded for
+#' now).
+#' @param showHulls a value between 0 and 1 to make a peeled hull at that
+#' percentage. All values outside of 0-1 will not plot any hulls.
+#' @author Derek Beaton
+#' @seealso \code{\link{prettyGraphs}}, \code{\link{inGraphs}}
+#' @keywords multivariate graphs misc
+#' @examples
+#' 
+#' 	#this is for TExPosition's iris data
+#' 	data(ep.iris)
+#' 	data <- ep.iris$data
+#' 	design <- ep.iris$design
+#' 	bada.iris <- 
+#' 		tepBADA.inference.battery(
+#' 		data,DESIGN=design,
+#' 		make_design_nominal=FALSE,test.iters=50,graphs=FALSE)		
+#' 	tinGraphs(bada.iris,x_axis=1,y_axis=2)
+#' 
 tinGraphs <- function(res,DESIGN=NULL,x_axis=1,y_axis=2,inference.info=NULL,color.by.boots=TRUE,boot.cols=c('plum4','darkseagreen','firebrick3'),fi.col=NULL, fi.pch=NULL,fii.col=NULL,fii.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,bootstrapBars=TRUE,correlationPlotter=TRUE,showHulls=0.95){
 		
 	pca.types <- c('tepBADA')

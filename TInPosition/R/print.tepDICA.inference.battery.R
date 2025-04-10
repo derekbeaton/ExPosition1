@@ -1,3 +1,13 @@
+#' Print tepDICA.inference.battery results
+#' 
+#' Print tepDICA Inference results.
+#' 
+#' 
+#' @param x an list that contains items to make into the
+#' tepDICA.inference.battery class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton, Cherise Chin-Fatt
+#' @keywords print
 print.tepDICA.inference.battery <-
 function (x,...) {
 

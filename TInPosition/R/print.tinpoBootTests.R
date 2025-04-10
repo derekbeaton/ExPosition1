@@ -1,3 +1,12 @@
+#' Print results from TInPosition Bootstrap Ratio Tests
+#' 
+#' Print bootstrap ratio tests results from the TInPosition.
+#' 
+#' 
+#' @param x an list that contains items to make into the tinpoBootTests class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
 print.tinpoBootTests <-
 function (x,...) {
 

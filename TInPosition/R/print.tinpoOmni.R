@@ -1,3 +1,12 @@
+#' Print results from TInPosition Omnibus Permutation Test
+#' 
+#' Print Omnibus permutation test results from the TInPosition.
+#' 
+#' 
+#' @param x an list that contains items to make into the tinpoOmni class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
 print.tinpoOmni <-
 function (x,...) {
 

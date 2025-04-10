@@ -1,3 +1,12 @@
+#' Print results from TInPosition Bootstraps
+#' 
+#' Print bootstrap results from the TInPosition.
+#' 
+#' 
+#' @param x an list that contains items to make into the tinpoBoot class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton and Cherise Chin-Fatt
+#' @keywords print
 print.tinpoBoot <-
 function (x,...) {
 

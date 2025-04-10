@@ -1,3 +1,13 @@
+#' Print tepBADA inference results
+#' 
+#' Print tepBADA inference results.
+#' 
+#' 
+#' @param x an list that contains items to make into the
+#' tepBADA.inference.battery class.
+#' @param \dots inherited/passed arguments for S3 print method(s).
+#' @author Derek Beaton, Cherise Chin-Fatt
+#' @keywords print
 print.tepBADA.inference.battery <-
 function (x,...) {
 
