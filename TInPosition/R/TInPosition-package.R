@@ -44,9 +44,6 @@
 #' multi-block barycentric discriminant analysis (MUBADA) methodology.
 #' \emph{Journal of Alzheimer Disease}, \bold{31}, s189--s201.\cr
 #' @keywords package multivariate
-#' @examples
-#' 
-#' #For more examples, see each individual function (as noted above).
 #' 
 "_PACKAGE"
 

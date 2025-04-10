@@ -69,10 +69,10 @@ be selected.}
 values are all 21.}
 
 \item{col.offset}{A numeric offset value. Is passed to
-\code{\link{createColorVectorsByDesign}}.}
+\code{\link[prettyGraphs]{createColorVectorsByDesign}}.}
 
 \item{constraints}{Plot constraints as returned from
-\code{\link{prettyPlot}}. If NULL, constraints are selected.}
+\code{\link[prettyGraphs]{prettyPlot}}. If NULL, constraints are selected.}
 
 \item{xlab}{x axis label}
 
@@ -92,11 +92,11 @@ percentage. All values outside of 0-1 will not plot any hulls.}
 }
 \description{
 TInPosition plotting function which is an interface to
-\code{\link{prettyGraphs}}.
+\code{\link[prettyGraphs]{prettyGraphs}}.
 }
 \details{
 tinGraphs is an interface between \code{\link{TInPosition}} and
-\code{\link{prettyGraphs}}.
+\code{\link[prettyGraphs]{prettyGraphs}}.
 }
 \examples{
 
@@ -109,10 +109,9 @@ tinGraphs is an interface between \code{\link{TInPosition}} and
 		data,DESIGN=design,
 		make_design_nominal=FALSE,test.iters=50,graphs=FALSE)		
 	tinGraphs(bada.iris,x_axis=1,y_axis=2)
-
 }
 \seealso{
-\code{\link{prettyGraphs}}, \code{\link{inGraphs}}
+\code{\link[prettyGraphs]{prettyGraphs}}, \code{\link[InPosition]{inGraphs}}
 }
 \author{
 Derek Beaton

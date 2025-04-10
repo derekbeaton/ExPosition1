@@ -15,8 +15,8 @@ constrained to within groups based on \code{DESIGN}.}
 \code{TExPosition} and \code{TInPosition} analyses.}
 
 \item{res}{of class \code{texpoOutput}. Results from one of the
-\code{\link{TExPosition}} methods (e.g., \code{\link{tepDICA}},
-\code{\link{tepBADA}}),}
+\code{\link[TExPosition]{TExPosition}} methods (e.g., \code{\link[TExPosition]{tepDICA}},
+\code{\link[TExPosition]{tepBADA}}),}
 }
 \value{
 \item{FBX}{a set of factor scores of the measures (columns,

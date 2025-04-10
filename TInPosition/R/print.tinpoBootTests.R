@@ -7,6 +7,7 @@
 #' @param \dots inherited/passed arguments for S3 print method(s).
 #' @author Derek Beaton and Cherise Chin-Fatt
 #' @keywords print
+#' @export print.tinpoBootTests
 print.tinpoBootTests <-
 function (x,...) {
 

@@ -9,13 +9,14 @@
 #' @param DESIGN A design matrix (in disjunctive coding). Required for
 #' \code{TExPosition} and \code{TInPosition} analyses.
 #' @param res of class \code{texpoOutput}. Results from one of the
-#' \code{\link{TExPosition}} methods (e.g., \code{\link{tepDICA}},
-#' \code{\link{tepBADA}}),
+#' \code{\link[TExPosition]{TExPosition}} methods (e.g., \code{\link[TExPosition]{tepDICA}},
+#' \code{\link[TExPosition]{tepBADA}}),
 #' @return \item{FBX}{a set of factor scores of the measures (columns,
 #' \code{$fj}) for the bootstrapped data.} \item{FBY}{a set of factor scores of
 #' the groups (\code{$fi}) for the bootstrapped data.}
 #' @author Derek Beaton
 #' @keywords bootstrap
+#' @export boot.compute.fi.fj
 boot.compute.fi.fj <- function(DATA,DESIGN,res){
 
 	pca.types <- c('tepBADA')

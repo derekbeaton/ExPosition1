@@ -34,7 +34,7 @@ dummy-coded matrix.}
 rows.}
 
 \item{graphs}{a boolean. If TRUE (default), graphs and plots are provided
-(via \code{\link{epGraphs}})}
+(via \code{\link[ExPosition]{epGraphs}})}
 
 \item{k}{number of components to return.}
 
@@ -45,7 +45,7 @@ used to determine significance (via bootstrap ratio).}
 }
 \value{
 Returns two lists ($Fixed.Data and $Inference.Data). For
-$Fixed.Data, see \code{\link{tepDICA}} and \code{\link{coreCA}} for details
+$Fixed.Data, see \code{\link[TExPosition]{tepDICA}} and \code{\link[ExPosition]{coreCA}} for details
 on the descriptive (fixed-effects) results.
 
 $Inference.Data returns: \item{omni}{Permutation tests of components.
@@ -54,7 +54,7 @@ p-values ($p.val) and distributions of total inertia ($inertia.perm)}
 distributions of R2s ($r2.perm)} \item{components}{Permutation tests of
 components. p-values ($p.vals) and distributions of eigenvalues ($eigs.perm)
 for each component} \item{boot.data}{Bootstrap tests for $fi and $fj.
-Contains distributions. See also \code{\link{boot.ratio.test}} output
+Contains distributions. See also \code{\link[InPosition]{boot.ratio.test}} output
 details.} \item{loo.data}{Leave one out cross-validation tests. Includes
 assignments ($loo.assign), factor scores ($loo.fii), LOO and fixed confusion
 matrices ($loo.confuse, $fixed.confuse), and accuracy ($loo.acc,
@@ -79,7 +79,6 @@ you want to continue.
 	dica.res <- 
 		tepDICA.inference.battery(data,DESIGN=design,
 		make_design_nominal=FALSE,test.iters=50)
-
 }
 \author{
 Derek Beaton, Jenny Rieck, Hervé Abdi

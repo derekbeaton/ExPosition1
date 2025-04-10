@@ -13,9 +13,9 @@
 #' continue.
 #' 
 #' @param DATA original data to perform a BADA on.
-#' @param scale a boolean, vector, or string. See \code{\link{expo.scale}} for
+#' @param scale a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 #' details.
-#' @param center a boolean, vector, or string. See \code{\link{expo.scale}} for
+#' @param center a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 #' details.
 #' @param DESIGN a design matrix to indicate if rows belong to groups. Required
 #' for BADA.
@@ -23,13 +23,13 @@
 #' that indicates groups (and will be dummy-coded). If FALSE, DESIGN is a
 #' dummy-coded matrix.
 #' @param graphs a boolean. If TRUE (default), graphs and plots are provided
-#' (via \code{\link{epGraphs}})
+#' (via \code{\link[ExPosition]{epGraphs}})
 #' @param k number of components to return.
 #' @param test.iters number of iterations
 #' @param critical.value numeric. A value, analogous to a z- or t-score to be
 #' used to determine significance (via bootstrap ratio).
 #' @return Returns two lists ($Fixed.Data and $Inference.Data). For
-#' $Fixed.Data, see \code{\link{tepBADA}} and \code{\link{corePCA}} for details
+#' $Fixed.Data, see \code{\link[TExPosition]{tepBADA}} and \code{\link[ExPosition]{corePCA}} for details
 #' on the descriptive (fixed-effects) results.
 #' 
 #' $Inference.Data returns: \item{omni}{Permutation tests of components.
@@ -38,7 +38,7 @@
 #' distributions of R2s ($r2.perm)} \item{components}{Permutation tests of
 #' components. p-values ($p.vals) and distributions of eigenvalues ($eigs.perm)
 #' for each component} \item{boot.data}{Bootstrap tests for $fi and $fj.
-#' Contains distributions. See also \code{\link{boot.ratio.test}} output
+#' Contains distributions. See also \code{\link[InPosition]{boot.ratio.test}} output
 #' details.} \item{loo.data}{Leave one out cross-validation tests. Includes
 #' assignments ($loo.assign), factor scores ($loo.fii), LOO and fixed confusion
 #' matrices ($loo.confuse, $fixed.confuse), and accuracy ($loo.acc,
@@ -53,7 +53,7 @@
 #' 	bada.res <- 
 #' 		tepBADA.inference.battery(data,scale=FALSE,DESIGN=design,
 #' 			make_design_nominal=FALSE,test.iters=50)
-#' 
+#' @export tepBADA.inference.battery
 tepBADA.inference.battery <- function(DATA, scale = TRUE, center = TRUE, DESIGN = NULL, make_design_nominal = TRUE, graphs = TRUE, k = 0, test.iters = 100, critical.value = 2){	
 	
 	############################

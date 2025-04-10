@@ -1,10 +1,10 @@
 #' tinGraphs: TInPosition plotting function
 #' 
 #' TInPosition plotting function which is an interface to
-#' \code{\link{prettyGraphs}}.
+#' \code{\link[prettyGraphs]{prettyGraphs}}.
 #' 
 #' tinGraphs is an interface between \code{\link{TInPosition}} and
-#' \code{\link{prettyGraphs}}.
+#' \code{\link[prettyGraphs]{prettyGraphs}}.
 #' 
 #' @param res results from TExPosition
 #' @param DESIGN A design matrix to apply colors (by pallete selection) to row
@@ -33,9 +33,9 @@
 #' @param fj.pch A matrix of pch values for the column items. If NULL, pch
 #' values are all 21.
 #' @param col.offset A numeric offset value. Is passed to
-#' \code{\link{createColorVectorsByDesign}}.
+#' \code{\link[prettyGraphs]{createColorVectorsByDesign}}.
 #' @param constraints Plot constraints as returned from
-#' \code{\link{prettyPlot}}. If NULL, constraints are selected.
+#' \code{\link[prettyGraphs]{prettyPlot}}. If NULL, constraints are selected.
 #' @param xlab x axis label
 #' @param ylab y axis label
 #' @param main main label for the graph window
@@ -47,7 +47,7 @@
 #' @param showHulls a value between 0 and 1 to make a peeled hull at that
 #' percentage. All values outside of 0-1 will not plot any hulls.
 #' @author Derek Beaton
-#' @seealso \code{\link{prettyGraphs}}, \code{\link{inGraphs}}
+#' @seealso \code{\link[prettyGraphs]{prettyGraphs}}, \code{\link[InPosition]{inGraphs}}
 #' @keywords multivariate graphs misc
 #' @examples
 #' 
@@ -60,7 +60,7 @@
 #' 		data,DESIGN=design,
 #' 		make_design_nominal=FALSE,test.iters=50,graphs=FALSE)		
 #' 	tinGraphs(bada.iris,x_axis=1,y_axis=2)
-#' 
+#' @export tinGraphs
 tinGraphs <- function(res,DESIGN=NULL,x_axis=1,y_axis=2,inference.info=NULL,color.by.boots=TRUE,boot.cols=c('plum4','darkseagreen','firebrick3'),fi.col=NULL, fi.pch=NULL,fii.col=NULL,fii.pch=NULL,fj.col=NULL,fj.pch=NULL,col.offset=NULL,constraints=NULL,xlab=NULL,ylab=NULL,main=NULL,bootstrapBars=TRUE,correlationPlotter=TRUE,showHulls=0.95){
 		
 	pca.types <- c('tepBADA')

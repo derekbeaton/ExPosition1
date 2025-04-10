@@ -19,10 +19,10 @@ tepBADA.inference.battery(
 \arguments{
 \item{DATA}{original data to perform a BADA on.}
 
-\item{scale}{a boolean, vector, or string. See \code{\link{expo.scale}} for
+\item{scale}{a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 details.}
 
-\item{center}{a boolean, vector, or string. See \code{\link{expo.scale}} for
+\item{center}{a boolean, vector, or string. See \code{\link[ExPosition]{expo.scale}} for
 details.}
 
 \item{DESIGN}{a design matrix to indicate if rows belong to groups. Required
@@ -33,7 +33,7 @@ that indicates groups (and will be dummy-coded). If FALSE, DESIGN is a
 dummy-coded matrix.}
 
 \item{graphs}{a boolean. If TRUE (default), graphs and plots are provided
-(via \code{\link{epGraphs}})}
+(via \code{\link[ExPosition]{epGraphs}})}
 
 \item{k}{number of components to return.}
 
@@ -44,7 +44,7 @@ used to determine significance (via bootstrap ratio).}
 }
 \value{
 Returns two lists ($Fixed.Data and $Inference.Data). For
-$Fixed.Data, see \code{\link{tepBADA}} and \code{\link{corePCA}} for details
+$Fixed.Data, see \code{\link[TExPosition]{tepBADA}} and \code{\link[ExPosition]{corePCA}} for details
 on the descriptive (fixed-effects) results.
 
 $Inference.Data returns: \item{omni}{Permutation tests of components.
@@ -53,7 +53,7 @@ p-values ($p.val) and distributions of total inertia ($inertia.perm)}
 distributions of R2s ($r2.perm)} \item{components}{Permutation tests of
 components. p-values ($p.vals) and distributions of eigenvalues ($eigs.perm)
 for each component} \item{boot.data}{Bootstrap tests for $fi and $fj.
-Contains distributions. See also \code{\link{boot.ratio.test}} output
+Contains distributions. See also \code{\link[InPosition]{boot.ratio.test}} output
 details.} \item{loo.data}{Leave one out cross-validation tests. Includes
 assignments ($loo.assign), factor scores ($loo.fii), LOO and fixed confusion
 matrices ($loo.confuse, $fixed.confuse), and accuracy ($loo.acc,
@@ -77,7 +77,6 @@ continue.
 	bada.res <- 
 		tepBADA.inference.battery(data,scale=FALSE,DESIGN=design,
 			make_design_nominal=FALSE,test.iters=50)
-
 }
 \author{
 Derek Beaton, Jenny Rieck, Hervé Abdi

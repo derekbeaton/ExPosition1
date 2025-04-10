@@ -8,6 +8,7 @@
 #' @author Derek Beaton and Cherise Chin-Fatt
 #' @seealso \code{\link{tepBADA.inference.battery}}, \code{\link{tinGraphs}}
 #' @keywords print
+#' @export print.tinpoOutput
 print.tinpoOutput <-
 function (x,...) {
 

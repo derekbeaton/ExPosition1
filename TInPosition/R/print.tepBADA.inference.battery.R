@@ -8,6 +8,7 @@
 #' @param \dots inherited/passed arguments for S3 print method(s).
 #' @author Derek Beaton, Cherise Chin-Fatt
 #' @keywords print
+#' @export print.tepBADA.inference.battery
 print.tepBADA.inference.battery <-
 function (x,...) {
 

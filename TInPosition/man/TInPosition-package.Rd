@@ -17,11 +17,6 @@ prettyGraphs (>= 2.1.4), TExPosition (>= 2.6.10), ExPosition (>= 2.8.19),
 InPosition (>= 0.12.7)\cr License: \tab GPL-2\cr URL: \tab
 https://github.com/derekbeaton/ExPosition1\cr }
 }
-\examples{
-
-#For more examples, see each individual function (as noted above).
-
-}
 \references{
 Permutation:\cr Berry, K. J., Johnston, J. E., & Mielke, P. W.
 (2011). Permutation methods. \emph{Wiley Interdisciplinary Reviews:
