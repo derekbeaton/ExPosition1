@@ -226,9 +226,6 @@ NULL
 #' @import prettyGraphs
 #' @importFrom stats cor dist sd
 #' @keywords package multivariate
-#' @examples
-#' 
-#' #For more examples, see each individual function (as noted above).
 #' 
 "_PACKAGE"
 

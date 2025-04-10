@@ -16,11 +16,6 @@ InPosition provides multiple forms of inference tests for the
 prettyGraphs (>= 2.1.4), ExPosition (>= 2.0.0)\cr License: \tab GPL-2\cr
 URL: \tab https://github.com/derekbeaton/ExPosition1\cr }
 }
-\examples{
-
-#For more examples, see each individual function (as noted above).
-
-}
 \references{
 Permutation:\cr Berry, K. J., Johnston, J. E., & Mielke, P. W.
 (2011). Permutation methods. \emph{Wiley Interdisciplinary Reviews:

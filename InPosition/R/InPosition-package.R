@@ -37,9 +37,10 @@
 #' Hesterberg, T. (2011). Bootstrap. \emph{Wiley Interdisciplinary Reviews:
 #' Computational Statistics}, \emph{3}, 497–526. \cr
 #' @keywords package multivariate
-#' @examples
+#' @import prettyGraphs ExPosition
+#' @importFrom stats pchisq pnorm
+#' @importFrom utils setTxtProgressBar txtProgressBar
 #' 
-#' #For more examples, see each individual function (as noted above).
 #' 
 "_PACKAGE"
 
