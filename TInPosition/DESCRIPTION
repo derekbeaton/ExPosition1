@@ -10,3 +10,4 @@ License: GPL-2
 Depends: prettyGraphs (>= 2.1.4), TExPosition (>= 2.6.10), ExPosition (>= 2.8.19), InPosition (>= 0.12.7)
 Packaged: 2022-08-30; dbeaton
 BugReports: https://github.com/derekbeaton/ExPosition1
+RoxygenNote: 7.3.2

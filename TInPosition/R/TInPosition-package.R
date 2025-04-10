@@ -14,7 +14,6 @@
 #' 
 #' @name TInPosition-package
 #' @aliases TInPosition-package TInPosition
-#' @docType package
 #' @author Questions, comments, compliments, and complaints go to Derek Beaton
 #' \email{exposition.software@@gmail.com}. Also see the bug-tracking and live
 #' update website for ExPosition:
@@ -49,7 +48,7 @@
 #' 
 #' #For more examples, see each individual function (as noted above).
 #' 
-NULL
+"_PACKAGE"
 
 
 
