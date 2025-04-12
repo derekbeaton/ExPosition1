@@ -1,15 +1,15 @@
-#' sqrt.mat
+#' sqrt_mat
 #' 
-#' sqrt.mat performs the square root of a matrix only for square symmetric matrices
+#' sqrt_mat performs the square root of a matrix only for square symmetric matrices
 #' This function should not be used directly.
 #' 
 #' @param X a matrix that is square and symmetric
 #' 
 #' @author Derek Beaton
-#' @export sqrt.mat
+#' @export sqrt_mat
 
 ##a function specifically for sqrt'ing a matrix for the GSVD weights.
-sqrt.mat <- function(X){
+sqrt_mat <- function(X){
   
   ##first, test if it is symmetric in size
   if(!isSymmetric.matrix(X)){

@@ -6,9 +6,9 @@
 \alias{TExPosition}
 \title{TExPosition: Two-table analyses with via ExPosition.}
 \description{
-TExPosition is two-table \code{\link{ExPosition}} and includes discriminant
+TExPosition is two-table \code{\link[ExPosition]{ExPosition}} and includes discriminant
 methods of the singular value decomposition (SVD). The core of TExPosition
-is \code{\link{ExPosition}} and the \code{\link{svd}}.
+is \code{\link[ExPosition]{ExPosition}} and the \code{\link{svd}}.
 }
 \references{
 Abdi, H., and Williams, L.J. (2010). Principal component

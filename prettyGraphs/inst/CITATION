@@ -11,7 +11,7 @@ bibentry(
   year = "2014",
   issn = "0167-9473",
   doi = "10.1016/j.csda.2013.11.006",
-  url = "https://www.sciencedirect.com/science/article/pii/S0167947313004441",
+  url = "https://doi.org/10.1016/j.csda.2013.11.006",
 
   textVersion  =
   paste("Beaton, D., Fatt, C. R. C., & Abdi, H. (2014). An ExPosition of multivariate analysis with the singular value decomposition in R. Computational Statistics & Data Analysis, 72(0), 176--189.")

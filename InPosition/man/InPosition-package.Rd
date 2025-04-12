@@ -8,7 +8,7 @@
 Singular Value Decom\emph{Position} (\code{ExPosition}).}
 \description{
 InPosition provides multiple forms of inference tests for the
-\code{\link{ExPosition}} package.
+\code{\link[ExPosition]{ExPosition}} package.
 }
 \details{
 \tabular{ll}{ Package: \tab InPosition\cr Type: \tab Package\cr Version:

@@ -50,8 +50,8 @@ genPDQ <- function(datain,M=NULL,W=NULL,is.mds=FALSE,decomp.approach='svd',k=0){
 		W <- sqrt(W)
 	}else if(length(dim(M))==2 && length(dim(W))==2){
 		vectorflag <- FALSE
-		M <- sqrt.mat(M)
-		W <- sqrt.mat(W)
+		M <- sqrt_mat(M)
+		W <- sqrt_mat(W)
 	}else{
 		stop("There is an error in the formatting of your masses or weights")
 	}

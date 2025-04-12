@@ -11,7 +11,7 @@ boot.compute.fj(DATA, res, DESIGN = NULL, constrained = FALSE)
 bootstrapped and are assumed to be observations.}
 
 \item{res}{of class \code{expoOutput}. Results from one of the
-\code{\link{ExPosition}} methods (e.g., \code{\link[ExPosition]{epPCA}},
+\code{\link[ExPosition]{ExPosition}} methods (e.g., \code{\link[ExPosition]{epPCA}},
 \code{\link[ExPosition]{epMCA}}),}
 
 \item{DESIGN}{A design matrix (in disjunctive coding). Only used if

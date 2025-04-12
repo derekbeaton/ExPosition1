@@ -15,11 +15,6 @@ simple: to provide the user with an overview of their data that only the SVD
 can provide. ExPosition includes several techniques that depend on the SVD
 (see below for examples and functions).
 }
-\examples{
-
-#For more examples, see each individual function (as noted above).
-
-}
 \references{
 Abdi, H., and Williams, L.J. (2010). Principal component
 analysis. \emph{Wiley Interdisciplinary Reviews: Computational Statistics},

@@ -14,7 +14,7 @@
 #' @param DATA The original data matrix to be bootstrapped. Rows will be
 #' bootstrapped and are assumed to be observations.
 #' @param res of class \code{expoOutput}. Results from one of the
-#' \code{\link{ExPosition}} methods (e.g., \code{\link[ExPosition]{epPCA}},
+#' \code{\link[ExPosition]{ExPosition}} methods (e.g., \code{\link[ExPosition]{epPCA}},
 #' \code{\link[ExPosition]{epMCA}}),
 #' @param DESIGN A design matrix (in disjunctive coding). Only used if
 #' \code{constrained} is TRUE.

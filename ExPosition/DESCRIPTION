@@ -1,16 +1,19 @@
 Package: ExPosition
 Type: Package
 Title: Exploratory Analysis with the Singular Value Decomposition
-Version: 2.10.1.9999
+Version: 2.11.0
 Date: 2025-03-30
-Author: Derek Beaton, Cherise R. Chin Fatt, Herve Abdi
-Maintainer: Derek Beaton <exposition.software@gmail.com>
+Authors@R: c(
+  person(given= "Derek", family = "Beaton", role = c("aut","cre"), email = "exposition.software@gmail.com"),
+  person(given= "Cherise R.", family = "Chin Fatt", role = c("aut")),
+  person(given= "Herve", family = "Abdi", role = c("aut"))
+  )
 Description: A variety of descriptive multivariate analyses with the singular value decomposition,
     such as principal components analysis, correspondence analysis, and multidimensional scaling.
     See An ExPosition of the Singular Value Decomposition in R (Beaton et al 2014) <doi:10.1016/j.csda.2013.11.006>.
 License: GPL-2
 Encoding: UTF-8
-Depends: prettyGraphs (>= 2.1.4)
+Depends: prettyGraphs (>= 2.2.0)
 Packaged: 2025-03-30; dbeaton
-BugReports: https://github.com/derekbeaton/ExPosition1
+BugReports: https://github.com/derekbeaton/ExPosition1/issues
 RoxygenNote: 7.3.2

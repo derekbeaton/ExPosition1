@@ -2,9 +2,9 @@
 
 #' TExPosition: Two-table analyses with via ExPosition.
 #' 
-#' TExPosition is two-table \code{\link{ExPosition}} and includes discriminant
+#' TExPosition is two-table \code{\link[ExPosition]{ExPosition}} and includes discriminant
 #' methods of the singular value decomposition (SVD). The core of TExPosition
-#' is \code{\link{ExPosition}} and the \code{\link{svd}}.
+#' is \code{\link[ExPosition]{ExPosition}} and the \code{\link{svd}}.
 #' 
 #' 
 #' @name TExPosition-package

@@ -4,7 +4,7 @@
 #' Singular Value Decom\emph{Position} (\code{ExPosition}).
 #' 
 #' InPosition provides multiple forms of inference tests for the
-#' \code{\link{ExPosition}} package.
+#' \code{\link[ExPosition]{ExPosition}} package.
 #' 
 #' \tabular{ll}{ Package: \tab InPosition\cr Type: \tab Package\cr Version:
 #' \tab 0.14.1\cr Date: \tab 2022-08-30\cr Depends: \tab R (>=2.15.0),
