@@ -1,6 +1,6 @@
 
 
-#' TExPosition: Two-table analyses with via ExPosition.
+#' TExPosition: Two-table analyses via ExPosition.
 #' 
 #' TExPosition is two-table \code{\link[ExPosition]{ExPosition}} and includes discriminant
 #' methods of the singular value decomposition (SVD). The core of TExPosition

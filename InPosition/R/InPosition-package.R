@@ -6,11 +6,6 @@
 #' InPosition provides multiple forms of inference tests for the
 #' \code{\link[ExPosition]{ExPosition}} package.
 #' 
-#' \tabular{ll}{ Package: \tab InPosition\cr Type: \tab Package\cr Version:
-#' \tab 0.14.1\cr Date: \tab 2022-08-30\cr Depends: \tab R (>=2.15.0),
-#' prettyGraphs (>= 2.1.4), ExPosition (>= 2.0.0)\cr License: \tab GPL-2\cr
-#' URL: \tab https://github.com/derekbeaton/ExPosition1\cr }
-#' 
 #' @name InPosition-package
 #' @aliases InPosition-package InPosition
 #' @author Questions, comments, compliments, and complaints go to Derek Beaton
