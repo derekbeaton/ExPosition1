@@ -4,13 +4,8 @@
 #' (\code{TExPosition}).
 #' 
 #' TInPosition provides multiple forms of inference tests for the
-#' \code{\link{TExPosition}} package.
+#' \code{\link[TExPosition]{TExPosition}} package.
 #' 
-#' \tabular{ll}{ Package: \tab TInPosition\cr Type: \tab Package\cr Version:
-#' \tab 0.14.1\cr Date: \tab 2022-08-30\cr Depends: \tab R (>=2.15.0),
-#' prettyGraphs (>= 2.1.4), TExPosition (>= 2.6.10), ExPosition (>= 2.8.19),
-#' InPosition (>= 0.12.7)\cr License: \tab GPL-2\cr URL: \tab
-#' https://github.com/derekbeaton/ExPosition1\cr }
 #' 
 #' @name TInPosition-package
 #' @aliases TInPosition-package TInPosition
