@@ -4,7 +4,7 @@
 \name{TExPosition-package}
 \alias{TExPosition-package}
 \alias{TExPosition}
-\title{TExPosition: Two-table analyses with via ExPosition.}
+\title{TExPosition: Two-table analyses via ExPosition.}
 \description{
 TExPosition is two-table \code{\link[ExPosition]{ExPosition}} and includes discriminant
 methods of the singular value decomposition (SVD). The core of TExPosition
